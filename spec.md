@@ -10,6 +10,8 @@ Next.js+ChakraUIプロジェクトのChakraを排し、CSS Modulesへ移行す�
 - react-icons: ^5.5.0
 - typescript: 5.9.3 
 
+なおpage routerを使用する。
+
 # 削除したいライブラリ
 
 - @chakra-ui/icons: ^2.2.4
