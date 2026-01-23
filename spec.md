@@ -55,6 +55,7 @@ chakra-uiを使用して(詳しいバージョンや使用するlibsは削除し
 # step3. chakra-uiからCSS Modulesへの移行計画を立てる
 
 どの単位で移行するかを検討する。
+必要であれば.claude/*を書き換える。
 検討内容はstep3.mdに書き出す。
 タスクは1issueとし、各issueを作成する。
 https://github.com/hideyuki-hori/lab-chakra-to-css-modules/issues
