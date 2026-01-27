@@ -1,217 +1,75 @@
-# TaskFlow Project Rules
+# Migration Direct Rules (Approach A)
 
-このプロジェクトは、Chakra UIを使用したNext.jsアプリケーションを構築し、その後CSS Modulesへ移行する実験プロジェクトです。
+Chakra UI → CSS Modules 直接移行プロジェクト
 
-## プロジェクト概要
+## 移行方針
 
-- **アプリケーション名**: TaskFlow - プロジェクト・タスク管理アプリケーション
-- **目的**: Chakra UI → CSS Modules移行の実験
-- **仕様書**: `step1.md`を参照
+- Chakra UIコンポーネントを純粋なHTML要素 + CSS Modulesに置き換える
+- framer-motionはそのまま維持（削除しない）
+- react-hook-formはそのまま維持
+- 見た目の変更は最小限に（Before/Afterで差が出ないように）
 
-## 技術スタック
+## ファイル構成
 
-### 必須ライブラリ
-- Next.js: 16.1.3 (App Router使用)
-- React: 19.2.3
-- TypeScript: 5.9.3
-- @chakra-ui/react: ^2.8.2
-- @chakra-ui/icons: ^2.2.4
-- @emotion/react: ^11.14.0
-- @emotion/styled: ^11.14.1
-- @emotion/cache: ^11.13.1
-- framer-motion: ^12.27.1
-- react-hook-form: ^7.71.1
-- react-icons: ^5.5.0
-
-## 実装ルール
-
-### 1. Chakra UIの使用（必須）
-- **すべてのUIコンポーネントはChakra UIを使用すること**
-- 独自のCSSやstyled-componentsは使用しない
-- Chakra UIのテーマシステムを活用する
-- 以下のコンポーネントを最低1回は使用すること:
-  ```
-  Box, Text, Flex, Input, Image, Modal, FormControl, Link,
-  VStack, HStack, Button, Alert, Tooltip, Table, Tabs,
-  Textarea, Checkbox, Radio, Menu, Avatar, Badge
-  ```
-
-### 2. framer-motionの使用（必須）
-- ページ遷移、モーダル開閉、ホバーエフェクトなどにアニメーションを追加
-- 最低10箇所以上でアニメーションを実装すること
-- Chakra UIのmotionコンポーネント（motion.div、motion.buttonなど）を活用
-
-### 3. ファイル構成
 ```
-src/
-├── app/
-│   ├── layout.tsx           # ルートレイアウト（Chakra Provider）
-│   ├── page.tsx             # ダッシュボード
-│   ├── projects/
-│   │   ├── page.tsx         # プロジェクト一覧
-│   │   └── [id]/
-│   │       └── page.tsx     # プロジェクト詳細
-│   ├── tasks/
-│   │   ├── page.tsx         # タスク一覧
-│   │   ├── new/
-│   │   │   └── page.tsx     # タスク作成
-│   │   └── [id]/
-│   │       └── edit/
-│   │           └── page.tsx # タスク編集
-│   ├── team/
-│   │   └── page.tsx         # チームメンバー
-│   ├── calendar/
-│   │   └── page.tsx         # カレンダー
-│   ├── reports/
-│   │   └── page.tsx         # レポート
-│   ├── settings/
-│   │   └── page.tsx         # 設定
-│   └── profile/
-│       └── page.tsx         # プロフィール
-├── components/
-│   ├── layout/
-│   │   ├── Sidebar.tsx
-│   │   ├── Header.tsx
-│   │   └── Layout.tsx
-│   ├── dashboard/
-│   ├── projects/
-│   ├── tasks/
-│   ├── team/
-│   ├── calendar/
-│   ├── reports/
-│   ├── settings/
-│   └── common/              # 共通コンポーネント
-├── lib/
-│   ├── mockData.ts          # モックデータ
-│   └── types.ts             # 型定義
-└── theme/
-    └── index.ts             # Chakra UIテーマカスタマイズ
+styles/
+├── variables.css      # CSS変数（デザイントークン）
+├── globals.css        # グローバルスタイル
+└── pages/
+    └── [page].module.css  # ページごとのスタイル
 ```
 
-### 4. TypeScript使用ルール
-- すべてのファイルで厳密な型定義を行う
-- `any`の使用は極力避ける
-- インターフェースと型定義は`lib/types.ts`にまとめる
-- コンポーネントのPropsは必ず型定義する
+## CSS変数
 
-### 5. データ管理
-- **実際のバックエンドAPIは使用しない**
-- すべてモックデータを使用（`lib/mockData.ts`）
-- データモデルは`step1.md`の定義に従う:
-  - Project
-  - Task
-  - User
+`styles/variables.css` に定義済み：
+- `--color-*` : カラー
+- `--spacing-*` : スペーシング
+- `--font-size-*` : フォントサイズ
+- `--radius-*` : ボーダー半径
+- `--transition-*` : トランジション
 
-### 6. フォーム実装
-- react-hook-formを必須で使用
-- フォームバリデーションを実装
-- エラーメッセージはChakra UIのFormErrorMessageを使用
+## 命名規則
 
-### 7. レスポンシブデザイン
-- Chakra UIのレスポンシブユーティリティを使用
-- ブレークポイント:
-  - モバイル: base (0px～)
-  - タブレット: md (768px～)
-  - デスクトップ: lg (1024px～)
+CSS Modulesのクラス名はcamelCase：
+- `.container`
+- `.pageTitle`
+- `.buttonPrimary`
 
-### 8. アクセシビリティ
-- 適切なARIAラベルを設定
-- キーボードナビゲーションをサポート
-- Chakra UIのアクセシビリティ機能を活用
+## 移行手順（1ページごと）
 
-## コーディング規約
-
-### コンポーネント作成
-```typescript
-// ✅ Good
-import { Box, Text, Button } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-
-interface Props {
-  title: string;
-  onAction: () => void;
-}
-
-export const MyComponent = ({ title, onAction }: Props) => {
-  return (
-    <Box as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <Text fontSize="xl">{title}</Text>
-      <Button onClick={onAction}>Action</Button>
-    </Box>
-  );
-};
-
-// ❌ Bad - 独自のCSSを使用している
-import styles from './MyComponent.module.css';
-
-export const MyComponent = () => {
-  return <div className={styles.container}>...</div>;
-};
-```
-
-### 命名規則
-- コンポーネント: PascalCase (`UserCard.tsx`)
-- 関数/変数: camelCase (`getUserData`)
-- 型/インターフェース: PascalCase (`User`, `ProjectProps`)
-- ファイル名: PascalCase (コンポーネント), camelCase (ユーティリティ)
+1. **Before撮影**: `agent-browser screenshot` で移行前の画面を撮影
+2. **CSS作成**: `styles/pages/[page].module.css` を作成
+3. **TSX修正**: Chakra UIコンポーネントをHTML + CSS Modulesに置き換え
+4. **After撮影**: 移行後の画面を撮影
+5. **比較確認**: Before/Afterを比較し、差異があれば修正
+6. **コミット**: 変更をコミット
+7. **PRアップロード**: スクリーンショットをPR/Issueに手動アップロード
 
 ## 禁止事項
 
-❌ **以下は使用しないこと**:
-- 独自のCSS Modules (`.module.css`)
-- styled-components (Chakra UI以外)
-- Tailwind CSS
-- インラインstyle属性（`style={{ ... }}`）
-  - 例外: framer-motionのstyle propは可
-- グローバルCSS（Chakra UIのグローバルスタイル以外）
+- framer-motionの削除・変更
+- react-hook-formの削除・変更
+- 見た目の意図的な変更
+- 新機能の追加
 
-## ブランチ戦略
+## スクリーンショット
 
-### Step2での作業
-1. `main`ブランチから`chakra-baseline`ブランチを作成
-2. `chakra-baseline`ブランチで実装
-3. 完成後、`main`にマージ
-4. `chakra-baseline`ブランチは削除せず保持（移行前のスナップショット）
+保存場所: `screenshots/{issue番号}/`
+命名規則:
+- `{page}-before.png`
+- `{page}-after.png`
+- `{page}-comparison.png`
 
-## 開発フロー
-
-### 実装順序（推奨）
-1. プロジェクトセットアップ（Next.js、Chakra UI、依存関係）
-2. 型定義とモックデータ作成
-3. Chakra UIテーマカスタマイズ
-4. 共通レイアウト（Sidebar、Header）
-5. 各ページの実装（step1.mdの優先順位に従う）
-6. framer-motionアニメーション追加
-7. レスポンシブ対応の確認
-8. 動作確認とバグ修正
-
-### コミットメッセージ
-- feat: 新機能追加
-- fix: バグ修正
-- style: UIの調整
-- refactor: リファクタリング
-- docs: ドキュメント更新
-- chore: ビルド設定など
-
-例:
-```
-feat: ダッシュボードページの実装
-fix: プロジェクト一覧のテーブル表示を修正
-style: タスクカードのホバーアニメーション追加
+比較画像作成:
+```bash
+magick before.png after.png +append comparison.png
 ```
 
-## 注意事項
+## GitHub Issue
 
-- `step1.md`の仕様を必ず守ること
-- すべての必須Chakra UIコンポーネントを使用すること
-- framer-motionのアニメーションを10箇所以上実装すること
-- TypeScriptの型安全性を保つこと
-- レスポンシブデザインに対応すること
-- このプロジェクトは移行実験のため、後でCSS Modulesに置き換えることを念頭に置いて実装する
+各ページの移行はIssueに対応：
+- Issue #3: プロフィールページ
+- Issue #4: ダッシュボード
+- etc.
 
-## 参考リソース
-
-- [Chakra UI公式ドキュメント](https://chakra-ui.com/docs)
-- [Next.js公式ドキュメント](https://nextjs.org/docs)
-- [framer-motion公式ドキュメント](https://www.framer.com/motion/)
-- [react-hook-form公式ドキュメント](https://react-hook-form.com/)
+作業開始時にIssueを確認し、完了時にスクリーンショットをアップロード。
