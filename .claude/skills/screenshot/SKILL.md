@@ -1,3 +1,9 @@
+---
+name: screenshot
+description: スクリーンショットを撮影してBefore/After比較
+argument-hint: "[before|after] [Issue番号]"
+---
+
 # /screenshot <before|after> <Issue番号>
 
 指定されたIssueのページのスクリーンショットを撮影してください。

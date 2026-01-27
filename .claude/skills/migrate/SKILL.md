@@ -1,3 +1,9 @@
+---
+name: migrate
+description: ページをChakra UIからCSS Modulesに移行します
+argument-hint: "[Issue番号]"
+---
+
 # /migrate <Issue番号>
 
 指定されたIssueのページをChakra UI → CSS Modulesに移行してください。
