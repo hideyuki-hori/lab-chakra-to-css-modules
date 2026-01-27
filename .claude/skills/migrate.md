@@ -1,28 +1,46 @@
-# /migrate <ページ名> <Issue番号>
+# /migrate <Issue番号>
 
-以下の手順でChakra UI → CSS Modules移行を実行してください。
+指定されたIssueのページをChakra UI → CSS Modulesに移行してください。
 
-## 1. 準備
+## 1. Issue確認
 
-- `gh issue view <Issue番号>` でIssue内容を確認
+```bash
+gh issue view <Issue番号>
+```
+
+Issueタイトルからページを特定:
+- `[A-1] プロフィールページ` → `profile` (`pages/profile.tsx`)
+- `[A-2] チームメンバーページ` → `team` (`pages/team.tsx`)
+- `[A-3] カレンダーページ` → `calendar` (`pages/calendar.tsx`)
+- `[A-4] 共通レイアウト` → `layout` (`components/layout/`)
+- `[A-5] ダッシュボード` → `index` (`pages/index.tsx`)
+- `[A-6] プロジェクト一覧` → `projects` (`pages/projects/index.tsx`)
+- `[A-7] プロジェクト詳細` → `projects/[id]` (`pages/projects/[id].tsx`)
+- `[A-8] タスク一覧` → `tasks` (`pages/tasks/index.tsx`)
+- `[A-9] タスク作成/編集` → `tasks/new`, `tasks/[id]/edit`
+- `[A-10] レポート` → `reports` (`pages/reports.tsx`)
+- `[A-11] 設定` → `settings` (`pages/settings.tsx`)
+
+## 2. 準備
+
 - 現在のブランチが `migration-direct` または `issue/*` であることを確認
 - 必要なら `issue/<Issue番号>-a` ブランチを作成
 - `npm run dev` が起動していることを確認（していなければ起動）
 
-## 2. Before撮影
+## 3. Before撮影
 
 ```bash
 mkdir -p screenshots/<Issue番号>
-agent-browser open http://localhost:3000/<ページ名>
+agent-browser open http://localhost:3000/<ページパス>
 sleep 2
 agent-browser screenshot screenshots/<Issue番号>/<ページ名>-before.png
 ```
 
 ユーザーに「Before撮影完了」と報告。
 
-## 3. 移行作業
+## 4. 移行作業
 
-### 3.1 CSSファイル作成
+### 4.1 CSSファイル作成
 
 `styles/pages/<ページ名>.module.css` を作成。
 
@@ -30,16 +48,16 @@ agent-browser screenshot screenshots/<Issue番号>/<ページ名>-before.png
 - Chakra UIのスタイルを再現
 - クラス名はcamelCase
 
-### 3.2 TSX修正
+### 4.2 TSX修正
 
-`pages/<ページ名>.tsx` を修正:
+対象ファイルを修正:
 
 - Chakra UIコンポーネント → HTML要素 + CSS Modules
 - `import styles from '../styles/pages/<ページ名>.module.css'`
 - **framer-motion はそのまま維持**
 - **react-hook-form はそのまま維持**
 
-## 4. After撮影 & 比較
+## 5. After撮影 & 比較
 
 ```bash
 agent-browser reload
@@ -50,14 +68,14 @@ magick screenshots/<Issue番号>/<ページ名>-before.png screenshots/<Issue番
 
 比較画像を確認し、差異があれば修正。ユーザーに比較画像を表示。
 
-## 5. コミット
+## 6. コミット
 
 ```bash
-git add styles/ pages/<ページ名>.tsx
+git add styles/ pages/
 git commit -m "[A-<Issue番号>] <ページ名>ページをCSS Modulesに移行"
 ```
 
-## 6. 完了報告
+## 7. 完了報告
 
 ユーザーに以下を報告:
 - 作成/変更したファイル一覧
