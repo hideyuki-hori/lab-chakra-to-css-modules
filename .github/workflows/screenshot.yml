@@ -22,12 +22,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install Puppeteer globally
-        run: npm install -g puppeteer
-
-      - name: Create screenshot script
+      - name: Setup screenshot tool
         run: |
-          cat > /tmp/screenshot.js << 'EOF'
+          mkdir -p /tmp/screenshot-tool
+          cd /tmp/screenshot-tool
+          npm init -y
+          npm install puppeteer
+          cat > screenshot.js << 'EOF'
           const puppeteer = require('puppeteer');
           const fs = require('fs');
           const path = require('path');
@@ -88,7 +89,7 @@ jobs:
           npm run build
           npm run start &
           sleep 15
-          node /tmp/screenshot.js screenshots/after
+          node /tmp/screenshot-tool/screenshot.js ${{ github.workspace }}/screenshots/after
           pkill -f "next start" || true
           sleep 3
           lsof -ti:3000 | xargs kill -9 2>/dev/null || true
@@ -108,7 +109,7 @@ jobs:
           npm run build
           npm run start &
           sleep 15
-          node /tmp/screenshot.js screenshots/before
+          node /tmp/screenshot-tool/screenshot.js ${{ github.workspace }}/screenshots/before
           pkill -f "next start" || true
 
       - name: Create comparison images
