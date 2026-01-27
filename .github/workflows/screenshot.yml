@@ -22,15 +22,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Puppeteer
-        run: npm install puppeteer
+      - name: Install Puppeteer globally
+        run: npm install -g puppeteer
 
       - name: Create screenshot script
         run: |
-          cat > screenshot.js << 'EOF'
+          cat > /tmp/screenshot.js << 'EOF'
           const puppeteer = require('puppeteer');
           const fs = require('fs');
           const path = require('path');
@@ -83,14 +80,19 @@ jobs:
           takeScreenshots(outputDir);
           EOF
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build and screenshot PR branch (after)
         run: |
           npm run build
           npm run start &
           sleep 15
-          node screenshot.js screenshots/after
+          node /tmp/screenshot.js screenshots/after
           pkill -f "next start" || true
           sleep 3
+          lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+          sleep 2
 
       - name: Checkout base branch
         uses: actions/checkout@v4
@@ -106,7 +108,7 @@ jobs:
           npm run build
           npm run start &
           sleep 15
-          node screenshot.js screenshots/before
+          node /tmp/screenshot.js screenshots/before
           pkill -f "next start" || true
 
       - name: Create comparison images
