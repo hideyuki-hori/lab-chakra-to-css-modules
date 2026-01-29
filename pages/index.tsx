@@ -140,15 +140,15 @@ export default function Home() {
         </Box>
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-          <Card>
+          <Card style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
             <CardBody>
               <Stat>
                 <HStack mb={2}>
-                  <Icon as={FiFolderPlus} boxSize={5} color="primary.500" />
-                  <StatLabel>総プロジェクト数</StatLabel>
+                  <Icon as={FiFolderPlus} boxSize={5} style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }} />
+                  <StatLabel style={{ color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>総プロジェクト数</StatLabel>
                 </HStack>
-                <StatNumber fontSize="3xl">{stats.totalProjects}</StatNumber>
-                <StatHelpText>
+                <StatNumber fontSize="3xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>{stats.totalProjects}</StatNumber>
+                <StatHelpText style={{ color: 'rgba(255,255,255,0.8)' }}>
                   <StatArrow type="increase" />
                   進行中 {stats.activeProjects}件
                 </StatHelpText>

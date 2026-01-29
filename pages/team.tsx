@@ -90,11 +90,11 @@ const Team = () => {
     <Layout>
       <Box p={8}>
         <VStack spacing={6} align="stretch">
-          <HStack justify="space-between">
-            <Text fontSize="3xl" fontWeight="bold">
+          <HStack justify="space-between" style={{ borderLeft: '4px solid #3182ce', paddingLeft: '16px' }}>
+            <Text fontSize="3xl" fontWeight="bold" style={{ background: 'linear-gradient(90deg, #2c5282, #3182ce)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               チームメンバー
             </Text>
-            <Button colorScheme="blue" onClick={onOpen}>
+            <Button colorScheme="blue" onClick={onOpen} style={{ boxShadow: '0 4px 14px rgba(49, 130, 206, 0.4)' }}>
               メンバー追加
             </Button>
           </HStack>
