@@ -187,8 +187,8 @@ const Profile = () => {
             </Box>
           </HStack>
 
-          <Box bg="white" p={6} borderRadius="lg" borderWidth="1px">
-            <Text fontSize="xl" fontWeight="bold" mb={4}>
+          <Box bg="white" p={6} borderRadius="lg" borderWidth="1px" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+            <Text fontSize="xl" fontWeight="bold" mb={4} style={{ borderBottom: '3px solid #3182ce', paddingBottom: '8px', display: 'inline-block' }}>
               実績バッジ
             </Text>
             <Wrap spacing={4}>
@@ -208,11 +208,20 @@ const Profile = () => {
                       minW="150px"
                       bg="gray.50"
                       _hover={{ bg: 'blue.50', borderColor: 'blue.300' }}
+                      style={{
+                        background: index === 0 ? 'linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%)' : undefined,
+                        transform: index === 0 ? 'rotate(-2deg)' : undefined
+                      }}
                     >
-                      <Text fontSize="3xl" fontWeight="bold" color="blue.500">
+                      <Text
+                        fontSize="3xl"
+                        fontWeight="bold"
+                        color="blue.500"
+                        style={{ fontFamily: index === 0 ? '"Comic Sans MS", cursive' : undefined }}
+                      >
                         {achievement.count}
                       </Text>
-                      <Text fontSize="sm" color="gray.600">
+                      <Text fontSize="sm" color="gray.600" style={{ letterSpacing: '0.1em' }}>
                         {achievement.label}
                       </Text>
                     </Box>

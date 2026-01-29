@@ -88,11 +88,11 @@ const Settings = () => {
           </AnimatePresence>
 
           <Tabs colorScheme="blue" variant="enclosed">
-            <TabList>
-              <Tab>一般</Tab>
-              <Tab>通知</Tab>
-              <Tab>セキュリティ</Tab>
-              <Tab>表示</Tab>
+            <TabList style={{ borderBottom: '2px solid #e2e8f0', marginBottom: '-2px' }}>
+              <Tab style={{ fontWeight: 600, transition: 'all 0.2s ease' }} _selected={{ borderBottomColor: 'blue.500', style: { boxShadow: 'inset 0 -2px 0 0 #3182ce' } }}>一般</Tab>
+              <Tab style={{ fontWeight: 600 }}>通知</Tab>
+              <Tab style={{ fontWeight: 600 }}>セキュリティ</Tab>
+              <Tab style={{ fontWeight: 600, position: 'relative' }}>表示</Tab>
             </TabList>
 
             <TabPanels>

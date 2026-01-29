@@ -14,38 +14,21 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FiBell, FiSettings, FiLogOut, FiUser } from 'react-icons/fi';
-import { mockUsers } from '../../lib/mockData';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Header() {
-  const currentUser = mockUsers[0];
+  const { user, logout } = useAuth();
+  const router = useRouter();
   const bgColor = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'green';
-      case 'away':
-        return 'yellow';
-      case 'offline':
-        return 'gray';
-      default:
-        return 'gray';
-    }
+  const handleLogout = async () => {
+    await logout();
+    router.push('/login');
   };
 
-  const getStatusLabel = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'オンライン';
-      case 'away':
-        return '離席中';
-      case 'offline':
-        return 'オフライン';
-      default:
-        return status;
-    }
-  };
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'ユーザー';
 
   return (
     <Box
@@ -63,7 +46,7 @@ export default function Header() {
       <Flex h="full" align="center" justify="space-between">
         <Box>
           <Text fontSize="lg" fontWeight="semibold" color="gray.700">
-            ようこそ、{currentUser.name}さん
+            ようこそ、{displayName}さん
           </Text>
           <Text fontSize="sm" color="gray.500">
             今日も良い一日を
@@ -100,34 +83,30 @@ export default function Header() {
               <HStack spacing={3} cursor="pointer">
                 <Box textAlign="right">
                   <Text fontSize="sm" fontWeight="medium" color="gray.700">
-                    {currentUser.name}
+                    {displayName}
                   </Text>
                   <HStack spacing={1} justify="flex-end">
-                    <Badge
-                      colorScheme={getStatusColor(currentUser.status)}
-                      fontSize="xs"
-                      px={2}
-                    >
-                      {getStatusLabel(currentUser.status)}
+                    <Badge colorScheme="green" fontSize="xs" px={2}>
+                      オンライン
                     </Badge>
                   </HStack>
                 </Box>
                 <Avatar
                   size="sm"
-                  name={currentUser.name}
-                  src={currentUser.avatar}
+                  name={displayName}
+                  src={user?.photoURL || undefined}
                 />
               </HStack>
             </MenuButton>
             <MenuList>
-              <MenuItem icon={<FiUser />}>
+              <MenuItem icon={<FiUser />} onClick={() => router.push('/profile')}>
                 プロフィール
               </MenuItem>
-              <MenuItem icon={<FiSettings />}>
+              <MenuItem icon={<FiSettings />} onClick={() => router.push('/settings')}>
                 設定
               </MenuItem>
               <MenuDivider />
-              <MenuItem icon={<FiLogOut />} color="red.500">
+              <MenuItem icon={<FiLogOut />} color="red.500" onClick={handleLogout}>
                 ログアウト
               </MenuItem>
             </MenuList>
