@@ -1,0 +1,38 @@
+.heading {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.size4xl {
+  font-size: var(--heading-size-4xl);
+}
+
+.size3xl {
+  font-size: var(--heading-size-3xl);
+}
+
+.size2xl {
+  font-size: var(--heading-size-2xl);
+}
+
+.sizeXl {
+  font-size: var(--heading-size-xl);
+}
+
+.sizeLg {
+  font-size: var(--heading-size-lg);
+}
+
+.sizeMd {
+  font-size: var(--heading-size-md);
+}
+
+.sizeSm {
+  font-size: var(--heading-size-sm);
+}
+
+.sizeXs {
+  font-size: var(--heading-size-xs);
+}

@@ -149,4 +149,16 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+
+  --heading-size-4xl: 4.5rem;
+  --heading-size-3xl: 3.75rem;
+  --heading-size-2xl: 3rem;
+  --heading-size-xl: 2.25rem;
+  --heading-size-lg: 1.875rem;
+  --heading-size-md: 1.25rem;
+  --heading-size-sm: 1rem;
+  --heading-size-xs: 0.875rem;
 }
