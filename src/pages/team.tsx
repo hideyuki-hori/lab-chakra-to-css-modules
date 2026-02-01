@@ -1,37 +1,12 @@
-import {
-  Box,
-  Button,
-  Input,
-  SimpleGrid,
-  Avatar,
-  Text,
-  Badge,
-  VStack,
-  HStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  useDisclosure,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-  useToast,
-} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Layout from '../components/layout/Layout';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../components/ui/Modal';
+import { Menu, MenuItem } from '../components/ui/Menu';
 import { teamMembers } from '../lib/mockData';
-
-const MotionBox = motion(Box);
+import styles from '../styles/pages/team.module.css';
 
 interface NewMemberForm {
   name: string;
@@ -41,9 +16,8 @@ interface NewMemberForm {
 
 const Team = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { register, handleSubmit, reset } = useForm<NewMemberForm>();
-  const toast = useToast();
 
   const filteredMembers = teamMembers.filter(
     (member) =>
@@ -52,176 +26,147 @@ const Team = () => {
   );
 
   const onSubmit = (data: NewMemberForm) => {
-    toast({
-      title: 'メンバー追加成功',
-      description: `${data.name}さんを追加しました`,
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
+    toast.success(`${data.name}さんを追加しました`);
     reset();
-    onClose();
+    setIsModalOpen(false);
   };
 
   const handleMemberAction = (action: string, memberName: string) => {
-    toast({
-      title: `${action}実行`,
-      description: `${memberName}さんに対して${action}を実行しました`,
-      status: 'info',
-      duration: 2000,
-      isClosable: true,
-    });
+    toast(`${memberName}さんに対して${action}を実行しました`, { icon: 'ℹ️' });
   };
 
-  const getRoleBadgeColor = (role: string) => {
+  const getRoleBadgeClass = (role: string) => {
     switch (role) {
       case '管理者':
-        return 'red';
+        return styles.badgeRed;
       case 'メンバー':
-        return 'blue';
+        return styles.badgeBlue;
       case 'ゲスト':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'green';
+        return styles.badgeGreen;
     }
+  };
+
+  const getInitials = (name: string) => {
+    return name.charAt(0);
+  };
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
   };
 
   return (
     <Layout>
-      <Box p={8}>
-        <VStack spacing={6} align="stretch">
-          <HStack justify="space-between" style={{ borderLeft: '4px solid #3182ce', paddingLeft: '16px' }}>
-            <Text fontSize="3xl" fontWeight="bold" style={{ background: 'linear-gradient(90deg, #2c5282, #3182ce)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              チームメンバー
-            </Text>
-            <Button colorScheme="blue" onClick={onOpen} style={{ boxShadow: '0 4px 14px rgba(49, 130, 206, 0.4)' }}>
+      <div className={styles.container}>
+        <div className={styles.stack}>
+          <div className={styles.header}>
+            <h1 className={styles.pageTitle}>チームメンバー</h1>
+            <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
               メンバー追加
-            </Button>
-          </HStack>
+            </button>
+          </div>
 
-          <Input
+          <input
+            type="text"
             placeholder="メンバーを検索..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            size="lg"
+            className={styles.searchInput}
           />
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+          <div className={styles.grid}>
             {filteredMembers.map((member, index) => (
-              <MotionBox
+              <motion.div
                 key={member.id}
-                borderWidth="1px"
-                borderRadius="lg"
-                p={6}
-                bg="white"
-                shadow="md"
+                className={styles.memberCard}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <VStack spacing={4}>
-                  <Avatar size="xl" name={member.name} />
-                  <VStack spacing={2} align="center">
-                    <Text fontSize="xl" fontWeight="bold">
-                      {member.name}
-                    </Text>
-                    <Badge colorScheme={getRoleBadgeColor(member.role)}>
-                      {member.role}
-                    </Badge>
-                    <Text fontSize="sm" color="gray.600">
-                      {member.email}
-                    </Text>
-                    <Text fontSize="sm" color="gray.500">
-                      担当タスク: {member.taskCount}件
-                    </Text>
-                  </VStack>
-                  <Menu>
-                    <MenuButton
-                      as={IconButton}
-                      aria-label="Options"
-                      icon={<span>⋮</span>}
-                      variant="outline"
-                      size="sm"
-                    />
-                    <MenuList>
-                      <MenuItem
-                        onClick={() =>
-                          handleMemberAction('プロフィール表示', member.name)
-                        }
-                      >
-                        プロフィール表示
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() =>
-                          handleMemberAction('メッセージ送信', member.name)
-                        }
-                      >
-                        メッセージ送信
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() =>
-                          handleMemberAction('タスク割り当て', member.name)
-                        }
-                      >
-                        タスク割り当て
-                      </MenuItem>
-                    </MenuList>
+                <div className={styles.memberCardInner}>
+                  <div className={styles.avatar} style={{ background: getAvatarColor(member.name) }}>{getInitials(member.name)}</div>
+                  <div className={styles.memberInfo}>
+                    <p className={styles.memberName}>{member.name}</p>
+                    <span className={getRoleBadgeClass(member.role)}>{member.role}</span>
+                    <p className={styles.memberEmail}>{member.email}</p>
+                    <p className={styles.memberTaskCount}>担当タスク: {member.taskCount}件</p>
+                  </div>
+                  <Menu
+                    trigger={
+                      <button className={styles.iconButton} aria-label="Options">
+                        ⋮
+                      </button>
+                    }
+                  >
+                    <MenuItem onClick={() => handleMemberAction('プロフィール表示', member.name)}>
+                      プロフィール表示
+                    </MenuItem>
+                    <MenuItem onClick={() => handleMemberAction('メッセージ送信', member.name)}>
+                      メッセージ送信
+                    </MenuItem>
+                    <MenuItem onClick={() => handleMemberAction('タスク割り当て', member.name)}>
+                      タスク割り当て
+                    </MenuItem>
                   </Menu>
-                </VStack>
-              </MotionBox>
+                </div>
+              </motion.div>
             ))}
-          </SimpleGrid>
-        </VStack>
+          </div>
+        </div>
 
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          motionPreset="slideInBottom"
-          size="lg"
-        >
-          <ModalOverlay />
-          <ModalContent
-            as={motion.div}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-          >
-            <ModalHeader>新しいメンバーを追加</ModalHeader>
-            <ModalCloseButton />
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <ModalBody>
-                <VStack spacing={4}>
-                  <FormControl isRequired>
-                    <FormLabel>名前</FormLabel>
-                    <Input {...register('name')} placeholder="山田太郎" />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel>メールアドレス</FormLabel>
-                    <Input
-                      {...register('email')}
-                      type="email"
-                      placeholder="yamada@example.com"
-                    />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel>役割</FormLabel>
-                    <Input {...register('role')} placeholder="メンバー" />
-                  </FormControl>
-                </VStack>
-              </ModalBody>
-              <ModalFooter>
-                <Button variant="ghost" mr={3} onClick={onClose}>
-                  キャンセル
-                </Button>
-                <Button colorScheme="blue" type="submit">
-                  追加
-                </Button>
-              </ModalFooter>
-            </form>
-          </ModalContent>
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} size="lg">
+          <ModalHeader onClose={() => setIsModalOpen(false)}>新しいメンバーを追加</ModalHeader>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+              <div className={styles.formStack}>
+                <div className={styles.formGroup}>
+                  <label className={`${styles.formLabel} ${styles.formLabelRequired}`}>名前</label>
+                  <input {...register('name')} placeholder="山田太郎" className={styles.input} />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={`${styles.formLabel} ${styles.formLabelRequired}`}>
+                    メールアドレス
+                  </label>
+                  <input
+                    {...register('email')}
+                    type="email"
+                    placeholder="yamada@example.com"
+                    className={styles.input}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={`${styles.formLabel} ${styles.formLabelRequired}`}>役割</label>
+                  <input {...register('role')} placeholder="メンバー" className={styles.input} />
+                </div>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <button type="button" className={styles.buttonGhost} onClick={() => setIsModalOpen(false)}>
+                キャンセル
+              </button>
+              <button type="submit" className={styles.buttonPrimary}>
+                追加
+              </button>
+            </ModalFooter>
+          </form>
         </Modal>
-      </Box>
+      </div>
     </Layout>
   );
 };
