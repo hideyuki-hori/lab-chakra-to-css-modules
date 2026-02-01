@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import theme from '../theme';
 import { AuthProvider } from '../contexts/AuthContext';
 import AuthGuard from '../components/auth/AuthGuard';
+import '../styles/globals.css';
 
 const PUBLIC_PAGES = ['/login'];
 
