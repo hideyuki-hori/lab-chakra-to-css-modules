@@ -1,0 +1,138 @@
+.progress {
+  width: 100%;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+/* Sizes */
+.xs {
+  height: 4px;
+}
+
+.sm {
+  height: 6px;
+}
+
+.md {
+  height: 8px;
+}
+
+.lg {
+  height: 12px;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+/* Color schemes */
+.progressBar.primary {
+  background-color: var(--color-primary-500);
+}
+
+.progressBar.green {
+  background-color: var(--color-green-500);
+}
+
+.progressBar.blue {
+  background-color: var(--color-blue-500);
+}
+
+.progressBar.red {
+  background-color: var(--color-red-500);
+}
+
+.progressBar.yellow {
+  background-color: var(--color-yellow-500);
+}
+
+.progressBar.gray {
+  background-color: var(--color-gray-500);
+}
+
+/* Striped */
+.striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.animated {
+  animation: stripeMove 1s linear infinite;
+}
+
+@keyframes stripeMove {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* Indeterminate */
+.indeterminate {
+  width: 30%;
+  animation: indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+/* Label */
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-1);
+}
+
+.progressLabelText {
+  color: var(--color-gray-500);
+}
+
+.progressLabelValue {
+  font-weight: var(--font-weight-semibold);
+}
+
+.progressLabelValue.primary {
+  color: var(--color-primary-600);
+}
+
+.progressLabelValue.green {
+  color: var(--color-green-600);
+}
+
+.progressLabelValue.blue {
+  color: var(--color-blue-600);
+}
+
+.progressLabelValue.red {
+  color: var(--color-red-600);
+}
+
+.progressLabelValue.yellow {
+  color: var(--color-yellow-600);
+}
+
+.progressLabelValue.gray {
+  color: var(--color-gray-600);
+}
