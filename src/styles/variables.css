@@ -65,6 +65,30 @@
   --color-green-800: #22543d;
   --color-green-900: #1c4532;
 
+  /* Red Colors */
+  --color-red-50: #fff5f5;
+  --color-red-100: #fed7d7;
+  --color-red-200: #feb2b2;
+  --color-red-300: #fc8181;
+  --color-red-400: #f56565;
+  --color-red-500: #e53e3e;
+  --color-red-600: #c53030;
+  --color-red-700: #9b2c2c;
+  --color-red-800: #822727;
+  --color-red-900: #63171b;
+
+  /* Orange Colors */
+  --color-orange-50: #fffaf0;
+  --color-orange-100: #feebc8;
+  --color-orange-200: #fbd38d;
+  --color-orange-300: #f6ad55;
+  --color-orange-400: #ed8936;
+  --color-orange-500: #dd6b20;
+  --color-orange-600: #c05621;
+  --color-orange-700: #9c4221;
+  --color-orange-800: #7b341e;
+  --color-orange-900: #652b19;
+
   /* Spacing */
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
