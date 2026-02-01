@@ -1,69 +1,51 @@
-import {
-  Box,
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Avatar,
-  Badge,
-  Icon,
-} from '@chakra-ui/react';
 import { FiFolderPlus, FiCheckSquare, FiClock, FiAlertCircle } from 'react-icons/fi';
 import Layout from '../components/layout/Layout';
 import { calculateStatistics, mockTasks, mockProjects } from '../lib/mockData';
+import styles from '../styles/pages/dashboard.module.css';
 
 export default function Home() {
   const stats = calculateStatistics();
 
-  const getTaskPriorityColor = (priority: string) => {
+  const getTaskPriorityBadgeClass = (priority: string) => {
     switch (priority) {
       case 'urgent':
-        return 'red';
+        return styles.badgeRed;
       case 'high':
-        return 'orange';
+        return styles.badgeOrange;
       case 'medium':
-        return 'blue';
+        return styles.badgeBlue;
       case 'low':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
-  const getTaskStatusColor = (status: string) => {
+  const getTaskStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'green';
+        return `${styles.badge} ${styles.badgeGreen} ${styles.badgeSubtle}`;
       case 'in-progress':
-        return 'blue';
+        return `${styles.badge} ${styles.badgeBlue} ${styles.badgeSubtle}`;
       case 'todo':
-        return 'gray';
+        return `${styles.badge} ${styles.badgeGray} ${styles.badgeSubtle}`;
       default:
-        return 'gray';
+        return `${styles.badge} ${styles.badgeGray} ${styles.badgeSubtle}`;
     }
   };
 
-  const getProjectStatusColor = (status: string) => {
+  const getProjectStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'green';
+        return styles.badgeGreen;
       case 'active':
-        return 'blue';
+        return styles.badgeBlue;
       case 'planning':
-        return 'gray';
+        return styles.badgeGray;
       case 'on-hold':
-        return 'orange';
+        return styles.badgeOrange;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
@@ -110,6 +92,24 @@ export default function Home() {
     }
   };
 
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
+  };
+
   const recentTasks = mockTasks
     .filter((task) => task.status === 'in-progress' || task.status === 'todo')
     .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
@@ -129,198 +129,172 @@ export default function Home() {
 
   return (
     <Layout>
-      <VStack align="stretch" spacing={6}>
-        <Box>
-          <Heading size="lg" mb={2}>
-            ダッシュボード
-          </Heading>
-          <Text color="gray.600">
-            プロジェクトとタスクの概要を確認できます
-          </Text>
-        </Box>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>ダッシュボード</h1>
+          <p className={styles.subtitle}>プロジェクトとタスクの概要を確認できます</p>
+        </div>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-          <Card style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
-            <CardBody>
-              <Stat>
-                <HStack mb={2}>
-                  <Icon as={FiFolderPlus} boxSize={5} style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }} />
-                  <StatLabel style={{ color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>総プロジェクト数</StatLabel>
-                </HStack>
-                <StatNumber fontSize="3xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>{stats.totalProjects}</StatNumber>
-                <StatHelpText style={{ color: 'rgba(255,255,255,0.8)' }}>
-                  <StatArrow type="increase" />
-                  進行中 {stats.activeProjects}件
-                </StatHelpText>
-              </Stat>
-            </CardBody>
-          </Card>
+        <div className={styles.statsGrid}>
+          <div className={`${styles.statCard} ${styles.statCardPrimary}`}>
+            <div className={styles.statHeader}>
+              <FiFolderPlus className={`${styles.statIcon} ${styles.statIconPrimary}`} />
+              <p className={`${styles.statLabel} ${styles.statLabelPrimary}`}>総プロジェクト数</p>
+            </div>
+            <p className={`${styles.statNumber} ${styles.statNumberPrimary}`}>{stats.totalProjects}</p>
+            <p className={`${styles.statHelp} ${styles.statHelpPrimary}`}>
+              <span className={styles.statArrowUp} />
+              進行中 {stats.activeProjects}件
+            </p>
+          </div>
 
-          <Card>
-            <CardBody>
-              <Stat>
-                <HStack mb={2}>
-                  <Icon as={FiCheckSquare} boxSize={5} color="accent.500" />
-                  <StatLabel>総タスク数</StatLabel>
-                </HStack>
-                <StatNumber fontSize="3xl">{stats.totalTasks}</StatNumber>
-                <StatHelpText>
-                  完了 {stats.completedTasks}件
-                </StatHelpText>
-              </Stat>
-            </CardBody>
-          </Card>
+          <div className={styles.statCard}>
+            <div className={styles.statHeader}>
+              <FiCheckSquare className={`${styles.statIcon} ${styles.statIconAccent}`} />
+              <p className={styles.statLabel}>総タスク数</p>
+            </div>
+            <p className={styles.statNumber}>{stats.totalTasks}</p>
+            <p className={styles.statHelp}>完了 {stats.completedTasks}件</p>
+          </div>
 
-          <Card>
-            <CardBody>
-              <Stat>
-                <HStack mb={2}>
-                  <Icon as={FiClock} boxSize={5} color="blue.500" />
-                  <StatLabel>進行中のタスク</StatLabel>
-                </HStack>
-                <StatNumber fontSize="3xl">{stats.inProgressTasks}</StatNumber>
-                <StatHelpText>
-                  未着手 {stats.todoTasks}件
-                </StatHelpText>
-              </Stat>
-            </CardBody>
-          </Card>
+          <div className={styles.statCard}>
+            <div className={styles.statHeader}>
+              <FiClock className={`${styles.statIcon} ${styles.statIconBlue}`} />
+              <p className={styles.statLabel}>進行中のタスク</p>
+            </div>
+            <p className={styles.statNumber}>{stats.inProgressTasks}</p>
+            <p className={styles.statHelp}>未着手 {stats.todoTasks}件</p>
+          </div>
 
-          <Card>
-            <CardBody>
-              <Stat>
-                <HStack mb={2}>
-                  <Icon as={FiAlertCircle} boxSize={5} color="orange.500" />
-                  <StatLabel>遅延プロジェクト</StatLabel>
-                </HStack>
-                <StatNumber fontSize="3xl">{stats.delayedProjects}</StatNumber>
-                <StatHelpText>
-                  {stats.delayedProjects > 0 ? '要対応' : '問題なし'}
-                </StatHelpText>
-              </Stat>
-            </CardBody>
-          </Card>
-        </SimpleGrid>
+          <div className={styles.statCard}>
+            <div className={styles.statHeader}>
+              <FiAlertCircle className={`${styles.statIcon} ${styles.statIconOrange}`} />
+              <p className={styles.statLabel}>遅延プロジェクト</p>
+            </div>
+            <p className={styles.statNumber}>{stats.delayedProjects}</p>
+            <p className={styles.statHelp}>
+              {stats.delayedProjects > 0 ? '要対応' : '問題なし'}
+            </p>
+          </div>
+        </div>
 
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={6}>
-          <Card>
-            <CardHeader>
-              <Heading size="md">最近のタスク</Heading>
-            </CardHeader>
-            <CardBody>
-              <VStack align="stretch" spacing={4}>
+        <div className={styles.contentGrid}>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>最近のタスク</h2>
+            </div>
+            <div className={styles.cardBody}>
+              <div className={styles.taskList}>
                 {recentTasks.map((task) => {
                   const project = mockProjects.find((p) => p.id === task.projectId);
                   const isOverdue = new Date(task.dueDate) < new Date() && task.status !== 'completed';
 
                   return (
-                    <Box
-                      key={task.id}
-                      p={4}
-                      borderRadius="md"
-                      border="1px"
-                      borderColor="gray.200"
-                      _hover={{ borderColor: 'primary.300', bg: 'gray.50' }}
-                      transition="all 0.2s"
-                    >
-                      <HStack justify="space-between" mb={2}>
-                        <Text fontWeight="semibold" fontSize="sm">
-                          {task.title}
-                        </Text>
-                        <Badge colorScheme={getTaskPriorityColor(task.priority)}>
+                    <div key={task.id} className={styles.taskItem}>
+                      <div className={styles.taskHeader}>
+                        <p className={styles.taskTitle}>{task.title}</p>
+                        <span className={`${styles.badge} ${getTaskPriorityBadgeClass(task.priority)}`}>
                           {getTaskPriorityLabel(task.priority)}
-                        </Badge>
-                      </HStack>
-                      <Text fontSize="sm" color="gray.600" mb={3} noOfLines={2}>
-                        {task.description}
-                      </Text>
-                      <HStack justify="space-between" fontSize="xs">
-                        <HStack spacing={2}>
-                          <Badge colorScheme={getTaskStatusColor(task.status)} variant="subtle">
+                        </span>
+                      </div>
+                      <p className={styles.taskDescription}>{task.description}</p>
+                      <div className={styles.taskFooter}>
+                        <div className={styles.taskMeta}>
+                          <span className={getTaskStatusBadgeClass(task.status)}>
                             {getTaskStatusLabel(task.status)}
-                          </Badge>
+                          </span>
                           {project && (
-                            <Text color="gray.500">{project.name}</Text>
+                            <p className={styles.projectName}>{project.name}</p>
                           )}
-                        </HStack>
-                        <HStack spacing={2}>
+                        </div>
+                        <div className={styles.taskMeta}>
                           {task.assignee && (
-                            <HStack spacing={1}>
-                              <Avatar size="xs" name={task.assignee.name} src={task.assignee.avatar} />
-                              <Text color="gray.600">{task.assignee.name}</Text>
-                            </HStack>
+                            <div className={styles.taskAssignee}>
+                              {task.assignee.avatar ? (
+                                <img
+                                  src={task.assignee.avatar}
+                                  alt={task.assignee.name}
+                                  className={styles.avatar}
+                                />
+                              ) : (
+                                <div
+                                  className={styles.avatarPlaceholder}
+                                  style={{ background: getAvatarColor(task.assignee.name) }}
+                                >
+                                  {task.assignee.name.charAt(0)}
+                                </div>
+                              )}
+                              <p className={styles.assigneeName}>{task.assignee.name}</p>
+                            </div>
                           )}
-                          <Text color={isOverdue ? 'red.500' : 'gray.500'} fontWeight={isOverdue ? 'semibold' : 'normal'}>
+                          <span className={isOverdue ? styles.taskDateOverdue : styles.taskDate}>
                             {formatDate(task.dueDate)}
-                          </Text>
-                        </HStack>
-                      </HStack>
-                    </Box>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   );
                 })}
-              </VStack>
-            </CardBody>
-          </Card>
+              </div>
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader>
-              <Heading size="md">進行中のプロジェクト</Heading>
-            </CardHeader>
-            <CardBody>
-              <VStack align="stretch" spacing={4}>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>進行中のプロジェクト</h2>
+            </div>
+            <div className={styles.cardBody}>
+              <div className={styles.taskList}>
                 {recentProjects.map((project) => (
-                  <Box
-                    key={project.id}
-                    p={4}
-                    borderRadius="md"
-                    border="1px"
-                    borderColor="gray.200"
-                    _hover={{ borderColor: 'primary.300', bg: 'gray.50' }}
-                    transition="all 0.2s"
-                  >
-                    <HStack justify="space-between" mb={2}>
-                      <Text fontWeight="semibold" fontSize="sm">
-                        {project.name}
-                      </Text>
-                      <Badge colorScheme={getProjectStatusColor(project.status)}>
+                  <div key={project.id} className={styles.taskItem}>
+                    <div className={styles.taskHeader}>
+                      <p className={styles.taskTitle}>{project.name}</p>
+                      <span className={`${styles.badge} ${getProjectStatusBadgeClass(project.status)}`}>
                         {getProjectStatusLabel(project.status)}
-                      </Badge>
-                    </HStack>
-                    <Text fontSize="sm" color="gray.600" mb={3} noOfLines={2}>
-                      {project.description}
-                    </Text>
-                    <VStack align="stretch" spacing={2}>
-                      <HStack justify="space-between" fontSize="xs">
-                        <Text color="gray.500">進捗率</Text>
-                        <Text fontWeight="semibold" color="primary.600">
-                          {project.progress}%
-                        </Text>
-                      </HStack>
-                      <Box h="6px" bg="gray.200" borderRadius="full" overflow="hidden">
-                        <Box
-                          h="full"
-                          bg="primary.500"
-                          w={`${project.progress}%`}
-                          transition="width 0.3s"
+                      </span>
+                    </div>
+                    <p className={styles.taskDescription}>{project.description}</p>
+                    <div className={styles.progressSection}>
+                      <div className={styles.progressHeader}>
+                        <p className={styles.progressLabel}>進捗率</p>
+                        <p className={styles.progressValue}>{project.progress}%</p>
+                      </div>
+                      <div className={styles.progressBar}>
+                        <div
+                          className={styles.progressFill}
+                          style={{ width: `${project.progress}%` }}
                         />
-                      </Box>
-                      <HStack justify="space-between" fontSize="xs">
-                        <HStack spacing={1}>
-                          <Avatar size="xs" name={project.owner.name} src={project.owner.avatar} />
-                          <Text color="gray.600">{project.owner.name}</Text>
-                        </HStack>
-                        <Text color="gray.500">
+                      </div>
+                      <div className={styles.projectFooter}>
+                        <div className={styles.taskAssignee}>
+                          {project.owner.avatar ? (
+                            <img
+                              src={project.owner.avatar}
+                              alt={project.owner.name}
+                              className={styles.avatar}
+                            />
+                          ) : (
+                            <div
+                              className={styles.avatarPlaceholder}
+                              style={{ background: getAvatarColor(project.owner.name) }}
+                            >
+                              {project.owner.name.charAt(0)}
+                            </div>
+                          )}
+                          <p className={styles.assigneeName}>{project.owner.name}</p>
+                        </div>
+                        <p className={styles.projectDate}>
                           {formatDate(project.startDate)} - {formatDate(project.endDate)}
-                        </Text>
-                      </HStack>
-                    </VStack>
-                  </Box>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-              </VStack>
-            </CardBody>
-          </Card>
-        </SimpleGrid>
-      </VStack>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }
