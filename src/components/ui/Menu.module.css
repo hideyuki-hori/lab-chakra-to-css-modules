@@ -39,7 +39,9 @@
 }
 
 .menuItem {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
   width: 100%;
   padding: var(--spacing-2) var(--spacing-4);
   text-align: left;
@@ -53,4 +55,18 @@
 
 .menuItem:hover {
   background-color: var(--color-gray-100);
+}
+
+.menuItemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.menuDivider {
+  height: 1px;
+  margin: var(--spacing-1) 0;
+  background-color: var(--color-gray-200);
 }

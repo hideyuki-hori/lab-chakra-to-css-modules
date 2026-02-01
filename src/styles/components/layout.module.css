@@ -1,0 +1,223 @@
+.layoutContainer {
+  min-height: 100vh;
+  background-color: var(--color-gray-50);
+}
+
+.mainContent {
+  margin-left: 250px;
+  margin-top: 64px;
+  padding: var(--spacing-6);
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: white;
+  border-right: 1px solid var(--color-gray-200);
+  padding: var(--spacing-4);
+  z-index: 10;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.sidebarLogo {
+  margin-bottom: var(--spacing-6);
+  padding: 0 var(--spacing-3);
+}
+
+.sidebarTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue-600);
+  margin: 0;
+}
+
+.sidebarSubtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.navItem {
+  position: relative;
+  text-decoration: none;
+}
+
+.navItemInner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  transition: background-color var(--transition-fast);
+}
+
+.navItemInner:hover {
+  background-color: var(--color-gray-50);
+}
+
+.navItemActive {
+  background-color: var(--color-blue-50);
+  color: var(--color-blue-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.navItemActive:hover {
+  background-color: var(--color-blue-50);
+}
+
+.navIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.activeIndicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--color-blue-500);
+  border-radius: var(--radius-full);
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  height: 64px;
+  background-color: white;
+  border-bottom: 1px solid var(--color-gray-200);
+  padding: 0 var(--spacing-6);
+  z-index: 9;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.headerGreeting {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  margin: 0;
+}
+
+.headerSubtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.notificationButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-xl);
+  transition: background-color var(--transition-fast);
+}
+
+.notificationButton:hover {
+  background-color: var(--color-gray-100);
+}
+
+.notificationBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-error);
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+}
+
+.userInfo {
+  text-align: right;
+}
+
+.userName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  margin: 0;
+}
+
+.userStatus {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-1);
+}
+
+.statusBadge {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green-800);
+  background-color: var(--color-green-100);
+  border-radius: var(--radius-sm);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
