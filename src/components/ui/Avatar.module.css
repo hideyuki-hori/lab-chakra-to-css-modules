@@ -1,0 +1,104 @@
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  vertical-align: top;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.size2xs {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+}
+
+.sizeXs {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.sizeSm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.sizeMd {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.sizeLg {
+  width: 64px;
+  height: 64px;
+  font-size: 20px;
+}
+
+.sizeXl {
+  width: 96px;
+  height: 96px;
+  font-size: 28px;
+}
+
+.size2xl {
+  width: 128px;
+  height: 128px;
+  font-size: 36px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initials {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-white);
+  line-height: 1;
+  border-radius: var(--radius-full);
+}
+
+.fallbackIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-gray-400);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fallbackIcon svg {
+  width: 60%;
+  height: 60%;
+}
