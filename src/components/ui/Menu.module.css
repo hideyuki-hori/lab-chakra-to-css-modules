@@ -1,0 +1,89 @@
+.menuContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.menuList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  min-width: 200px;
+  padding: calc(var(--spacing) * 2) 0;
+  margin-top: calc(var(--spacing) * 1);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-800);
+  transition: background-color 0.15s ease;
+  outline: none;
+}
+
+.menuItem:hover,
+.menuItemActive {
+  background-color: var(--color-gray-100);
+}
+
+.menuItem:focus-visible {
+  background-color: var(--color-gray-100);
+}
+
+.menuItemDisabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.menuItemDisabled:hover {
+  background-color: transparent;
+}
+
+.menuItemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.menuItemIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.menuItemContent {
+  flex: 1;
+}
+
+.menuItemCommand {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+  margin-left: auto;
+}
+
+.menuDivider {
+  height: 1px;
+  margin: calc(var(--spacing) * 1) 0;
+  background-color: var(--color-gray-200);
+}
