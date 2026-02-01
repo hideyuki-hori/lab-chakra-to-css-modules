@@ -1,0 +1,371 @@
+.container {
+  padding: var(--spacing-8);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.pageTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.alertSuccess {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background-color: var(--color-green-50);
+  border: 1px solid var(--color-green-200);
+  border-radius: var(--radius-md);
+  color: var(--color-green-800);
+}
+
+.alertIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-success);
+}
+
+.alertTitle {
+  font-weight: var(--font-weight-semibold);
+}
+
+.alertDescription {
+  color: var(--color-green-700);
+}
+
+.mainContent {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    flex-wrap: nowrap;
+  }
+}
+
+.profileCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  min-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .profileCard {
+    min-width: 300px;
+    max-width: 300px;
+  }
+}
+
+.profileCardInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background-color: var(--color-gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  background: linear-gradient(135deg, var(--color-blue-400), var(--color-blue-600));
+  cursor: pointer;
+}
+
+.avatarPlaceholder {
+  width: 128px;
+  height: 128px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-blue-400), var(--color-blue-600));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  cursor: pointer;
+}
+
+.avatarImage {
+  width: 128px;
+  height: 128px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadButton {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: white;
+  background-color: var(--color-blue-500);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.uploadButton:hover {
+  background-color: var(--color-blue-600);
+}
+
+.statusSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  align-items: stretch;
+  width: 100%;
+}
+
+.statusLabel {
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  margin: 0;
+}
+
+.badgeGroup {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.badgeGreen {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green-800);
+  background-color: var(--color-green-100);
+  border-radius: var(--radius-md);
+}
+
+.badgeBlue {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-blue-800);
+  background-color: var(--color-blue-100);
+  border-radius: var(--radius-md);
+}
+
+.formSection {
+  flex: 1;
+  width: 100%;
+}
+
+.formCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.formLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+}
+
+.formLabelRequired::after {
+  content: ' *';
+  color: var(--color-error);
+}
+
+.input {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.textarea {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.textarea:focus {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+}
+
+.buttonOutline {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  background-color: transparent;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.buttonOutline:hover {
+  background-color: var(--color-gray-50);
+}
+
+.buttonPrimary {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: white;
+  background-color: var(--color-blue-500);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.buttonPrimary:hover {
+  background-color: var(--color-blue-600);
+}
+
+.achievementCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.achievementTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-4) 0;
+  display: inline-block;
+  padding-bottom: var(--spacing-2);
+  border-bottom: 3px solid var(--color-blue-500);
+}
+
+.achievementGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.achievementItem {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  text-align: center;
+  min-width: 150px;
+  background-color: var(--color-gray-50);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.achievementItem:hover {
+  background-color: var(--color-blue-50);
+  border-color: var(--color-blue-300);
+}
+
+.achievementItemFirst {
+  background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%);
+  transform: rotate(-2deg);
+}
+
+.achievementCount {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue-500);
+  margin: 0;
+}
+
+.achievementCountFirst {
+  font-family: "Comic Sans MS", cursive;
+}
+
+.achievementLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+.activityCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.activityTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.activityItem {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.activityItemLast {
+  border-bottom: none;
+}
+
+.activityText {
+  margin: 0;
+}
+
+.activityTime {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: 0;
+}
