@@ -9,7 +9,7 @@ export { Text } from './Text';
 export { Heading } from './Heading';
 
 export { Button } from './Button';
-export { Input } from './Input';
+export { Input, InputGroup, InputLeftElement, InputRightElement } from './Input';
 export { Textarea } from './Textarea';
 export { Select } from './Select';
 export { Checkbox } from './Checkbox';
@@ -46,7 +46,7 @@ export type { SimpleGridProps } from './SimpleGrid';
 export type { TextProps } from './Text';
 export type { HeadingProps } from './Heading';
 export type { ButtonProps, ButtonVariant, ButtonSize, ButtonColorScheme } from './Button';
-export type { InputProps, InputSize, InputVariant } from './Input';
+export type { InputProps, InputSize, InputVariant, InputGroupProps, InputElementProps } from './Input';
 export type { TextareaProps, TextareaSize } from './Textarea';
 export type { SelectProps, SelectSize } from './Select';
 export type { CheckboxProps, CheckboxSize, CheckboxColorScheme } from './Checkbox';
