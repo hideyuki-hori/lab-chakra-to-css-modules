@@ -1,0 +1,7 @@
+.box {
+  box-sizing: border-box;
+}
+
+.hoverable {
+  cursor: pointer;
+}
