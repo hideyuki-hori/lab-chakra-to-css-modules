@@ -11,6 +11,7 @@ export { default as RoleBadge } from './RoleBadge';
 export { default as Avatar, AvatarContext, useAvatarContext } from './Avatar';
 export { default as AvatarGroup } from './AvatarGroup';
 export { default as AvatarBadge } from './AvatarBadge';
+export { default as Badge } from './Badge';
 
 export { default as Input } from './Input';
 export { default as InputGroup } from './InputGroup';
@@ -80,3 +81,5 @@ export type { LayoutProps, ResponsiveValue, SpacingValue, ColorValue, RadiusValu
 export type { AvatarSize, AvatarProps } from './Avatar';
 export type { AvatarGroupProps } from './AvatarGroup';
 export type { AvatarBadgeProps } from './AvatarBadge';
+
+export type { BadgeVariant, BadgeColorScheme, BadgeProps } from './Badge';
