@@ -206,7 +206,7 @@ export default function TasksPage() {
             <thead className={styles.tableHeader}>
               <tr>
                 <th className={`${styles.th} ${styles.thCheckbox}`}>完了</th>
-                <th className={styles.th}>タスク名</th>
+                <th className={`${styles.th} ${styles.thTask}`}>タスク名</th>
                 <th className={styles.th}>プロジェクト</th>
                 <th className={styles.th}>担当者</th>
                 <th className={styles.th}>優先度</th>

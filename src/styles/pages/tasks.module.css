@@ -145,6 +145,10 @@
   width: 50px;
 }
 
+.thTask {
+  min-width: 250px;
+}
+
 .thActions {
   width: 50px;
 }
@@ -178,10 +182,10 @@
 .taskDescription {
   font-size: var(--font-size-sm);
   color: var(--color-gray-600);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 300px;
 }
 
 .projectName {
@@ -229,28 +233,28 @@
 }
 
 .badgeRed {
-  background-color: var(--color-red-100);
-  color: var(--color-red-700);
+  background-color: var(--color-red-500);
+  color: white;
 }
 
 .badgeOrange {
-  background-color: var(--color-orange-100);
-  color: var(--color-orange-700);
+  background-color: var(--color-orange-500);
+  color: white;
 }
 
 .badgeBlue {
-  background-color: var(--color-blue-100);
-  color: var(--color-blue-700);
+  background-color: var(--color-blue-500);
+  color: white;
 }
 
 .badgeGreen {
-  background-color: var(--color-green-100);
-  color: var(--color-green-700);
+  background-color: var(--color-green-500);
+  color: white;
 }
 
 .badgeGray {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-700);
+  background-color: var(--color-gray-500);
+  color: white;
 }
 
 .dateText {
