@@ -1,0 +1,360 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.header {
+  margin-bottom: var(--spacing-2);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.subtitle {
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-10);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  background-color: white;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.searchInput::placeholder {
+  color: var(--color-gray-400);
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: white;
+  background-color: var(--color-blue-500);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.addButton:hover {
+  background-color: var(--color-blue-600);
+}
+
+.tableContainer {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background-color: var(--color-gray-50);
+}
+
+.th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.thActions {
+  width: 50px;
+}
+
+.tr {
+  border-bottom: 1px solid var(--color-gray-100);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.td {
+  padding: var(--spacing-4);
+  vertical-align: middle;
+}
+
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.projectName {
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.projectDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.ownerCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.ownerName {
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+.membersCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.avatarGroup {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.avatarGroupItem {
+  margin-left: -8px;
+  border: 2px solid white;
+  border-radius: var(--radius-full);
+}
+
+.avatarGroupItem:last-child {
+  margin-left: 0;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatarSm {
+  width: 28px;
+  height: 28px;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.avatarPlaceholderSm {
+  width: 28px;
+  height: 28px;
+  font-size: var(--font-size-xs);
+}
+
+.avatarMore {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-600);
+  background-color: var(--color-gray-200);
+  border: 2px solid white;
+  margin-left: -8px;
+}
+
+.memberCount {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+}
+
+.badgeGreen {
+  color: var(--color-green-800);
+  background-color: var(--color-green-100);
+}
+
+.badgeBlue {
+  color: var(--color-blue-800);
+  background-color: var(--color-blue-100);
+}
+
+.badgeGray {
+  color: var(--color-gray-700);
+  background-color: var(--color-gray-200);
+}
+
+.badgeOrange {
+  color: #c05621;
+  background-color: #feebc8;
+}
+
+.badgeRed {
+  color: #c53030;
+  background-color: #fed7d7;
+}
+
+.progressCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.progressValue {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.progressBar {
+  height: 6px;
+  width: 80px;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.progressFillGreen {
+  background-color: var(--color-green-500);
+}
+
+.progressFillBlue {
+  background-color: var(--color-blue-500);
+}
+
+.progressFillOrange {
+  background-color: #dd6b20;
+}
+
+.progressFillRed {
+  background-color: #e53e3e;
+}
+
+.dateText {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-gray-600);
+  transition: background-color var(--transition-fast);
+}
+
+.actionButton:hover {
+  background-color: var(--color-gray-100);
+}
+
+.emptyState {
+  padding: var(--spacing-10);
+  text-align: center;
+}
+
+.emptyText {
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.footerText {
+  margin: 0;
+}
+
+.footerBadges {
+  display: flex;
+  gap: var(--spacing-4);
+}

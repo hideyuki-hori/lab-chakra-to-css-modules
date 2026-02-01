@@ -1,62 +1,50 @@
-import { Box, HStack, Text, useColorModeValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-
-const MotionBox = motion(Box);
+import styles from '../../styles/components/progress-bar.module.css';
 
 interface ProgressBarProps {
   value: number;
   showLabel?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  colorScheme?: string;
   isAnimated?: boolean;
 }
 
-const sizeMap = {
-  sm: '4px',
-  md: '6px',
-  lg: '10px',
+const sizeClassMap = {
+  sm: styles.trackSm,
+  md: styles.trackMd,
+  lg: styles.trackLg,
 };
 
 export default function ProgressBar({
   value,
   showLabel = false,
   size = 'md',
-  colorScheme = 'primary',
   isAnimated = true,
 }: ProgressBarProps) {
-  const bgColor = useColorModeValue('gray.200', 'gray.600');
-  const barColor = useColorModeValue(`${colorScheme}.500`, `${colorScheme}.400`);
   const clampedValue = Math.min(100, Math.max(0, value));
+  const trackClasses = [styles.track, sizeClassMap[size]].join(' ');
 
   return (
-    <Box w="full">
+    <div className={styles.container}>
       {showLabel && (
-        <HStack justify="space-between" fontSize="xs" mb={1}>
-          <Text color="gray.500">進捗率</Text>
-          <Text fontWeight="semibold" color={`${colorScheme}.600`}>
-            {clampedValue}%
-          </Text>
-        </HStack>
+        <div className={styles.labelContainer}>
+          <span className={styles.labelText}>進捗率</span>
+          <span className={styles.labelValue}>{clampedValue}%</span>
+        </div>
       )}
-      <Box h={sizeMap[size]} bg={bgColor} borderRadius="full" overflow="hidden">
+      <div className={trackClasses}>
         {isAnimated ? (
-          <MotionBox
-            h="full"
-            bg={barColor}
-            borderRadius="full"
+          <motion.div
+            className={styles.bar}
             initial={{ width: 0 }}
             animate={{ width: `${clampedValue}%` }}
           />
         ) : (
-          <Box
-            h="full"
-            bg={barColor}
-            borderRadius="full"
-            w={`${clampedValue}%`}
-            transition="width 0.3s"
+          <div
+            className={styles.bar}
+            style={{ width: `${clampedValue}%` }}
           />
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

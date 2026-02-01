@@ -1,0 +1,108 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.sizeSm {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.sizeMd {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+}
+
+.sizeLg {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-lg);
+}
+
+/* Variants */
+.variantPrimary {
+  background-color: var(--color-blue-500);
+  color: white;
+}
+
+.variantPrimary:hover:not(:disabled) {
+  background-color: var(--color-blue-600);
+}
+
+.variantSecondary {
+  background-color: transparent;
+  color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-300);
+}
+
+.variantSecondary:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+}
+
+.variantDanger {
+  background-color: var(--color-red-500);
+  color: white;
+}
+
+.variantDanger:hover:not(:disabled) {
+  background-color: var(--color-red-600);
+}
+
+.variantGhost {
+  background-color: transparent;
+  color: var(--color-gray-600);
+}
+
+.variantGhost:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.variantOutline {
+  background-color: transparent;
+  color: var(--color-blue-500);
+  border: 1px solid var(--color-blue-500);
+}
+
+.variantOutline:hover:not(:disabled) {
+  background-color: var(--color-blue-50);
+}
+
+/* Loading state */
+.loading {
+  position: relative;
+  color: transparent;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation wrapper */
+.animationWrapper {
+  display: inline-block;
+}

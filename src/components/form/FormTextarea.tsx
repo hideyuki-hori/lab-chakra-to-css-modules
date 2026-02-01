@@ -1,14 +1,7 @@
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Textarea,
-  TextareaProps,
-} from '@chakra-ui/react';
-import { forwardRef } from 'react';
+import { forwardRef, TextareaHTMLAttributes } from 'react';
+import styles from '../../styles/components/form.module.css';
 
-interface FormTextareaProps extends TextareaProps {
+interface FormTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -16,14 +9,17 @@ interface FormTextareaProps extends TextareaProps {
 }
 
 const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  ({ label, error, helperText, isRequired = false, ...props }, ref) => {
+  ({ label, error, helperText, isRequired = false, className, ...props }, ref) => {
+    const labelClasses = [styles.label, isRequired ? styles.labelRequired : ''].filter(Boolean).join(' ');
+    const textareaClasses = [styles.textarea, error ? styles.inputError : '', className].filter(Boolean).join(' ');
+
     return (
-      <FormControl isInvalid={!!error} isRequired={isRequired}>
-        {label && <FormLabel>{label}</FormLabel>}
-        <Textarea ref={ref} bg="white" {...props} />
-        {error && <FormErrorMessage>{error}</FormErrorMessage>}
-        {helperText && !error && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
+      <div className={styles.formControl}>
+        {label && <label className={labelClasses}>{label}</label>}
+        <textarea ref={ref} className={textareaClasses} {...props} />
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {helperText && !error && <p className={styles.helperText}>{helperText}</p>}
+      </div>
     );
   }
 );

@@ -1,0 +1,342 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.header {
+  margin-bottom: var(--spacing-2);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.subtitle {
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.statCardPrimary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.statIconPrimary {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.statIconAccent {
+  color: var(--color-purple-500);
+}
+
+.statIconBlue {
+  color: var(--color-blue-500);
+}
+
+.statIconOrange {
+  color: #dd6b20;
+}
+
+.statLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.statLabelPrimary {
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statNumber {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.statNumberPrimary {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.statHelp {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-1) 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.statHelpPrimary {
+  color: rgba(255,255,255,0.8);
+}
+
+.statArrowUp {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid var(--color-success);
+  margin-right: var(--spacing-1);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.cardHeader {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.cardTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.cardBody {
+  padding: var(--spacing-5);
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.taskItem {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  transition: all 0.2s;
+}
+
+.taskItem:hover {
+  border-color: var(--color-blue-300);
+  background-color: var(--color-gray-50);
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.taskTitle {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+.taskDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0 0 var(--spacing-3) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.taskFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.taskAssignee {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.taskDate {
+  color: var(--color-gray-500);
+}
+
+.taskDateOverdue {
+  color: var(--color-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+.badge {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+}
+
+.badgeRed {
+  color: #c53030;
+  background-color: #fed7d7;
+}
+
+.badgeOrange {
+  color: #c05621;
+  background-color: #feebc8;
+}
+
+.badgeBlue {
+  color: var(--color-blue-800);
+  background-color: var(--color-blue-100);
+}
+
+.badgeGray {
+  color: var(--color-gray-700);
+  background-color: var(--color-gray-200);
+}
+
+.badgeGreen {
+  color: var(--color-green-800);
+  background-color: var(--color-green-100);
+}
+
+.badgeSubtle {
+  background-color: transparent;
+}
+
+.projectName {
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.assigneeName {
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+}
+
+.progressLabel {
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.progressValue {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-blue-600);
+  margin: 0;
+}
+
+.progressBar {
+  height: 6px;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-blue-500);
+  transition: width 0.3s;
+}
+
+.projectFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+}
+
+.projectDate {
+  color: var(--color-gray-500);
+  margin: 0;
+}

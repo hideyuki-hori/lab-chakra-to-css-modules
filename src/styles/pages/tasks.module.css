@@ -1,0 +1,347 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.header {
+  margin-bottom: var(--spacing-2);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-2);
+}
+
+.subtitle {
+  color: var(--color-gray-600);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchContainer {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2) var(--spacing-10);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  background-color: white;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-3);
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-600);
+}
+
+.select {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  background-color: white;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.selectProject {
+  max-width: 200px;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--color-blue-500);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.addButton:hover {
+  background-color: var(--color-blue-600);
+}
+
+.tableContainer {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background-color: var(--color-gray-50);
+}
+
+.th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.thCheckbox {
+  width: 50px;
+}
+
+.thTask {
+  min-width: 250px;
+}
+
+.thActions {
+  width: 50px;
+}
+
+.tr {
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.td {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-100);
+  vertical-align: middle;
+}
+
+.taskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.taskTitle {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-800);
+}
+
+.taskDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.projectName {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.assigneeCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: white;
+}
+
+.assigneeName {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+}
+
+.badgeRed {
+  background-color: var(--color-red-500);
+  color: white;
+}
+
+.badgeOrange {
+  background-color: var(--color-orange-500);
+  color: white;
+}
+
+.badgeBlue {
+  background-color: var(--color-blue-500);
+  color: white;
+}
+
+.badgeGreen {
+  background-color: var(--color-green-500);
+  color: white;
+}
+
+.badgeGray {
+  background-color: var(--color-gray-500);
+  color: white;
+}
+
+.badgeRedSubtle {
+  background-color: var(--color-red-100);
+  color: var(--color-red-700);
+}
+
+.badgeOrangeSubtle {
+  background-color: var(--color-orange-100);
+  color: var(--color-orange-700);
+}
+
+.badgeBlueSubtle {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-700);
+}
+
+.badgeGreenSubtle {
+  background-color: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.badgeGraySubtle {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.dateText {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.dateOverdue {
+  color: var(--color-red-500);
+  font-weight: var(--font-weight-semibold);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-blue-500);
+}
+
+.checkboxWrapper {
+  display: inline-block;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-gray-500);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.actionButton:hover {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.emptyState {
+  padding: var(--spacing-10) var(--spacing-6);
+  text-align: center;
+}
+
+.emptyText {
+  color: var(--color-gray-500);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.footerBadges {
+  display: flex;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}

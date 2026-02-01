@@ -1,323 +1,215 @@
-import {
-  Box,
-  Button,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  SimpleGrid,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Badge,
-  VStack,
-  HStack,
-  Tooltip,
-  useToast,
-} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import Layout from '../components/layout/Layout';
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '../components/ui/Tabs';
+import { Tooltip } from '../components/ui/Tooltip';
 import { reportStats, reportDetails } from '../lib/mockData';
-
-const MotionBox = motion(Box);
+import styles from '../styles/pages/reports.module.css';
 
 const Reports = () => {
-  const toast = useToast();
-
   const handleExport = (format: string) => {
-    toast({
-      title: 'レポート生成中',
-      description: `${format}形式でエクスポートしています...`,
-      status: 'info',
+    toast(`${format}形式でエクスポートしています...`, {
+      icon: 'ℹ️',
       duration: 2000,
-      isClosable: true,
     });
   };
 
-  const getStatusBadgeColor = (status: string) => {
+  const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case '完了':
-        return 'green';
+        return styles.badgeGreen;
       case '進行中':
-        return 'blue';
+        return styles.badgeBlue;
       case '保留':
-        return 'yellow';
+        return styles.badgeYellow;
       case '未着手':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
+  const getProductivityBadgeClass = (productivity: string) => {
+    switch (productivity) {
+      case '高':
+        return styles.badgeGreen;
+      case '中':
+        return styles.badgeBlue;
+      default:
+        return styles.badgeYellow;
+    }
+  };
+
+  const getAchievementBadgeClass = (rate: number) => {
+    if (rate >= 80) return styles.badgeGreen;
+    if (rate >= 60) return styles.badgeBlue;
+    return styles.badgeYellow;
+  };
+
+  const renderStatCard = (
+    stat: { label: string; value: string | number; change: number; description: string },
+    index: number
+  ) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+    >
+      <Tooltip label={stat.description}>
+        <div className={styles.statCard}>
+          <p className={styles.statLabel}>{stat.label}</p>
+          <p className={styles.statNumber}>{stat.value}</p>
+          <p className={styles.statHelpText}>
+            <span className={stat.change > 0 ? styles.statArrowIncrease : styles.statArrowDecrease}>
+              {stat.change > 0 ? '▲' : '▼'}
+            </span>
+            {Math.abs(stat.change)}%
+          </p>
+        </div>
+      </Tooltip>
+    </motion.div>
+  );
+
   return (
     <Layout>
-      <Box p={8}>
-        <VStack spacing={6} align="stretch">
-          <HStack justify="space-between">
-            <Text fontSize="3xl" fontWeight="bold">
-              レポート・分析
-            </Text>
-            <HStack>
-              <Button
-                colorScheme="green"
-                onClick={() => handleExport('Excel')}
-              >
-                Excelエクスポート
-              </Button>
-              <Button colorScheme="blue" onClick={() => handleExport('PDF')}>
-                PDFエクスポート
-              </Button>
-            </HStack>
-          </HStack>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>レポート・分析</h1>
+          <div className={styles.buttonGroup}>
+            <button
+              className={`${styles.button} ${styles.buttonGreen}`}
+              onClick={() => handleExport('Excel')}
+            >
+              Excelエクスポート
+            </button>
+            <button
+              className={`${styles.button} ${styles.buttonBlue}`}
+              onClick={() => handleExport('PDF')}
+            >
+              PDFエクスポート
+            </button>
+          </div>
+        </div>
 
-          <Tabs colorScheme="blue" variant="enclosed">
-            <TabList>
-              <Tab>プロジェクト別</Tab>
-              <Tab>メンバー別</Tab>
-              <Tab>期間別</Tab>
-            </TabList>
+        <Tabs>
+          <TabList>
+            <Tab index={0}>プロジェクト別</Tab>
+            <Tab index={1}>メンバー別</Tab>
+            <Tab index={2}>期間別</Tab>
+          </TabList>
 
-            <TabPanels>
-              <TabPanel>
-                <VStack spacing={6} align="stretch">
-                  <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                    {reportStats.project.map((stat, index) => (
-                      <MotionBox
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                      >
-                        <Tooltip label={stat.description}>
-                          <Box
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            p={6}
-                            bg="white"
-                            shadow="md"
-                            _hover={{ shadow: 'xl' }}
-                          >
-                            <Stat>
-                              <StatLabel>{stat.label}</StatLabel>
-                              <StatNumber>{stat.value}</StatNumber>
-                              <StatHelpText>
-                                <StatArrow
-                                  type={
-                                    stat.change > 0 ? 'increase' : 'decrease'
-                                  }
-                                />
-                                {Math.abs(stat.change)}%
-                              </StatHelpText>
-                            </Stat>
-                          </Box>
-                        </Tooltip>
-                      </MotionBox>
-                    ))}
-                  </SimpleGrid>
+          <TabPanels>
+            <TabPanel index={0}>
+              <div className={styles.tabContent}>
+                <div className={styles.statsGrid}>
+                  {reportStats.project.map((stat, index) => renderStatCard(stat, index))}
+                </div>
 
-                  <Box borderWidth="1px" borderRadius="lg" p={4} bg="white">
-                    <Text fontSize="xl" fontWeight="bold" mb={4}>
-                      プロジェクト詳細
-                    </Text>
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th>プロジェクト名</Th>
-                          <Th>タスク数</Th>
-                          <Th>完了率</Th>
-                          <Th>ステータス</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {reportDetails.project.map((project) => (
-                          <Tr key={project.id}>
-                            <Td>{project.name}</Td>
-                            <Td>{project.taskCount}</Td>
-                            <Td>{project.completion}%</Td>
-                            <Td>
-                              <Badge
-                                colorScheme={getStatusBadgeColor(
-                                  project.status
-                                )}
-                              >
-                                {project.status}
-                              </Badge>
-                            </Td>
-                          </Tr>
-                        ))}
-                      </Tbody>
-                    </Table>
-                  </Box>
-                </VStack>
-              </TabPanel>
+                <div className={styles.tableCard}>
+                  <h2 className={styles.tableTitle}>プロジェクト詳細</h2>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th className={styles.th}>プロジェクト名</th>
+                        <th className={styles.th}>タスク数</th>
+                        <th className={styles.th}>完了率</th>
+                        <th className={styles.th}>ステータス</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportDetails.project.map((project) => (
+                        <tr key={project.id}>
+                          <td className={styles.td}>{project.name}</td>
+                          <td className={styles.td}>{project.taskCount}</td>
+                          <td className={styles.td}>{project.completion}%</td>
+                          <td className={styles.td}>
+                            <span className={`${styles.badge} ${getStatusBadgeClass(project.status)}`}>
+                              {project.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </TabPanel>
 
-              <TabPanel>
-                <VStack spacing={6} align="stretch">
-                  <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                    {reportStats.member.map((stat, index) => (
-                      <MotionBox
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                      >
-                        <Tooltip label={stat.description}>
-                          <Box
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            p={6}
-                            bg="white"
-                            shadow="md"
-                            _hover={{ shadow: 'xl' }}
-                          >
-                            <Stat>
-                              <StatLabel>{stat.label}</StatLabel>
-                              <StatNumber>{stat.value}</StatNumber>
-                              <StatHelpText>
-                                <StatArrow
-                                  type={
-                                    stat.change > 0 ? 'increase' : 'decrease'
-                                  }
-                                />
-                                {Math.abs(stat.change)}%
-                              </StatHelpText>
-                            </Stat>
-                          </Box>
-                        </Tooltip>
-                      </MotionBox>
-                    ))}
-                  </SimpleGrid>
+            <TabPanel index={1}>
+              <div className={styles.tabContent}>
+                <div className={styles.statsGrid}>
+                  {reportStats.member.map((stat, index) => renderStatCard(stat, index))}
+                </div>
 
-                  <Box borderWidth="1px" borderRadius="lg" p={4} bg="white">
-                    <Text fontSize="xl" fontWeight="bold" mb={4}>
-                      メンバー詳細
-                    </Text>
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th>メンバー名</Th>
-                          <Th>担当タスク</Th>
-                          <Th>完了タスク</Th>
-                          <Th>生産性</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {reportDetails.member.map((member) => (
-                          <Tr key={member.id}>
-                            <Td>{member.name}</Td>
-                            <Td>{member.assignedTasks}</Td>
-                            <Td>{member.completedTasks}</Td>
-                            <Td>
-                              <Badge
-                                colorScheme={
-                                  member.productivity === '高'
-                                    ? 'green'
-                                    : member.productivity === '中'
-                                      ? 'blue'
-                                      : 'yellow'
-                                }
-                              >
-                                {member.productivity}
-                              </Badge>
-                            </Td>
-                          </Tr>
-                        ))}
-                      </Tbody>
-                    </Table>
-                  </Box>
-                </VStack>
-              </TabPanel>
+                <div className={styles.tableCard}>
+                  <h2 className={styles.tableTitle}>メンバー詳細</h2>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th className={styles.th}>メンバー名</th>
+                        <th className={styles.th}>担当タスク</th>
+                        <th className={styles.th}>完了タスク</th>
+                        <th className={styles.th}>生産性</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportDetails.member.map((member) => (
+                        <tr key={member.id}>
+                          <td className={styles.td}>{member.name}</td>
+                          <td className={styles.td}>{member.assignedTasks}</td>
+                          <td className={styles.td}>{member.completedTasks}</td>
+                          <td className={styles.td}>
+                            <span className={`${styles.badge} ${getProductivityBadgeClass(member.productivity)}`}>
+                              {member.productivity}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </TabPanel>
 
-              <TabPanel>
-                <VStack spacing={6} align="stretch">
-                  <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                    {reportStats.period.map((stat, index) => (
-                      <MotionBox
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                      >
-                        <Tooltip label={stat.description}>
-                          <Box
-                            borderWidth="1px"
-                            borderRadius="lg"
-                            p={6}
-                            bg="white"
-                            shadow="md"
-                            _hover={{ shadow: 'xl' }}
-                          >
-                            <Stat>
-                              <StatLabel>{stat.label}</StatLabel>
-                              <StatNumber>{stat.value}</StatNumber>
-                              <StatHelpText>
-                                <StatArrow
-                                  type={
-                                    stat.change > 0 ? 'increase' : 'decrease'
-                                  }
-                                />
-                                {Math.abs(stat.change)}%
-                              </StatHelpText>
-                            </Stat>
-                          </Box>
-                        </Tooltip>
-                      </MotionBox>
-                    ))}
-                  </SimpleGrid>
+            <TabPanel index={2}>
+              <div className={styles.tabContent}>
+                <div className={styles.statsGrid}>
+                  {reportStats.period.map((stat, index) => renderStatCard(stat, index))}
+                </div>
 
-                  <Box borderWidth="1px" borderRadius="lg" p={4} bg="white">
-                    <Text fontSize="xl" fontWeight="bold" mb={4}>
-                      期間別詳細（月次）
-                    </Text>
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th>月</Th>
-                          <Th>新規タスク</Th>
-                          <Th>完了タスク</Th>
-                          <Th>達成率</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {reportDetails.period.map((period) => (
-                          <Tr key={period.id}>
-                            <Td>{period.month}</Td>
-                            <Td>{period.newTasks}</Td>
-                            <Td>{period.completedTasks}</Td>
-                            <Td>
-                              <Badge
-                                colorScheme={
-                                  period.achievementRate >= 80
-                                    ? 'green'
-                                    : period.achievementRate >= 60
-                                      ? 'blue'
-                                      : 'yellow'
-                                }
-                              >
-                                {period.achievementRate}%
-                              </Badge>
-                            </Td>
-                          </Tr>
-                        ))}
-                      </Tbody>
-                    </Table>
-                  </Box>
-                </VStack>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </VStack>
-      </Box>
+                <div className={styles.tableCard}>
+                  <h2 className={styles.tableTitle}>期間別詳細（月次）</h2>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th className={styles.th}>月</th>
+                        <th className={styles.th}>新規タスク</th>
+                        <th className={styles.th}>完了タスク</th>
+                        <th className={styles.th}>達成率</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportDetails.period.map((period) => (
+                        <tr key={period.id}>
+                          <td className={styles.td}>{period.month}</td>
+                          <td className={styles.td}>{period.newTasks}</td>
+                          <td className={styles.td}>{period.completedTasks}</td>
+                          <td className={styles.td}>
+                            <span className={`${styles.badge} ${getAchievementBadgeClass(period.achievementRate)}`}>
+                              {period.achievementRate}%
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </div>
     </Layout>
   );
 };

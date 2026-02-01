@@ -1,18 +1,7 @@
-import {
-  Box,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableProps,
-} from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode } from 'react';
 import { EmptyState } from '../ui';
-
-const MotionTr = motion(Tr);
+import styles from '../../styles/components/data-table.module.css';
 
 interface Column<T> {
   key: string;
@@ -21,7 +10,7 @@ interface Column<T> {
   render: (item: T) => ReactNode;
 }
 
-interface DataTableProps<T> extends Omit<TableProps, 'children'> {
+interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   keyExtractor: (item: T) => string;
@@ -37,57 +26,64 @@ export default function DataTable<T>({
   onRowClick,
   isAnimated = true,
   emptyMessage = '検索条件に一致するデータが見つかりませんでした',
-  ...tableProps
 }: DataTableProps<T>) {
+  const rowClasses = [styles.tr, onRowClick ? styles.trClickable : ''].filter(Boolean).join(' ');
+
   return (
-    <Box bg="white" borderRadius="lg" boxShadow="sm" overflow="hidden">
-      <Table variant="simple" {...tableProps}>
-        <Thead bg="gray.50">
-          <Tr>
+    <div className={styles.container}>
+      <table className={styles.table}>
+        <thead className={styles.thead}>
+          <tr>
             {columns.map((column) => (
-              <Th key={column.key} width={column.width}>
+              <th
+                key={column.key}
+                className={styles.th}
+                style={column.width ? { width: column.width } : undefined}
+              >
                 {column.header}
-              </Th>
+              </th>
             ))}
-          </Tr>
-        </Thead>
-        <Tbody>
+          </tr>
+        </thead>
+        <tbody>
           {isAnimated ? (
             <AnimatePresence mode="popLayout">
               {data.map((item) => (
-                <MotionTr
+                <motion.tr
                   key={keyExtractor(item)}
+                  className={rowClasses}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -100 }}
-                  whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.02)' }}
-                  cursor={onRowClick ? 'pointer' : 'default'}
                   onClick={() => onRowClick?.(item)}
                 >
                   {columns.map((column) => (
-                    <Td key={column.key}>{column.render(item)}</Td>
+                    <td key={column.key} className={styles.td}>
+                      {column.render(item)}
+                    </td>
                   ))}
-                </MotionTr>
+                </motion.tr>
               ))}
             </AnimatePresence>
           ) : (
             data.map((item) => (
-              <Tr
+              <tr
                 key={keyExtractor(item)}
-                _hover={{ bg: 'gray.50' }}
-                cursor={onRowClick ? 'pointer' : 'default'}
+                className={rowClasses}
                 onClick={() => onRowClick?.(item)}
               >
                 {columns.map((column) => (
-                  <Td key={column.key}>{column.render(item)}</Td>
+                  <td key={column.key} className={styles.td}>
+                    {column.render(item)}
+                  </td>
                 ))}
-              </Tr>
+              </tr>
             ))
           )}
-        </Tbody>
-      </Table>
+        </tbody>
+      </table>
 
       {data.length === 0 && <EmptyState title={emptyMessage} />}
-    </Box>
+    </div>
   );
 }

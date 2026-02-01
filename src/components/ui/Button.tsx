@@ -1,68 +1,82 @@
-import {
-  Button as ChakraButton,
-  ButtonProps as ChakraButtonProps,
-  Box,
-  forwardRef,
-} from '@chakra-ui/react';
+import { forwardRef, ButtonHTMLAttributes, ReactNode } from 'react';
 import { motion } from 'framer-motion';
-
-const MotionBox = motion(Box);
+import styles from '../../styles/components/button.module.css';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'outline';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends Omit<ChakraButtonProps, 'variant' | 'size'> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isAnimated?: boolean;
+  isLoading?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  children?: ReactNode;
 }
 
-const variantStyles: Record<ButtonVariant, ChakraButtonProps> = {
-  primary: {
-    colorScheme: 'primary',
-  },
-  secondary: {
-    colorScheme: 'gray',
-    variant: 'outline',
-  },
-  danger: {
-    colorScheme: 'red',
-  },
-  ghost: {
-    variant: 'ghost',
-  },
-  outline: {
-    variant: 'outline',
-    colorScheme: 'primary',
-  },
+const variantClassMap: Record<ButtonVariant, string> = {
+  primary: styles.variantPrimary,
+  secondary: styles.variantSecondary,
+  danger: styles.variantDanger,
+  ghost: styles.variantGhost,
+  outline: styles.variantOutline,
 };
 
-const sizeStyles: Record<ButtonSize, ChakraButtonProps> = {
-  sm: { size: 'sm', fontSize: 'sm', px: 3, py: 1 },
-  md: { size: 'md', fontSize: 'md', px: 4, py: 2 },
-  lg: { size: 'lg', fontSize: 'lg', px: 6, py: 3 },
+const sizeClassMap: Record<ButtonSize, string> = {
+  sm: styles.sizeSm,
+  md: styles.sizeMd,
+  lg: styles.sizeLg,
 };
 
-const Button = forwardRef<ButtonProps, 'button'>(
-  ({ variant = 'primary', size = 'md', isAnimated = true, children, ...props }, ref) => {
-    const variantStyle = variantStyles[variant];
-    const sizeStyle = sizeStyles[size];
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      variant = 'primary',
+      size = 'md',
+      isAnimated = true,
+      isLoading = false,
+      leftIcon,
+      rightIcon,
+      children,
+      className,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const buttonClasses = [
+      styles.button,
+      variantClassMap[variant],
+      sizeClassMap[size],
+      isLoading ? styles.loading : '',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     const button = (
-      <ChakraButton ref={ref} {...variantStyle} {...sizeStyle} {...props}>
+      <button
+        ref={ref}
+        className={buttonClasses}
+        disabled={disabled || isLoading}
+        {...props}
+      >
+        {leftIcon && <span>{leftIcon}</span>}
         {children}
-      </ChakraButton>
+        {rightIcon && <span>{rightIcon}</span>}
+      </button>
     );
 
-    if (isAnimated) {
+    if (isAnimated && !disabled && !isLoading) {
       return (
-        <MotionBox
-          display="inline-block"
+        <motion.span
+          className={styles.animationWrapper}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
           {button}
-        </MotionBox>
+        </motion.span>
       );
     }
 

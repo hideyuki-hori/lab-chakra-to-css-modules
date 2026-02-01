@@ -1,22 +1,10 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  Text,
-  HStack,
-  Icon,
-  VStack,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
 import { FiAlertTriangle } from 'react-icons/fi';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../ui/Modal';
+import Button from '../ui/Button';
+import styles from '../../styles/components/confirm-modal.module.css';
 
-const MotionModalContent = motion(ModalContent);
+type IconColor = 'orange' | 'red' | 'blue' | 'green';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -26,11 +14,18 @@ interface ConfirmModalProps {
   message: string;
   confirmLabel?: string;
   cancelLabel?: string;
-  confirmColorScheme?: string;
+  confirmVariant?: 'primary' | 'danger';
   icon?: IconType;
-  iconColor?: string;
+  iconColor?: IconColor;
   isLoading?: boolean;
 }
+
+const iconColorClassMap: Record<IconColor, string> = {
+  orange: styles.iconOrange,
+  red: styles.iconRed,
+  blue: styles.iconBlue,
+  green: styles.iconGreen,
+};
 
 export default function ConfirmModal({
   isOpen,
@@ -40,44 +35,28 @@ export default function ConfirmModal({
   message,
   confirmLabel = '確認',
   cancelLabel = 'キャンセル',
-  confirmColorScheme = 'red',
-  icon = FiAlertTriangle,
-  iconColor = 'orange.500',
+  confirmVariant = 'danger',
+  icon: Icon = FiAlertTriangle,
+  iconColor = 'orange',
   isLoading = false,
 }: ConfirmModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom">
-      <ModalOverlay />
-      <MotionModalContent
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-      >
-        <ModalHeader>{title}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <VStack spacing={4} align="start">
-            <HStack spacing={3}>
-              <Icon as={icon} boxSize={6} color={iconColor} />
-              <Text>{message}</Text>
-            </HStack>
-          </VStack>
-        </ModalBody>
-        <ModalFooter>
-          <HStack spacing={3}>
-            <Button variant="ghost" onClick={onClose} isDisabled={isLoading}>
-              {cancelLabel}
-            </Button>
-            <Button
-              colorScheme={confirmColorScheme}
-              onClick={onConfirm}
-              isLoading={isLoading}
-            >
-              {confirmLabel}
-            </Button>
-          </HStack>
-        </ModalFooter>
-      </MotionModalContent>
+    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+      <ModalHeader onClose={onClose}>{title}</ModalHeader>
+      <ModalBody>
+        <div className={styles.messageContainer}>
+          <Icon className={`${styles.icon} ${iconColorClassMap[iconColor]}`} />
+          <p className={styles.message}>{message}</p>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button variant="ghost" onClick={onClose} disabled={isLoading}>
+          {cancelLabel}
+        </Button>
+        <Button variant={confirmVariant} onClick={onConfirm} isLoading={isLoading}>
+          {confirmLabel}
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 }

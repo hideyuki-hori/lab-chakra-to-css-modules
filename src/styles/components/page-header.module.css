@@ -1,0 +1,33 @@
+.container {
+  margin-bottom: var(--spacing-6);
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.textContainer {
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.titleWithDesc {
+  margin-bottom: var(--spacing-2);
+}
+
+.description {
+  color: var(--color-gray-600);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-3);
+}
