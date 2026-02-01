@@ -94,7 +94,6 @@
   width: 128px;
   height: 128px;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-blue-400), var(--color-blue-600));
   display: flex;
   align-items: center;
   justify-content: center;
