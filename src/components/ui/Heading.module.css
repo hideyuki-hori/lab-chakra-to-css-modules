@@ -6,33 +6,33 @@
 }
 
 .size4xl {
-  font-size: var(--font-size-4xl);
+  font-size: var(--heading-size-4xl);
 }
 
 .size3xl {
-  font-size: var(--font-size-3xl);
+  font-size: var(--heading-size-3xl);
 }
 
 .size2xl {
-  font-size: var(--font-size-2xl);
+  font-size: var(--heading-size-2xl);
 }
 
 .sizeXl {
-  font-size: var(--font-size-xl);
+  font-size: var(--heading-size-xl);
 }
 
 .sizeLg {
-  font-size: var(--font-size-lg);
+  font-size: var(--heading-size-lg);
 }
 
 .sizeMd {
-  font-size: var(--font-size-md);
+  font-size: var(--heading-size-md);
 }
 
 .sizeSm {
-  font-size: var(--font-size-sm);
+  font-size: var(--heading-size-sm);
 }
 
 .sizeXs {
-  font-size: var(--font-size-xs);
+  font-size: var(--heading-size-xs);
 }

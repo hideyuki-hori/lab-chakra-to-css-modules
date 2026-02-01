@@ -25,7 +25,16 @@ docs/migration-work.md の手順に従って作業を実行する。
 
 3. 該当Phaseの手順を実行
 
-4. 完了後、PRを作成
+4. **スクリーンショット取得（必須）**
+   - 作業完了後、比較ページのスクリーンショットを取得
+   - スクリーンショットがない場合はPRを作成しない
+   ```bash
+   mkdir -p screenshots/issue-$ARGUMENTS
+   agent-browser --cdp 9222 open "http://localhost:3000/compare/<Component>"
+   agent-browser --cdp 9222 screenshot "/Users/h/lab-chakra-to-css-modules/screenshots/issue-$ARGUMENTS/compare-<component>.png" --full
+   ```
+
+5. 完了後、PRを作成
 
 ## 参照
 
