@@ -1,0 +1,69 @@
+.calendarContainer {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  background-color: white;
+}
+
+.weekDaysRow {
+  display: flex;
+  margin-bottom: var(--spacing-2);
+}
+
+.weekDay {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-gray-600);
+  padding: var(--spacing-2);
+}
+
+.calendarGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dayCell {
+  width: 14.28%;
+  min-height: 100px;
+  padding: var(--spacing-2);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-gray-200);
+  background-color: white;
+  position: relative;
+}
+
+.dayCell.today {
+  background-color: var(--color-blue-50);
+}
+
+.dayNumber {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+}
+
+.dayNumber.today {
+  font-weight: 700;
+  color: var(--color-blue-600);
+}
+
+.eventBadge {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.15s ease;
+}
+
+.eventBadge:hover {
+  transform: scale(1.1);
+}
+
+.monthNav {
+  min-width: 200px;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
