@@ -38,3 +38,6 @@ next-env.d.ts
 # screenshots
 /screenshots
 screenshots/
+
+# Firebase Admin SDK
+serviceAccountKey.json
