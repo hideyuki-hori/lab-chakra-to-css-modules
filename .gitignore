@@ -41,3 +41,7 @@ screenshots/
 
 # Firebase Admin SDK
 serviceAccountKey.json
+
+# Claude Code - チーム共有設定を含める
+!.claude/
+.claude/settings.local.json

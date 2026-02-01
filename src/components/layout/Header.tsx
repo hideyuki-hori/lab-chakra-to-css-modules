@@ -1,27 +1,12 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Avatar,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  Badge,
-  IconButton,
-  useColorModeValue,
-} from '@chakra-ui/react';
 import { FiBell, FiSettings, FiLogOut, FiUser } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
+import { Menu, MenuItem, MenuDivider } from '../ui/Menu';
+import styles from '../../styles/components/layout.module.css';
 
 export default function Header() {
   const { user, logout } = useAuth();
   const router = useRouter();
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   const handleLogout = async () => {
     await logout();
@@ -30,89 +15,77 @@ export default function Header() {
 
   const displayName = user?.displayName || user?.email?.split('@')[0] || 'ユーザー';
 
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
+  };
+
   return (
-    <Box
-      position="fixed"
-      top={0}
-      left="250px"
-      right={0}
-      h="64px"
-      bg={bgColor}
-      borderBottom="1px"
-      borderColor={borderColor}
-      px={6}
-      zIndex={9}
-    >
-      <Flex h="full" align="center" justify="space-between">
-        <Box>
-          <Text fontSize="lg" fontWeight="semibold" color="gray.700">
-            ようこそ、{displayName}さん
-          </Text>
-          <Text fontSize="sm" color="gray.500">
-            今日も良い一日を
-          </Text>
-        </Box>
+    <header className={styles.header}>
+      <div className={styles.headerInner}>
+        <div className={styles.headerGreeting}>
+          <p className={styles.headerTitle}>ようこそ、{displayName}さん</p>
+          <p className={styles.headerSubtitle}>今日も良い一日を</p>
+        </div>
 
-        <HStack spacing={4}>
-          <IconButton
-            aria-label="通知"
-            icon={<FiBell />}
-            variant="ghost"
-            position="relative"
-            size="lg"
+        <div className={styles.headerActions}>
+          <button className={styles.notificationButton} aria-label="通知">
+            <FiBell />
+            <span className={styles.notificationBadge}>3</span>
+          </button>
+
+          <Menu
+            trigger={
+              <div className={styles.userMenu}>
+                <div className={styles.userInfo}>
+                  <p className={styles.userName}>{displayName}</p>
+                  <div className={styles.userStatus}>
+                    <span className={styles.statusBadge}>オンライン</span>
+                  </div>
+                </div>
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={displayName}
+                    className={styles.avatar}
+                  />
+                ) : (
+                  <div
+                    className={styles.avatarPlaceholder}
+                    style={{ background: getAvatarColor(displayName) }}
+                  >
+                    {displayName.charAt(0)}
+                  </div>
+                )}
+              </div>
+            }
           >
-            <Badge
-              position="absolute"
-              top="8px"
-              right="8px"
-              colorScheme="red"
-              borderRadius="full"
-              w="18px"
-              h="18px"
-              fontSize="xs"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              3
-            </Badge>
-          </IconButton>
-
-          <Menu>
-            <MenuButton>
-              <HStack spacing={3} cursor="pointer">
-                <Box textAlign="right">
-                  <Text fontSize="sm" fontWeight="medium" color="gray.700">
-                    {displayName}
-                  </Text>
-                  <HStack spacing={1} justify="flex-end">
-                    <Badge colorScheme="green" fontSize="xs" px={2}>
-                      オンライン
-                    </Badge>
-                  </HStack>
-                </Box>
-                <Avatar
-                  size="sm"
-                  name={displayName}
-                  src={user?.photoURL || undefined}
-                />
-              </HStack>
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<FiUser />} onClick={() => router.push('/profile')}>
-                プロフィール
-              </MenuItem>
-              <MenuItem icon={<FiSettings />} onClick={() => router.push('/settings')}>
-                設定
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem icon={<FiLogOut />} color="red.500" onClick={handleLogout}>
-                ログアウト
-              </MenuItem>
-            </MenuList>
+            <MenuItem icon={<FiUser />} onClick={() => router.push('/profile')}>
+              プロフィール
+            </MenuItem>
+            <MenuItem icon={<FiSettings />} onClick={() => router.push('/settings')}>
+              設定
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem icon={<FiLogOut />} color="#c53030" onClick={handleLogout}>
+              ログアウト
+            </MenuItem>
           </Menu>
-        </HStack>
-      </Flex>
-    </Box>
+        </div>
+      </div>
+    </header>
   );
 }
