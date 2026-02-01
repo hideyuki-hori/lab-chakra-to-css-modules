@@ -26,6 +26,9 @@ export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from './
 export { Tooltip } from './Tooltip';
 export { Menu, MenuButton, MenuList, MenuItem, MenuDivider } from './Menu';
 export { Tabs, TabList, Tab, TabPanels, TabPanel } from './Tabs';
+export { Table, Thead, Tbody, Tr, Th, Td } from './Table';
+export { Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from './Stat';
+export { Progress, ProgressLabel } from './Progress';
 
 export { default as ProgressBar } from './ProgressBar';
 export { default as EmptyState } from './EmptyState';
@@ -63,3 +66,6 @@ export type { ModalProps, ModalSize, ModalHeaderProps, ModalBodyProps, ModalFoot
 export type { TooltipProps, TooltipPlacement } from './Tooltip';
 export type { MenuProps, MenuButtonProps, MenuListProps, MenuItemProps, MenuDividerProps } from './Menu';
 export type { TabsProps, TabsVariant, TabListProps, TabProps, TabPanelsProps, TabPanelProps } from './Tabs';
+export type { TableProps, TableSize, TableVariant, TheadProps, TbodyProps, TrProps, ThProps, TdProps } from './Table';
+export type { StatProps, StatLabelProps, StatNumberProps, StatHelpTextProps, StatArrowProps, StatArrowType } from './Stat';
+export type { ProgressProps, ProgressSize, ProgressColorScheme, ProgressLabelProps } from './Progress';

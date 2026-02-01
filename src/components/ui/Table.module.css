@@ -1,0 +1,74 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.tbody .tr {
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.tbody .tr:last-child {
+  border-bottom: none;
+}
+
+.th,
+.td {
+  text-align: left;
+  vertical-align: middle;
+}
+
+.th {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.td {
+  color: var(--color-gray-700);
+}
+
+.numeric {
+  text-align: right;
+}
+
+/* Sizes */
+.sm .th,
+.sm .td {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+.md .th,
+.md .td {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.lg .th,
+.lg .td {
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: var(--font-size-md);
+}
+
+/* Variants */
+.striped .tbody .tr:nth-child(odd) {
+  background-color: var(--color-gray-50);
+}
+
+.simple .tbody .tr:hover {
+  background-color: var(--color-gray-50);
+}
+
+.striped .tbody .tr:hover {
+  background-color: var(--color-gray-100);
+}
