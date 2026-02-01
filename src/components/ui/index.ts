@@ -22,6 +22,8 @@ export { Card, CardHeader, CardBody, CardFooter } from './Card';
 export { Alert, AlertIcon, AlertTitle, AlertDescription } from './Alert';
 export { Spinner } from './Spinner';
 export { Divider } from './Divider';
+export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from './Modal';
+export { Tooltip } from './Tooltip';
 
 export { default as ProgressBar } from './ProgressBar';
 export { default as EmptyState } from './EmptyState';
@@ -55,3 +57,5 @@ export type { CardProps, CardVariant, CardHeaderProps, CardBodyProps, CardFooter
 export type { AlertProps, AlertStatus, AlertIconProps, AlertTitleProps, AlertDescriptionProps } from './Alert';
 export type { SpinnerProps, SpinnerSize } from './Spinner';
 export type { DividerProps, DividerOrientation } from './Divider';
+export type { ModalProps, ModalSize, ModalHeaderProps, ModalBodyProps, ModalFooterProps, ModalCloseButtonProps } from './Modal';
+export type { TooltipProps, TooltipPlacement } from './Tooltip';

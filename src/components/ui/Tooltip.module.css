@@ -1,0 +1,62 @@
+.tooltip {
+  position: absolute;
+  z-index: 1100;
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: var(--color-gray-700);
+  color: white;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  max-width: 320px;
+  word-wrap: break-word;
+  animation: tooltipEnter 0.15s ease-out;
+  pointer-events: none;
+}
+
+@keyframes tooltipEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hasArrow::after {
+  content: '';
+  position: absolute;
+  border: 6px solid transparent;
+}
+
+.top.hasArrow::after {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--color-gray-700);
+}
+
+.bottom.hasArrow::after {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--color-gray-700);
+}
+
+.left.hasArrow::after {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--color-gray-700);
+}
+
+.right.hasArrow::after {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--color-gray-700);
+}
+
+.trigger {
+  display: inline-block;
+}
