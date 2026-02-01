@@ -1,0 +1,83 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.container:has(.input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  width: 34px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-300);
+  transition: background-color 0.2s ease;
+  padding: 2px;
+}
+
+.input:focus-visible + .track {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+.input:checked + .track {
+  background-color: var(--switch-color, var(--color-blue-500));
+}
+
+.input:checked + .track .thumb {
+  transform: translateX(14px);
+}
+
+.thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.colorPrimary {
+  --switch-color: var(--color-primary-500);
+}
+
+.colorBlue {
+  --switch-color: var(--color-blue-500);
+}
+
+.colorGreen {
+  --switch-color: var(--color-green-500);
+}
+
+.colorRed {
+  --switch-color: var(--color-red-500);
+}
+
+.colorOrange {
+  --switch-color: var(--color-orange-500);
+}
+
+.colorGray {
+  --switch-color: var(--color-gray-500);
+}
+
+.colorTeal {
+  --switch-color: var(--color-teal-500);
+}

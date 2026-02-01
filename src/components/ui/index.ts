@@ -14,6 +14,10 @@ export { default as InputLeftElement } from './InputLeftElement';
 export { default as InputRightElement } from './InputRightElement';
 export { default as Textarea } from './Textarea';
 export { default as Select } from './Select';
+export { default as Checkbox } from './Checkbox';
+export { default as Radio } from './Radio';
+export { default as RadioGroup } from './RadioGroup';
+export { default as Switch } from './Switch';
 
 export { default as Box } from './Box';
 export { default as Flex } from './Flex';
@@ -54,5 +58,9 @@ export type { InputLeftElementProps } from './InputLeftElement';
 export type { InputRightElementProps } from './InputRightElement';
 export type { TextareaProps } from './Textarea';
 export type { SelectSize, SelectProps } from './Select';
+export type { CheckboxColorScheme, CheckboxProps } from './Checkbox';
+export type { RadioColorScheme, RadioProps } from './Radio';
+export type { RadioGroupProps } from './RadioGroup';
+export type { SwitchColorScheme, SwitchProps } from './Switch';
 
 export type { LayoutProps, ResponsiveValue, SpacingValue, ColorValue, RadiusValue } from './styleUtils';
