@@ -1,0 +1,66 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-indent: 0;
+  border-color: inherit;
+}
+
+.thead {
+  background-color: var(--color-gray-50);
+}
+
+.tbody {
+}
+
+.tr {
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.th {
+  font-weight: 600;
+  text-align: left;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-gray-600);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.td {
+  text-align: left;
+}
+
+.numeric {
+  text-align: right;
+}
+
+.striped .tbody .tr:nth-child(odd) {
+  background-color: var(--color-gray-50);
+}
+
+.sizeSm .th,
+.sizeSm .td,
+.sizeSm.th,
+.sizeSm.td {
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  font-size: var(--font-size-sm);
+}
+
+.sizeMd .th,
+.sizeMd .td,
+.sizeMd.th,
+.sizeMd.td {
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  font-size: var(--font-size-md);
+}
+
+.sizeLg .th,
+.sizeLg .td,
+.sizeLg.th,
+.sizeLg.td {
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  font-size: var(--font-size-lg);
+}

@@ -13,6 +13,7 @@ export { default as AvatarGroup } from './AvatarGroup';
 export { default as AvatarBadge } from './AvatarBadge';
 export { default as Badge } from './Badge';
 export { default as Alert, AlertIcon, AlertTitle, AlertDescription } from './Alert';
+export { default as Table, Thead, Tbody, Tr, Th, Td } from './Table';
 
 export { default as Input } from './Input';
 export { default as InputGroup } from './InputGroup';
@@ -87,3 +88,5 @@ export type { AvatarBadgeProps } from './AvatarBadge';
 export type { BadgeVariant, BadgeColorScheme, BadgeProps } from './Badge';
 
 export type { AlertStatus, AlertProps, AlertIconProps, AlertTitleProps, AlertDescriptionProps } from './Alert';
+
+export type { TableVariant, TableSize, TableProps, TheadProps, TbodyProps, TrProps, ThProps, TdProps } from './Table';
