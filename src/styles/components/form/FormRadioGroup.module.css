@@ -1,0 +1,95 @@
+.formControl {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-2);
+}
+
+.required::after {
+  content: ' *';
+  color: var(--color-error-500);
+}
+
+.radioGroup {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.radioGroupRow {
+  flex-direction: row;
+}
+
+.radioGroupColumn {
+  flex-direction: column;
+}
+
+.radioLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-full);
+  background-color: white;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.radio:hover {
+  border-color: var(--color-primary-400);
+}
+
+.radio:focus {
+  outline: none;
+  box-shadow: var(--shadow-outline);
+}
+
+.radio:checked {
+  border-color: var(--color-primary-500);
+}
+
+.radio:checked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary-500);
+  border-radius: var(--radius-full);
+  transform: translate(-50%, -50%);
+}
+
+.radio:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radioText {
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+}
+
+.invalid .radio {
+  border-color: var(--color-error-500);
+}
+
+.errorMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-error-500);
+  margin-top: var(--spacing-1);
+}

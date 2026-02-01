@@ -1,14 +1,8 @@
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  IconButton,
-  InputProps,
-} from '@chakra-ui/react';
+import { InputHTMLAttributes } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
+import styles from '../../styles/components/form/SearchInput.module.css';
 
-interface SearchInputProps extends Omit<InputProps, 'onChange'> {
+interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   value: string;
   onChange: (value: string) => void;
   onClear?: () => void;
@@ -21,6 +15,7 @@ export default function SearchInput({
   onClear,
   showClearButton = true,
   placeholder = '検索...',
+  className = '',
   ...props
 }: SearchInputProps) {
   const handleClear = () => {
@@ -28,29 +23,35 @@ export default function SearchInput({
     onClear?.();
   };
 
+  const inputClasses = [
+    styles.input,
+    showClearButton && value && styles.inputWithClear,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <InputGroup>
-      <InputLeftElement pointerEvents="none">
-        <FiSearch color="gray" />
-      </InputLeftElement>
-      <Input
+    <div className={styles.container}>
+      <FiSearch className={styles.searchIcon} />
+      <input
+        type="text"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        bg="white"
+        className={inputClasses}
         {...props}
       />
       {showClearButton && value && (
-        <InputRightElement>
-          <IconButton
-            aria-label="クリア"
-            icon={<FiX />}
-            size="sm"
-            variant="ghost"
-            onClick={handleClear}
-          />
-        </InputRightElement>
+        <button
+          type="button"
+          className={styles.clearButton}
+          onClick={handleClear}
+          aria-label="クリア"
+        >
+          <FiX />
+        </button>
       )}
-    </InputGroup>
+    </div>
   );
 }

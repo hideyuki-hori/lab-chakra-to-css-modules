@@ -1,7 +1,7 @@
-import { HStack, Text, Select, Flex, FlexProps } from '@chakra-ui/react';
 import { FiFilter } from 'react-icons/fi';
 import { SearchInput } from '../form';
-import { ReactNode } from 'react';
+import { ReactNode, HTMLAttributes } from 'react';
+import styles from '../../styles/components/common/FilterBar.module.css';
 
 interface FilterOption {
   value: string;
@@ -17,7 +17,7 @@ interface FilterConfig {
   width?: string;
 }
 
-interface FilterBarProps extends FlexProps {
+interface FilterBarProps extends HTMLAttributes<HTMLDivElement> {
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
@@ -31,49 +31,48 @@ export default function FilterBar({
   searchPlaceholder = '検索...',
   filters = [],
   actions,
+  className = '',
   ...props
 }: FilterBarProps) {
+  const containerClasses = [styles.container, className].filter(Boolean).join(' ');
+
   return (
-    <Flex gap={4} flexWrap="wrap" align="center" {...props}>
+    <div className={containerClasses} {...props}>
       {onSearchChange && (
-        <SearchInput
-          value={searchValue || ''}
-          onChange={onSearchChange}
-          placeholder={searchPlaceholder}
-          maxW="400px"
-          flex="1"
-          minW="200px"
-        />
+        <div className={styles.searchContainer}>
+          <SearchInput
+            value={searchValue || ''}
+            onChange={onSearchChange}
+            placeholder={searchPlaceholder}
+          />
+        </div>
       )}
 
       {filters.length > 0 && (
-        <HStack spacing={3} flex="1" flexWrap="wrap">
-          <HStack spacing={2}>
-            <FiFilter />
-            <Text fontSize="sm" fontWeight="medium" color="gray.600">
-              フィルター:
-            </Text>
-          </HStack>
+        <div className={styles.filters}>
+          <div className={styles.filterLabel}>
+            <FiFilter className={styles.filterIcon} />
+            <span className={styles.filterText}>フィルター:</span>
+          </div>
           {filters.map((filter) => (
-            <Select
+            <select
               key={filter.key}
               value={filter.value}
               onChange={(e) => filter.onChange(e.target.value)}
-              bg="white"
-              maxW={filter.width || '200px'}
-              size="md"
+              className={styles.select}
+              style={filter.width ? { maxWidth: filter.width } : undefined}
             >
               {filter.options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
-            </Select>
+            </select>
           ))}
-        </HStack>
+        </div>
       )}
 
       {actions}
-    </Flex>
+    </div>
   );
 }

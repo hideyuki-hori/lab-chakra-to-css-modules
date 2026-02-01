@@ -1,14 +1,7 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-  MenuDivider,
-} from '@chakra-ui/react';
+import { useState, useRef, useEffect, ReactElement } from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import { ReactElement } from 'react';
+import styles from '../../styles/components/common/ActionMenu.module.css';
 
 interface ActionItem {
   label: string;
@@ -26,6 +19,18 @@ interface ActionMenuProps {
   variant?: 'ghost' | 'outline' | 'solid';
 }
 
+const sizeClasses = {
+  sm: styles.triggerSm,
+  md: styles.triggerMd,
+  lg: styles.triggerLg,
+};
+
+const variantClasses = {
+  ghost: styles.triggerGhost,
+  outline: styles.triggerOutline,
+  solid: styles.triggerSolid,
+};
+
 export default function ActionMenu({
   items,
   ariaLabel = 'アクション',
@@ -33,29 +38,64 @@ export default function ActionMenu({
   size = 'sm',
   variant = 'ghost',
 }: ActionMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const triggerClasses = [
+    styles.trigger,
+    sizeClasses[size],
+    variantClasses[variant],
+  ].join(' ');
+
+  const menuClasses = [styles.menu, isOpen && styles.menuOpen]
+    .filter(Boolean)
+    .join(' ');
+
+  const handleItemClick = (item: ActionItem) => {
+    item.onClick();
+    setIsOpen(false);
+  };
+
   return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        icon={icon || <FiMoreVertical />}
-        variant={variant}
-        size={size}
+    <div className={styles.container} ref={containerRef}>
+      <button
+        className={triggerClasses}
+        onClick={() => setIsOpen(!isOpen)}
         aria-label={ariaLabel}
-      />
-      <MenuList>
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+      >
+        {icon || <FiMoreVertical />}
+      </button>
+      <div className={menuClasses} role="menu">
         {items.map((item, index) => (
-          <span key={index}>
-            {item.isDividerBefore && <MenuDivider />}
-            <MenuItem
-              icon={item.icon ? <item.icon /> : undefined}
-              onClick={item.onClick}
-              color={item.color}
+          <div key={index}>
+            {item.isDividerBefore && <div className={styles.divider} />}
+            <button
+              className={styles.menuItem}
+              onClick={() => handleItemClick(item)}
+              style={item.color ? { color: item.color } : undefined}
+              role="menuitem"
             >
+              {item.icon && <item.icon className={styles.menuItemIcon} />}
               {item.label}
-            </MenuItem>
-          </span>
+            </button>
+          </div>
         ))}
-      </MenuList>
-    </Menu>
+      </div>
+    </div>
   );
 }
