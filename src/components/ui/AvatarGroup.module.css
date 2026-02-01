@@ -1,0 +1,71 @@
+.avatarGroup {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.avatarGroup > * {
+  border: 2px solid var(--color-white);
+}
+
+.avatarGroup > *:not(:last-child) {
+  margin-left: -0.75rem;
+}
+
+.avatarGroupSmall > *:not(:last-child) {
+  margin-left: -0.5rem;
+}
+
+.excessLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-800);
+  font-weight: 500;
+  border: 2px solid var(--color-white);
+}
+
+.excessSize2xs {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+}
+
+.excessSizeXs {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.excessSizeSm {
+  width: 32px;
+  height: 32px;
+  font-size: 10px;
+}
+
+.excessSizeMd {
+  width: 48px;
+  height: 48px;
+  font-size: 14px;
+}
+
+.excessSizeLg {
+  width: 64px;
+  height: 64px;
+  font-size: 18px;
+}
+
+.excessSizeXl {
+  width: 96px;
+  height: 96px;
+  font-size: 24px;
+}
+
+.excessSize2xl {
+  width: 128px;
+  height: 128px;
+  font-size: 32px;
+}

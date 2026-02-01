@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nfix: VStackのデフォルトalignをstretchに修正、色のCSS変数追加\n\n- VStackのデフォルトalignをcenterからstretchに変更（Chakra UI互換）\n- purple, orange, teal, cyan, pinkの色変数を追加\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(agent-browser:*)"
     ]
   }
 }
