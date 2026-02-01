@@ -1,0 +1,32 @@
+.messageContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: var(--font-size-xl);
+}
+
+.iconOrange {
+  color: var(--color-orange-500);
+}
+
+.iconRed {
+  color: var(--color-red-500);
+}
+
+.iconBlue {
+  color: var(--color-primary-500);
+}
+
+.iconGreen {
+  color: var(--color-success-500);
+}
+
+.message {
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+  line-height: 1.5;
+}
