@@ -2,6 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import theme from '../theme';
+import '../styles/globals.css';
 import { AuthProvider } from '../contexts/AuthContext';
 import AuthGuard from '../components/auth/AuthGuard';
 
