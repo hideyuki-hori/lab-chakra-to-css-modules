@@ -1,45 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Badge,
-  Avatar,
-  AvatarGroup,
-  Button,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Progress,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Checkbox,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Select,
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  IconButton,
-  Tooltip,
-} from '@chakra-ui/react';
-import {
   FiArrowLeft,
   FiEdit2,
   FiUsers,
@@ -50,9 +11,9 @@ import {
 } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../../components/layout/Layout';
-import { mockProjects, mockTasks, mockUsers } from '../../lib/mockData';
-
-const MotionBox = motion(Box);
+import { mockProjects, mockTasks } from '../../lib/mockData';
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '../../components/ui/Tabs';
+import styles from '../../styles/pages/project-detail.module.css';
 
 export default function ProjectDetailPage() {
   const router = useRouter();
@@ -62,33 +23,49 @@ export default function ProjectDetailPage() {
   const project = mockProjects.find((p) => p.id === id);
   const projectTasks = mockTasks.filter((t) => t.projectId === id);
 
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
+  };
+
   if (!project) {
     return (
       <Layout>
-        <Box textAlign="center" py={10}>
-          <Text fontSize="xl" color="gray.600">
-            プロジェクトが見つかりませんでした
-          </Text>
-          <Button mt={4} onClick={() => router.push('/projects')}>
+        <div className={styles.notFoundContainer}>
+          <p className={styles.notFoundText}>プロジェクトが見つかりませんでした</p>
+          <button className={styles.backToListButton} onClick={() => router.push('/projects')}>
             プロジェクト一覧に戻る
-          </Button>
-        </Box>
+          </button>
+        </div>
       </Layout>
     );
   }
 
-  const getProjectStatusColor = (status: string) => {
+  const getProjectStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'green';
+        return styles.badgeGreen;
       case 'active':
-        return 'blue';
+        return styles.badgeBlue;
       case 'planning':
-        return 'gray';
+        return styles.badgeGray;
       case 'on-hold':
-        return 'orange';
+        return styles.badgeOrange;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
@@ -107,18 +84,18 @@ export default function ProjectDetailPage() {
     }
   };
 
-  const getTaskPriorityColor = (priority: string) => {
+  const getTaskPriorityBadgeClass = (priority: string) => {
     switch (priority) {
       case 'urgent':
-        return 'red';
+        return styles.badgeRed;
       case 'high':
-        return 'orange';
+        return styles.badgeOrange;
       case 'medium':
-        return 'blue';
+        return styles.badgeBlue;
       case 'low':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
@@ -137,16 +114,16 @@ export default function ProjectDetailPage() {
     }
   };
 
-  const getTaskStatusColor = (status: string) => {
+  const getTaskStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'green';
+        return `${styles.badge} ${styles.badgeGreen} ${styles.badgeSubtle}`;
       case 'in-progress':
-        return 'blue';
+        return `${styles.badge} ${styles.badgeBlue} ${styles.badgeSubtle}`;
       case 'todo':
-        return 'gray';
+        return `${styles.badge} ${styles.badgeGray} ${styles.badgeSubtle}`;
       default:
-        return 'gray';
+        return `${styles.badge} ${styles.badgeGray} ${styles.badgeSubtle}`;
     }
   };
 
@@ -163,16 +140,16 @@ export default function ProjectDetailPage() {
     }
   };
 
-  const getRoleBadgeColor = (role: string) => {
+  const getRoleBadgeClass = (role: string) => {
     switch (role) {
       case 'admin':
-        return 'purple';
+        return styles.badgePurple;
       case 'member':
-        return 'blue';
+        return styles.badgeBlue;
       case 'guest':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
@@ -189,6 +166,35 @@ export default function ProjectDetailPage() {
     }
   };
 
+  const getMemberStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'active':
+        return styles.badgeGreen;
+      case 'away':
+        return styles.badgeYellow;
+      default:
+        return styles.badgeGray;
+    }
+  };
+
+  const getMemberStatusLabel = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'オンライン';
+      case 'away':
+        return '離席中';
+      default:
+        return 'オフライン';
+    }
+  };
+
+  const getProgressFillClass = (progress: number) => {
+    if (progress >= 75) return styles.progressFillGreen;
+    if (progress >= 50) return styles.progressFillBlue;
+    if (progress >= 25) return styles.progressFillOrange;
+    return styles.progressFillRed;
+  };
+
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('ja-JP', {
       year: 'numeric',
@@ -203,488 +209,424 @@ export default function ProjectDetailPage() {
 
   return (
     <Layout>
-      <VStack align="stretch" spacing={6}>
-        <HStack justify="space-between">
-          <HStack spacing={4}>
-            <IconButton
-              icon={<FiArrowLeft />}
-              aria-label="戻る"
-              variant="ghost"
+      <div className={styles.container}>
+        <div className={styles.headerRow}>
+          <div className={styles.headerLeft}>
+            <button
+              className={styles.backButton}
               onClick={() => router.push('/projects')}
-            />
-            <Box>
-              <HStack spacing={3} mb={2}>
-                <Heading size="lg">{project.name}</Heading>
-                <Badge colorScheme={getProjectStatusColor(project.status)} fontSize="sm">
+              aria-label="戻る"
+            >
+              <FiArrowLeft />
+            </button>
+            <div className={styles.headerInfo}>
+              <div className={styles.titleRow}>
+                <h1 className={styles.title}>{project.name}</h1>
+                <span className={`${styles.badge} ${getProjectStatusBadgeClass(project.status)}`}>
                   {getProjectStatusLabel(project.status)}
-                </Badge>
-              </HStack>
-              <Text color="gray.600">{project.description}</Text>
-            </Box>
-          </HStack>
-          <Button leftIcon={<FiEdit2 />} colorScheme="primary">
+                </span>
+              </div>
+              <p className={styles.description}>{project.description}</p>
+            </div>
+          </div>
+          <button className={styles.editButton}>
+            <FiEdit2 />
             編集
-          </Button>
-        </HStack>
+          </button>
+        </div>
 
-        <Tabs
-          variant="enclosed"
-          colorScheme="primary"
-          index={activeTab}
-          onChange={setActiveTab}
-        >
+        <Tabs index={activeTab} onChange={setActiveTab}>
           <TabList>
-            <Tab>概要</Tab>
-            <Tab>タスク ({projectTasks.length})</Tab>
-            <Tab>メンバー ({project.members.length})</Tab>
-            <Tab>設定</Tab>
+            <Tab index={0}>概要</Tab>
+            <Tab index={1}>タスク ({projectTasks.length})</Tab>
+            <Tab index={2}>メンバー ({project.members.length})</Tab>
+            <Tab index={3}>設定</Tab>
           </TabList>
 
           <TabPanels>
-            <AnimatePresence mode="wait">
-              <TabPanel key={activeTab} p={0} pt={6}>
-                {activeTab === 0 && (
-                  <MotionBox
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <VStack align="stretch" spacing={6}>
-                      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                        <Card>
-                          <CardBody>
-                            <Stat>
-                              <HStack mb={2}>
-                                <FiClock color="var(--chakra-colors-blue-500)" />
-                                <StatLabel>進捗率</StatLabel>
-                              </HStack>
-                              <StatNumber fontSize="3xl">{project.progress}%</StatNumber>
-                              <StatHelpText>
-                                目標: {formatDate(project.endDate)}
-                              </StatHelpText>
-                            </Stat>
-                          </CardBody>
-                        </Card>
+            <TabPanel index={0}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key="overview"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className={styles.container}>
+                    <div className={styles.statsGrid}>
+                      <div className={styles.statCard}>
+                        <div className={styles.statHeader}>
+                          <FiClock className={`${styles.statIcon} ${styles.statIconBlue}`} />
+                          <p className={styles.statLabel}>進捗率</p>
+                        </div>
+                        <p className={styles.statNumber}>{project.progress}%</p>
+                        <p className={styles.statHelp}>目標: {formatDate(project.endDate)}</p>
+                      </div>
 
-                        <Card>
-                          <CardBody>
-                            <Stat>
-                              <HStack mb={2}>
-                                <FiCheckCircle color="var(--chakra-colors-green-500)" />
-                                <StatLabel>タスク完了率</StatLabel>
-                              </HStack>
-                              <StatNumber fontSize="3xl">{taskCompletionRate}%</StatNumber>
-                              <StatHelpText>
-                                {completedTasks}/{totalTasks} 完了
-                              </StatHelpText>
-                            </Stat>
-                          </CardBody>
-                        </Card>
+                      <div className={styles.statCard}>
+                        <div className={styles.statHeader}>
+                          <FiCheckCircle className={`${styles.statIcon} ${styles.statIconGreen}`} />
+                          <p className={styles.statLabel}>タスク完了率</p>
+                        </div>
+                        <p className={styles.statNumber}>{taskCompletionRate}%</p>
+                        <p className={styles.statHelp}>{completedTasks}/{totalTasks} 完了</p>
+                      </div>
 
-                        <Card>
-                          <CardBody>
-                            <Stat>
-                              <HStack mb={2}>
-                                <FiUsers color="var(--chakra-colors-purple-500)" />
-                                <StatLabel>チームメンバー</StatLabel>
-                              </HStack>
-                              <StatNumber fontSize="3xl">{project.members.length}</StatNumber>
-                              <StatHelpText>
-                                オーナー: {project.owner.name}
-                              </StatHelpText>
-                            </Stat>
-                          </CardBody>
-                        </Card>
+                      <div className={styles.statCard}>
+                        <div className={styles.statHeader}>
+                          <FiUsers className={`${styles.statIcon} ${styles.statIconPurple}`} />
+                          <p className={styles.statLabel}>チームメンバー</p>
+                        </div>
+                        <p className={styles.statNumber}>{project.members.length}</p>
+                        <p className={styles.statHelp}>オーナー: {project.owner.name}</p>
+                      </div>
 
-                        <Card>
-                          <CardBody>
-                            <Stat>
-                              <HStack mb={2}>
-                                <FiCalendar color="var(--chakra-colors-orange-500)" />
-                                <StatLabel>プロジェクト期間</StatLabel>
-                              </HStack>
-                              <StatNumber fontSize="2xl">
-                                {Math.ceil(
-                                  (project.endDate.getTime() - project.startDate.getTime()) /
-                                    (1000 * 60 * 60 * 24)
-                                )}
-                                日
-                              </StatNumber>
-                              <StatHelpText>
-                                {formatDate(project.startDate)}〜
-                              </StatHelpText>
-                            </Stat>
-                          </CardBody>
-                        </Card>
-                      </SimpleGrid>
+                      <div className={styles.statCard}>
+                        <div className={styles.statHeader}>
+                          <FiCalendar className={`${styles.statIcon} ${styles.statIconOrange}`} />
+                          <p className={styles.statLabel}>プロジェクト期間</p>
+                        </div>
+                        <p className={`${styles.statNumber} ${styles.statNumberMd}`}>
+                          {Math.ceil(
+                            (project.endDate.getTime() - project.startDate.getTime()) /
+                              (1000 * 60 * 60 * 24)
+                          )}日
+                        </p>
+                        <p className={styles.statHelp}>{formatDate(project.startDate)}〜</p>
+                      </div>
+                    </div>
 
-                      <Card>
-                        <CardHeader>
-                          <Heading size="md">プロジェクト進捗</Heading>
-                        </CardHeader>
-                        <CardBody>
-                          <VStack align="stretch" spacing={4}>
-                            <Box>
-                              <HStack justify="space-between" mb={2}>
-                                <Text fontSize="sm" fontWeight="semibold">
-                                  全体進捗
-                                </Text>
-                                <Text fontSize="sm" fontWeight="bold" color="primary.600">
-                                  {project.progress}%
-                                </Text>
-                              </HStack>
-                              <Progress
-                                value={project.progress}
-                                size="lg"
-                                colorScheme={
-                                  project.progress >= 75
-                                    ? 'green'
-                                    : project.progress >= 50
-                                    ? 'blue'
-                                    : project.progress >= 25
-                                    ? 'orange'
-                                    : 'red'
-                                }
-                                borderRadius="full"
+                    <div className={styles.card}>
+                      <div className={styles.cardHeader}>
+                        <h2 className={styles.cardTitle}>プロジェクト進捗</h2>
+                      </div>
+                      <div className={styles.cardBody}>
+                        <div className={styles.progressSection}>
+                          <div>
+                            <div className={styles.progressHeader}>
+                              <p className={styles.progressLabel}>全体進捗</p>
+                              <p className={styles.progressValue}>{project.progress}%</p>
+                            </div>
+                            <div className={styles.progressBar}>
+                              <div
+                                className={`${styles.progressFill} ${getProgressFillClass(project.progress)}`}
+                                style={{ width: `${project.progress}%` }}
                               />
-                            </Box>
+                            </div>
+                          </div>
 
-                            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
-                              <Box p={4} bg="gray.50" borderRadius="md">
-                                <Text fontSize="sm" color="gray.600" mb={1}>
-                                  開始日
-                                </Text>
-                                <Text fontWeight="semibold">
-                                  {formatDate(project.startDate)}
-                                </Text>
-                              </Box>
-                              <Box p={4} bg="gray.50" borderRadius="md">
-                                <Text fontSize="sm" color="gray.600" mb={1}>
-                                  終了予定日
-                                </Text>
-                                <Text fontWeight="semibold">
-                                  {formatDate(project.endDate)}
-                                </Text>
-                              </Box>
-                              <Box p={4} bg="gray.50" borderRadius="md">
-                                <Text fontSize="sm" color="gray.600" mb={1}>
-                                  ステータス
-                                </Text>
-                                <Badge
-                                  colorScheme={getProjectStatusColor(project.status)}
-                                  fontSize="sm"
-                                >
-                                  {getProjectStatusLabel(project.status)}
-                                </Badge>
-                              </Box>
-                            </SimpleGrid>
-                          </VStack>
-                        </CardBody>
-                      </Card>
+                          <div className={styles.infoGrid}>
+                            <div className={styles.infoBox}>
+                              <p className={styles.infoLabel}>開始日</p>
+                              <p className={styles.infoValue}>{formatDate(project.startDate)}</p>
+                            </div>
+                            <div className={styles.infoBox}>
+                              <p className={styles.infoLabel}>終了予定日</p>
+                              <p className={styles.infoValue}>{formatDate(project.endDate)}</p>
+                            </div>
+                            <div className={styles.infoBox}>
+                              <p className={styles.infoLabel}>ステータス</p>
+                              <span className={`${styles.badge} ${getProjectStatusBadgeClass(project.status)}`}>
+                                {getProjectStatusLabel(project.status)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                      <Card>
-                        <CardHeader>
-                          <Heading size="md">タグ</Heading>
-                        </CardHeader>
-                        <CardBody>
-                          <HStack spacing={2} flexWrap="wrap">
-                            {project.tags.map((tag) => (
-                              <Badge
-                                key={tag}
-                                colorScheme="primary"
-                                variant="subtle"
-                                px={3}
-                                py={1}
-                                borderRadius="full"
-                              >
-                                <HStack spacing={1}>
-                                  <FiTag size={12} />
-                                  <Text>{tag}</Text>
-                                </HStack>
-                              </Badge>
-                            ))}
-                          </HStack>
-                        </CardBody>
-                      </Card>
-                    </VStack>
-                  </MotionBox>
-                )}
-
-                {activeTab === 1 && (
-                  <MotionBox
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Card>
-                      <CardHeader>
-                        <HStack justify="space-between">
-                          <Heading size="md">タスク一覧</Heading>
-                          <Button leftIcon={<FiCheckCircle />} size="sm" colorScheme="primary">
-                            新規タスク
-                          </Button>
-                        </HStack>
-                      </CardHeader>
-                      <CardBody p={0}>
-                        <Box overflowX="auto">
-                          <Table variant="simple">
-                            <Thead bg="gray.50">
-                              <Tr>
-                                <Th width="30px">
-                                  <Checkbox />
-                                </Th>
-                                <Th>タスク名</Th>
-                                <Th>担当者</Th>
-                                <Th>優先度</Th>
-                                <Th>ステータス</Th>
-                                <Th>期限</Th>
-                              </Tr>
-                            </Thead>
-                            <Tbody>
-                              {projectTasks.map((task) => (
-                                <Tr key={task.id} _hover={{ bg: 'gray.50' }}>
-                                  <Td>
-                                    <Checkbox
-                                      isChecked={task.status === 'completed'}
-                                      colorScheme="primary"
-                                    />
-                                  </Td>
-                                  <Td>
-                                    <VStack align="start" spacing={1}>
-                                      <Text fontWeight="semibold">{task.title}</Text>
-                                      <Text fontSize="sm" color="gray.600" noOfLines={1}>
-                                        {task.description}
-                                      </Text>
-                                    </VStack>
-                                  </Td>
-                                  <Td>
-                                    {task.assignee ? (
-                                      <HStack spacing={2}>
-                                        <Avatar
-                                          size="sm"
-                                          name={task.assignee.name}
-                                          src={task.assignee.avatar}
-                                        />
-                                        <Text fontSize="sm">{task.assignee.name}</Text>
-                                      </HStack>
-                                    ) : (
-                                      <Text fontSize="sm" color="gray.400">
-                                        未割り当て
-                                      </Text>
-                                    )}
-                                  </Td>
-                                  <Td>
-                                    <Badge colorScheme={getTaskPriorityColor(task.priority)}>
-                                      {getTaskPriorityLabel(task.priority)}
-                                    </Badge>
-                                  </Td>
-                                  <Td>
-                                    <Badge
-                                      colorScheme={getTaskStatusColor(task.status)}
-                                      variant="subtle"
-                                    >
-                                      {getTaskStatusLabel(task.status)}
-                                    </Badge>
-                                  </Td>
-                                  <Td>
-                                    <Text fontSize="sm" color="gray.600">
-                                      {formatDate(task.dueDate)}
-                                    </Text>
-                                  </Td>
-                                </Tr>
-                              ))}
-                            </Tbody>
-                          </Table>
-
-                          {projectTasks.length === 0 && (
-                            <Box py={10} textAlign="center">
-                              <Text color="gray.500">
-                                このプロジェクトにはまだタスクがありません
-                              </Text>
-                            </Box>
-                          )}
-                        </Box>
-                      </CardBody>
-                    </Card>
-                  </MotionBox>
-                )}
-
-                {activeTab === 2 && (
-                  <MotionBox
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Card>
-                      <CardHeader>
-                        <HStack justify="space-between">
-                          <Heading size="md">プロジェクトメンバー</Heading>
-                          <Button leftIcon={<FiUsers />} size="sm" colorScheme="primary">
-                            メンバー追加
-                          </Button>
-                        </HStack>
-                      </CardHeader>
-                      <CardBody>
-                        <VStack align="stretch" spacing={4}>
-                          {project.members.map((member) => (
-                            <Box
-                              key={member.id}
-                              p={4}
-                              borderRadius="md"
-                              border="1px"
-                              borderColor="gray.200"
-                              _hover={{ borderColor: 'primary.300', bg: 'gray.50' }}
-                              transition="all 0.2s"
-                            >
-                              <HStack justify="space-between">
-                                <HStack spacing={4}>
-                                  <Avatar
-                                    size="md"
-                                    name={member.name}
-                                    src={member.avatar}
-                                  />
-                                  <Box>
-                                    <HStack spacing={2} mb={1}>
-                                      <Text fontWeight="semibold">{member.name}</Text>
-                                      <Badge colorScheme={getRoleBadgeColor(member.role)}>
-                                        {getRoleLabel(member.role)}
-                                      </Badge>
-                                      {member.id === project.owner.id && (
-                                        <Badge colorScheme="purple">オーナー</Badge>
-                                      )}
-                                    </HStack>
-                                    <Text fontSize="sm" color="gray.600">
-                                      {member.email}
-                                    </Text>
-                                    {member.bio && (
-                                      <Text fontSize="sm" color="gray.500" mt={1}>
-                                        {member.bio}
-                                      </Text>
-                                    )}
-                                  </Box>
-                                </HStack>
-                                <VStack align="end" spacing={1}>
-                                  <Badge
-                                    colorScheme={
-                                      member.status === 'active'
-                                        ? 'green'
-                                        : member.status === 'away'
-                                        ? 'yellow'
-                                        : 'gray'
-                                    }
-                                  >
-                                    {member.status === 'active'
-                                      ? 'オンライン'
-                                      : member.status === 'away'
-                                      ? '離席中'
-                                      : 'オフライン'}
-                                  </Badge>
-                                  <Text fontSize="xs" color="gray.500">
-                                    担当タスク:{' '}
-                                    {
-                                      projectTasks.filter(
-                                        (t) => t.assignee?.id === member.id
-                                      ).length
-                                    }
-                                    件
-                                  </Text>
-                                </VStack>
-                              </HStack>
-                            </Box>
+                    <div className={styles.card}>
+                      <div className={styles.cardHeader}>
+                        <h2 className={styles.cardTitle}>タグ</h2>
+                      </div>
+                      <div className={styles.cardBody}>
+                        <div className={styles.tagsContainer}>
+                          {project.tags.map((tag) => (
+                            <span key={tag} className={styles.tag}>
+                              <FiTag className={styles.tagIcon} />
+                              {tag}
+                            </span>
                           ))}
-                        </VStack>
-                      </CardBody>
-                    </Card>
-                  </MotionBox>
-                )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </TabPanel>
 
-                {activeTab === 3 && (
-                  <MotionBox
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Card>
-                      <CardHeader>
-                        <Heading size="md">プロジェクト設定</Heading>
-                      </CardHeader>
-                      <CardBody>
-                        <VStack align="stretch" spacing={6}>
-                          <FormControl>
-                            <FormLabel>プロジェクト名</FormLabel>
-                            <Input defaultValue={project.name} />
-                          </FormControl>
+            <TabPanel index={1}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key="tasks"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className={styles.card}>
+                    <div className={`${styles.cardHeader} ${styles.cardHeaderFlex}`}>
+                      <h2 className={styles.cardTitle}>タスク一覧</h2>
+                      <button className={styles.addButton}>
+                        <FiCheckCircle />
+                        新規タスク
+                      </button>
+                    </div>
+                    <div className={styles.cardBodyNoPadding}>
+                      <div style={{ overflowX: 'auto' }}>
+                        <table className={styles.table}>
+                          <thead className={styles.tableHeader}>
+                            <tr>
+                              <th className={`${styles.th} ${styles.thCheckbox}`}>
+                                <input type="checkbox" className={styles.checkbox} />
+                              </th>
+                              <th className={styles.th}>タスク名</th>
+                              <th className={styles.th}>担当者</th>
+                              <th className={styles.th}>優先度</th>
+                              <th className={styles.th}>ステータス</th>
+                              <th className={styles.th}>期限</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {projectTasks.map((task) => (
+                              <tr key={task.id} className={styles.tr}>
+                                <td className={styles.td}>
+                                  <input
+                                    type="checkbox"
+                                    className={styles.checkbox}
+                                    checked={task.status === 'completed'}
+                                    readOnly
+                                  />
+                                </td>
+                                <td className={styles.td}>
+                                  <div className={styles.taskInfo}>
+                                    <p className={styles.taskTitle}>{task.title}</p>
+                                    <p className={styles.taskDescription}>{task.description}</p>
+                                  </div>
+                                </td>
+                                <td className={styles.td}>
+                                  {task.assignee ? (
+                                    <div className={styles.assigneeCell}>
+                                      {task.assignee.avatar ? (
+                                        <img
+                                          src={task.assignee.avatar}
+                                          alt={task.assignee.name}
+                                          className={`${styles.avatar} ${styles.avatarSm}`}
+                                        />
+                                      ) : (
+                                        <div
+                                          className={`${styles.avatarPlaceholder} ${styles.avatarPlaceholderSm}`}
+                                          style={{ background: getAvatarColor(task.assignee.name) }}
+                                        >
+                                          {task.assignee.name.charAt(0)}
+                                        </div>
+                                      )}
+                                      <p className={styles.assigneeName}>{task.assignee.name}</p>
+                                    </div>
+                                  ) : (
+                                    <p className={styles.unassigned}>未割り当て</p>
+                                  )}
+                                </td>
+                                <td className={styles.td}>
+                                  <span className={`${styles.badge} ${getTaskPriorityBadgeClass(task.priority)}`}>
+                                    {getTaskPriorityLabel(task.priority)}
+                                  </span>
+                                </td>
+                                <td className={styles.td}>
+                                  <span className={getTaskStatusBadgeClass(task.status)}>
+                                    {getTaskStatusLabel(task.status)}
+                                  </span>
+                                </td>
+                                <td className={styles.td}>
+                                  <p className={styles.dateText}>{formatDate(task.dueDate)}</p>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
 
-                          <FormControl>
-                            <FormLabel>説明</FormLabel>
-                            <Textarea defaultValue={project.description} rows={4} />
-                          </FormControl>
+                        {projectTasks.length === 0 && (
+                          <div className={styles.emptyState}>
+                            <p className={styles.emptyText}>
+                              このプロジェクトにはまだタスクがありません
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </TabPanel>
 
-                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                            <FormControl>
-                              <FormLabel>開始日</FormLabel>
-                              <Input
-                                type="date"
-                                defaultValue={
-                                  project.startDate.toISOString().split('T')[0]
-                                }
-                              />
-                            </FormControl>
+            <TabPanel index={2}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key="members"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className={styles.card}>
+                    <div className={`${styles.cardHeader} ${styles.cardHeaderFlex}`}>
+                      <h2 className={styles.cardTitle}>プロジェクトメンバー</h2>
+                      <button className={styles.addButton}>
+                        <FiUsers />
+                        メンバー追加
+                      </button>
+                    </div>
+                    <div className={styles.cardBody}>
+                      <div className={styles.memberList}>
+                        {project.members.map((member) => (
+                          <div key={member.id} className={styles.memberCard}>
+                            <div className={styles.memberCardInner}>
+                              <div className={styles.memberInfo}>
+                                {member.avatar ? (
+                                  <img
+                                    src={member.avatar}
+                                    alt={member.name}
+                                    className={`${styles.avatar} ${styles.avatarMd}`}
+                                  />
+                                ) : (
+                                  <div
+                                    className={`${styles.avatarPlaceholder} ${styles.avatarPlaceholderMd}`}
+                                    style={{ background: getAvatarColor(member.name) }}
+                                  >
+                                    {member.name.charAt(0)}
+                                  </div>
+                                )}
+                                <div className={styles.memberDetails}>
+                                  <div className={styles.memberNameRow}>
+                                    <p className={styles.memberName}>{member.name}</p>
+                                    <span className={`${styles.badge} ${getRoleBadgeClass(member.role)}`}>
+                                      {getRoleLabel(member.role)}
+                                    </span>
+                                    {member.id === project.owner.id && (
+                                      <span className={`${styles.badge} ${styles.badgePurple}`}>
+                                        オーナー
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className={styles.memberEmail}>{member.email}</p>
+                                  {member.bio && (
+                                    <p className={styles.memberBio}>{member.bio}</p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className={styles.memberStatus}>
+                                <span className={`${styles.badge} ${getMemberStatusBadgeClass(member.status)}`}>
+                                  {getMemberStatusLabel(member.status)}
+                                </span>
+                                <p className={styles.memberTaskCount}>
+                                  担当タスク: {projectTasks.filter((t) => t.assignee?.id === member.id).length}件
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </TabPanel>
 
-                            <FormControl>
-                              <FormLabel>終了予定日</FormLabel>
-                              <Input
-                                type="date"
-                                defaultValue={project.endDate.toISOString().split('T')[0]}
-                              />
-                            </FormControl>
-                          </SimpleGrid>
+            <TabPanel index={3}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key="settings"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className={styles.card}>
+                    <div className={styles.cardHeader}>
+                      <h2 className={styles.cardTitle}>プロジェクト設定</h2>
+                    </div>
+                    <div className={styles.cardBody}>
+                      <div className={styles.formGroup}>
+                        <div className={styles.formControl}>
+                          <label className={styles.formLabel}>プロジェクト名</label>
+                          <input type="text" className={styles.input} defaultValue={project.name} />
+                        </div>
 
-                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                            <FormControl>
-                              <FormLabel>ステータス</FormLabel>
-                              <Select defaultValue={project.status}>
-                                <option value="planning">計画中</option>
-                                <option value="active">進行中</option>
-                                <option value="on-hold">保留</option>
-                                <option value="completed">完了</option>
-                              </Select>
-                            </FormControl>
+                        <div className={styles.formControl}>
+                          <label className={styles.formLabel}>説明</label>
+                          <textarea
+                            className={styles.textarea}
+                            defaultValue={project.description}
+                            rows={4}
+                          />
+                        </div>
 
-                            <FormControl>
-                              <FormLabel>進捗率 (%)</FormLabel>
-                              <Input
-                                type="number"
-                                min="0"
-                                max="100"
-                                defaultValue={project.progress}
-                              />
-                            </FormControl>
-                          </SimpleGrid>
+                        <div className={styles.formGrid}>
+                          <div className={styles.formControl}>
+                            <label className={styles.formLabel}>開始日</label>
+                            <input
+                              type="date"
+                              className={styles.input}
+                              defaultValue={project.startDate.toISOString().split('T')[0]}
+                            />
+                          </div>
 
-                          <FormControl>
-                            <FormLabel>タグ (カンマ区切り)</FormLabel>
-                            <Input defaultValue={project.tags.join(', ')} />
-                          </FormControl>
+                          <div className={styles.formControl}>
+                            <label className={styles.formLabel}>終了予定日</label>
+                            <input
+                              type="date"
+                              className={styles.input}
+                              defaultValue={project.endDate.toISOString().split('T')[0]}
+                            />
+                          </div>
+                        </div>
 
-                          <HStack justify="flex-end" spacing={3}>
-                            <Button variant="outline">キャンセル</Button>
-                            <Button colorScheme="primary">保存</Button>
-                          </HStack>
-                        </VStack>
-                      </CardBody>
-                    </Card>
-                  </MotionBox>
-                )}
-              </TabPanel>
-            </AnimatePresence>
+                        <div className={styles.formGrid}>
+                          <div className={styles.formControl}>
+                            <label className={styles.formLabel}>ステータス</label>
+                            <select className={styles.select} defaultValue={project.status}>
+                              <option value="planning">計画中</option>
+                              <option value="active">進行中</option>
+                              <option value="on-hold">保留</option>
+                              <option value="completed">完了</option>
+                            </select>
+                          </div>
+
+                          <div className={styles.formControl}>
+                            <label className={styles.formLabel}>進捗率 (%)</label>
+                            <input
+                              type="number"
+                              className={styles.input}
+                              min="0"
+                              max="100"
+                              defaultValue={project.progress}
+                            />
+                          </div>
+                        </div>
+
+                        <div className={styles.formControl}>
+                          <label className={styles.formLabel}>タグ (カンマ区切り)</label>
+                          <input
+                            type="text"
+                            className={styles.input}
+                            defaultValue={project.tags.join(', ')}
+                          />
+                        </div>
+
+                        <div className={styles.formActions}>
+                          <button className={styles.cancelButton}>キャンセル</button>
+                          <button className={styles.saveButton}>保存</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </TabPanel>
           </TabPanels>
         </Tabs>
-      </VStack>
+      </div>
     </Layout>
   );
 }
