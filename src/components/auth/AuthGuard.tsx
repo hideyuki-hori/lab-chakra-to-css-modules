@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Box, Spinner, Center } from '@chakra-ui/react';
 import { useAuth } from '../../contexts/AuthContext';
+import styles from '../../styles/components/auth-guard.module.css';
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -19,20 +19,12 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (loading) {
     return (
-      <Center h="100vh" bg="gray.50">
-        <Box textAlign="center">
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="primary.500"
-            size="xl"
-          />
-          <Box mt={4} color="gray.600">
-            読み込み中...
-          </Box>
-        </Box>
-      </Center>
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingContent}>
+          <div className={styles.spinner} />
+          <p className={styles.loadingText}>読み込み中...</p>
+        </div>
+      </div>
     );
   }
 

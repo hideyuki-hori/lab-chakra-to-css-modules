@@ -1,11 +1,7 @@
-import {
-  Box,
-  BoxProps,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { ReactNode, HTMLAttributes } from 'react';
+import styles from '../../styles/components/card.module.css';
 
-interface CardProps extends BoxProps {
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   isHoverable?: boolean;
 }
@@ -13,36 +9,20 @@ interface CardProps extends BoxProps {
 export default function Card({
   children,
   isHoverable = false,
+  className,
   ...props
 }: CardProps) {
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
-
-  const hoverStyles = isHoverable
-    ? {
-        _hover: {
-          borderColor: 'primary.300',
-          bg: 'gray.50',
-          transform: 'translateY(-2px)',
-          boxShadow: 'md',
-        },
-        transition: 'all 0.2s',
-        cursor: 'pointer',
-      }
-    : {};
+  const cardClasses = [
+    styles.card,
+    isHoverable ? styles.hoverable : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <Box
-      p={4}
-      borderRadius="lg"
-      border="1px"
-      borderColor={borderColor}
-      bg={bgColor}
-      boxShadow="sm"
-      {...hoverStyles}
-      {...props}
-    >
+    <div className={cardClasses} {...props}>
       {children}
-    </Box>
+    </div>
   );
 }

@@ -1,0 +1,70 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+}
+
+/* Subtle variants (light background) */
+.subtleGray {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.subtleBlue {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-700);
+}
+
+.subtleGreen {
+  background-color: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.subtleOrange {
+  background-color: var(--color-orange-100);
+  color: var(--color-orange-700);
+}
+
+.subtleRed {
+  background-color: var(--color-red-100);
+  color: var(--color-red-700);
+}
+
+.subtleYellow {
+  background-color: var(--color-orange-100);
+  color: var(--color-orange-700);
+}
+
+/* Solid variants (dark background) */
+.solidGray {
+  background-color: var(--color-gray-500);
+  color: white;
+}
+
+.solidBlue {
+  background-color: var(--color-blue-500);
+  color: white;
+}
+
+.solidGreen {
+  background-color: var(--color-green-500);
+  color: white;
+}
+
+.solidOrange {
+  background-color: var(--color-orange-500);
+  color: white;
+}
+
+.solidRed {
+  background-color: var(--color-red-500);
+  color: white;
+}
+
+.solidYellow {
+  background-color: var(--color-orange-500);
+  color: white;
+}
