@@ -8,22 +8,18 @@ import {
   Heading,
   Alert,
   AlertIcon,
-  useColorModeValue,
-} from '@chakra-ui/react';
+} from '@/src/components/ui';
 import { FcGoogle } from 'react-icons/fc';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 
-const MotionBox = motion(Box);
+const MotionDiv = motion.div;
 
 export default function Login() {
   const { signInWithGoogle } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const bgColor = useColorModeValue('gray.50', 'gray.900');
-  const cardBg = useColorModeValue('white', 'gray.800');
 
   const handleGoogleSignIn = async () => {
     setError(null);
@@ -40,28 +36,44 @@ export default function Login() {
   };
 
   return (
-    <Box minH="100vh" bg={bgColor} display="flex" alignItems="center" justifyContent="center" p={4}>
-      <MotionBox
+    <Box
+      style={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--color-gray-50)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--spacing-4)',
+      }}
+    >
+      <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        w="full"
-        maxW="md"
+        style={{ width: '100%', maxWidth: '28rem' }}
       >
-        <Box bg={cardBg} p={8} borderRadius="xl" boxShadow="xl" border="1px" borderColor="gray.200">
+        <Box
+          style={{
+            backgroundColor: 'white',
+            padding: 'var(--spacing-8)',
+            borderRadius: 'var(--radius-xl)',
+            boxShadow: 'var(--shadow-xl)',
+            border: '1px solid var(--color-gray-200)',
+          }}
+        >
           <VStack spacing={6} align="stretch">
-            <Box textAlign="center">
-              <Heading size="lg" color="primary.600" mb={2}>
+            <Box style={{ textAlign: 'center' }}>
+              <Heading size="lg" style={{ color: 'var(--color-primary-600)', marginBottom: 'var(--spacing-2)' }}>
                 TaskFlow
               </Heading>
-              <Text color="gray.600">
+              <Text style={{ color: 'var(--color-gray-600)' }}>
                 アカウントにログイン
               </Text>
             </Box>
 
             {error && (
-              <Alert status="error" borderRadius="md">
-                <AlertIcon />
+              <Alert status="error">
+                <AlertIcon status="error" />
                 {error}
               </Alert>
             )}
@@ -69,17 +81,16 @@ export default function Login() {
             <Button
               variant="outline"
               size="lg"
-              w="full"
-              leftIcon={<FcGoogle size={20} />}
               onClick={handleGoogleSignIn}
               isLoading={loading}
-              style={{ borderWidth: '2px' }}
+              style={{ width: '100%', borderWidth: '2px' }}
             >
+              <FcGoogle size={20} style={{ marginRight: 'var(--spacing-2)' }} />
               Googleでログイン
             </Button>
           </VStack>
         </Box>
-      </MotionBox>
+      </MotionDiv>
     </Box>
   );
 }
