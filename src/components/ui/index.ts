@@ -18,6 +18,10 @@ export { default as Checkbox } from './Checkbox';
 export { default as Radio } from './Radio';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Switch } from './Switch';
+export { default as FormControl, useFormControlContext } from './FormControl';
+export { default as FormLabel } from './FormLabel';
+export { default as FormErrorMessage } from './FormErrorMessage';
+export { default as FormHelperText } from './FormHelperText';
 
 export { default as Box } from './Box';
 export { default as Flex } from './Flex';
@@ -62,5 +66,9 @@ export type { CheckboxColorScheme, CheckboxProps } from './Checkbox';
 export type { RadioColorScheme, RadioProps } from './Radio';
 export type { RadioGroupProps } from './RadioGroup';
 export type { SwitchColorScheme, SwitchProps } from './Switch';
+export type { FormControlProps, FormControlContextValue } from './FormControl';
+export type { FormLabelProps } from './FormLabel';
+export type { FormErrorMessageProps } from './FormErrorMessage';
+export type { FormHelperTextProps } from './FormHelperText';
 
 export type { LayoutProps, ResponsiveValue, SpacingValue, ColorValue, RadiusValue } from './styleUtils';

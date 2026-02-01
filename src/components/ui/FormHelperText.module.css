@@ -1,0 +1,7 @@
+.helperText {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-top: calc(var(--spacing) * 2);
+  line-height: 1.4;
+}
