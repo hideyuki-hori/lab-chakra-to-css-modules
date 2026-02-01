@@ -1,9 +1,24 @@
 # TaskFlow - Chakra UI → CSS Modules 移行プロジェクト
 
 ## アプローチ
-**直接CSS Modules適用方式（アプローチA）**
+**共有コンポーネント活用方式**
 
-各ページで直接CSS Modulesを使用する。共通UIコンポーネントは最小限。
+1. 共有コンポーネント（UI, Common, Form, Data, Modal）を先にCSS Modulesに移行
+2. ページ移行時は必ず共有コンポーネントを使用する
+3. ページでベタにスタイルを書かない
+
+## 重要：ページ移行時のルール
+- **必ず既存の共有コンポーネントを使用すること**
+- Chakra UIのコンポーネントは以下に置き換える：
+  - `Button` → `src/components/ui/Button`
+  - `Card` → `src/components/ui/Card`
+  - `Modal` → `src/components/ui/Modal`
+  - `StatusBadge`, `PriorityBadge`, `RoleBadge` → `src/components/ui`
+  - `FormInput`, `FormSelect`, `FormTextarea` → `src/components/form`
+  - `TaskCard`, `ProjectCard`, `MemberCard`, `StatCard` → `src/components/data`
+  - `Alert`, `PageHeader`, `Tooltip`, `UserAvatar` → `src/components/common`
+  - `ConfirmModal`, `FormModal` → `src/components/modal`
+- ページ固有のレイアウトのみCSS Modulesで記述
 
 ## 技術スタック
 - Next.js 16.1.3 (Page Router)
@@ -26,7 +41,7 @@
 ## 移行作業の手順
 1. `/migrate <page-name>` で移行開始
 2. `/screenshot before` でBefore取得
-3. 作業実施
+3. 作業実施（共有コンポーネントを活用）
 4. `/screenshot after` でAfter取得
 5. `/compare` で比較
 6. `/create-pr` でPR作成
