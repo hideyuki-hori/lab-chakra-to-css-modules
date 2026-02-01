@@ -1,0 +1,192 @@
+.container {
+  padding: var(--spacing-8);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.navButton {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.navButton:hover {
+  background-color: var(--color-gray-200);
+}
+
+.currentMonth {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  min-width: 200px;
+  text-align: center;
+  margin: 0;
+}
+
+.calendarCard {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  background-color: white;
+}
+
+.weekHeader {
+  display: flex;
+  margin-bottom: var(--spacing-2);
+}
+
+.weekDay {
+  flex: 1;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-600);
+  padding: var(--spacing-2);
+}
+
+.calendarGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dayCell {
+  width: 14.28%;
+  min-height: 100px;
+  padding: var(--spacing-2);
+  border: 1px solid var(--color-gray-200);
+  position: relative;
+  background-color: white;
+}
+
+.dayCellToday {
+  background-color: var(--color-blue-50);
+}
+
+.dayNumber {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  margin: 0;
+}
+
+.dayNumberToday {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue-600);
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  margin-top: var(--spacing-2);
+}
+
+.eventBadge {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  width: 100%;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.badgeBlue {
+  color: var(--color-blue-800);
+  background-color: var(--color-blue-100);
+}
+
+.badgePurple {
+  color: #553c9a;
+  background-color: #e9d8fd;
+}
+
+.badgeRed {
+  color: #c53030;
+  background-color: #fed7d7;
+}
+
+.badgeGray {
+  color: var(--color-gray-700);
+  background-color: var(--color-gray-200);
+}
+
+.modalDetail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.detailLabel {
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.detailValue {
+  margin: 0;
+}
+
+.assigneeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.buttonPrimary {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: white;
+  background-color: var(--color-blue-500);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.buttonPrimary:hover {
+  background-color: var(--color-blue-600);
+}
