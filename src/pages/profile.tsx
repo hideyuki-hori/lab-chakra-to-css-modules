@@ -12,7 +12,7 @@ interface ProfileForm {
 }
 
 const Profile = () => {
-  const { register, handleSubmit } = useForm<ProfileForm>({
+  const { register, handleSubmit, watch } = useForm<ProfileForm>({
     defaultValues: {
       name: '山田太郎',
       email: 'yamada@example.com',
@@ -22,6 +22,25 @@ const Profile = () => {
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const userName = watch('name');
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
+  };
 
   const achievements = [
     { id: 1, label: 'プロジェクト完了', count: 25 },
@@ -88,7 +107,9 @@ const Profile = () => {
                       className={styles.avatarImage}
                     />
                   ) : (
-                    <div className={styles.avatarPlaceholder}>山</div>
+                    <div className={styles.avatarPlaceholder} style={{ background: getAvatarColor(userName || '') }}>
+                      {userName?.charAt(0) || ''}
+                    </div>
                   )}
                 </motion.div>
                 <input
