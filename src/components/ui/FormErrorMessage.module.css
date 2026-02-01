@@ -1,0 +1,9 @@
+.errorMessage {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-red-500);
+  margin-top: calc(var(--spacing) * 2);
+  line-height: 1.4;
+}
