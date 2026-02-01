@@ -1,0 +1,41 @@
+.pageHeader {
+  border-left: 4px solid var(--color-blue-500);
+  padding-left: var(--spacing-4);
+}
+
+.pageTitle {
+  background: linear-gradient(90deg, var(--color-blue-800), var(--color-blue-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.addButton {
+  box-shadow: 0 4px 14px rgba(49, 130, 206, 0.4);
+}
+
+.memberCard {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+}
+
+.menuButton:hover {
+  background: var(--color-gray-100);
+}
