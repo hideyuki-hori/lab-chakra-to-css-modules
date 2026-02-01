@@ -1,0 +1,72 @@
+.menu {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.menuButton:hover {
+  background-color: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+}
+
+.menuList {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-1);
+  min-width: 160px;
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.menuItem:hover {
+  background-color: var(--color-gray-100);
+}
+
+.menuItemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.menuDivider {
+  height: 1px;
+  margin: var(--spacing-1) 0;
+  background-color: var(--color-gray-200);
+}
