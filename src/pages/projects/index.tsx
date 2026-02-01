@@ -22,10 +22,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton,
   Tooltip,
   Progress,
-} from '@chakra-ui/react';
+} from '@/src/components/ui';
 import {
   FiSearch,
   FiPlus,
@@ -39,8 +38,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import { mockProjects } from '../../lib/mockData';
-
-const MotionTr = motion(Tr);
+import styles from '../../styles/pages/projects.module.css';
 
 export default function ProjectsPage() {
   const router = useRouter();
@@ -95,24 +93,23 @@ export default function ProjectsPage() {
     <Layout>
       <VStack align="stretch" spacing={6}>
         <Box>
-          <Heading size="lg" mb={2}>
+          <Heading size="lg" style={{ marginBottom: 'var(--spacing-2)' }}>
             プロジェクト一覧
           </Heading>
-          <Text color="gray.600">
+          <Text color="var(--color-gray-600)">
             すべてのプロジェクトを管理できます
           </Text>
         </Box>
 
         <HStack justify="space-between">
-          <InputGroup maxW="400px">
-            <InputLeftElement pointerEvents="none">
+          <InputGroup className={styles.searchInput}>
+            <InputLeftElement>
               <FiSearch color="gray" />
             </InputLeftElement>
             <Input
               placeholder="プロジェクトを検索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              bg="white"
             />
           </InputGroup>
 
@@ -120,7 +117,6 @@ export default function ProjectsPage() {
             leftIcon={<FiPlus />}
             colorScheme="primary"
             onClick={() => {
-              // 新規作成ハンドラー
               console.log('新規プロジェクト作成');
             }}
           >
@@ -128,9 +124,9 @@ export default function ProjectsPage() {
           </Button>
         </HStack>
 
-        <Box bg="white" borderRadius="lg" boxShadow="sm" overflow="hidden">
+        <div className={styles.tableContainer}>
           <Table variant="simple">
-            <Thead bg="gray.50">
+            <Thead className={styles.tableHeader}>
               <Tr>
                 <Th>プロジェクト名</Th>
                 <Th>オーナー</Th>
@@ -138,24 +134,23 @@ export default function ProjectsPage() {
                 <Th>ステータス</Th>
                 <Th>進捗</Th>
                 <Th>期限</Th>
-                <Th width="50px">操作</Th>
+                <Th style={{ width: '50px' }}>操作</Th>
               </Tr>
             </Thead>
             <Tbody>
               {filteredProjects.map((project) => (
-                <MotionTr
+                <motion.tr
                   key={project.id}
+                  className={styles.tableRow}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.02)' }}
                   transition={{ duration: 0.2 }}
-                  cursor="pointer"
                   onClick={() => router.push(`/projects/${project.id}`)}
                 >
                   <Td>
-                    <VStack align="start" spacing={1}>
+                    <VStack align="flex-start" spacing={1}>
                       <Text fontWeight="semibold">{project.name}</Text>
-                      <Text fontSize="sm" color="gray.600" noOfLines={1}>
+                      <Text fontSize="sm" color="var(--color-gray-600)" className={styles.projectDescription}>
                         {project.description}
                       </Text>
                     </VStack>
@@ -172,7 +167,7 @@ export default function ProjectsPage() {
                   </Td>
                   <Td>
                     <Tooltip
-                      label={project.members.map((m) => m.name).join(', ')}
+                      content={project.members.map((m) => m.name).join(', ')}
                       placement="top"
                     >
                       <HStack spacing={2}>
@@ -185,7 +180,7 @@ export default function ProjectsPage() {
                             />
                           ))}
                         </AvatarGroup>
-                        <Text fontSize="sm" color="gray.600">
+                        <Text fontSize="sm" color="var(--color-gray-600)">
                           <FiUsers style={{ display: 'inline', marginRight: '4px' }} />
                           {project.members.length}
                         </Text>
@@ -214,24 +209,22 @@ export default function ProjectsPage() {
                             ? 'orange'
                             : 'red'
                         }
-                        borderRadius="full"
                       />
                     </VStack>
                   </Td>
                   <Td>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize="sm" color="var(--color-gray-600)">
                       {formatDate(project.endDate)}
                     </Text>
                   </Td>
                   <Td onClick={(e) => e.stopPropagation()}>
                     <Menu>
                       <MenuButton
-                        as={IconButton}
-                        icon={<FiMoreVertical />}
-                        variant="ghost"
-                        size="sm"
+                        className={styles.menuButton}
                         aria-label="アクション"
-                      />
+                      >
+                        <FiMoreVertical />
+                      </MenuButton>
                       <MenuList>
                         <MenuItem
                           icon={<FiEye />}
@@ -249,7 +242,7 @@ export default function ProjectsPage() {
                         </MenuItem>
                         <MenuItem
                           icon={<FiTrash2 />}
-                          color="red.500"
+                          className={styles.deleteMenuItem}
                           onClick={() => {
                             console.log('削除:', project.id);
                           }}
@@ -259,21 +252,21 @@ export default function ProjectsPage() {
                       </MenuList>
                     </Menu>
                   </Td>
-                </MotionTr>
+                </motion.tr>
               ))}
             </Tbody>
           </Table>
 
           {filteredProjects.length === 0 && (
-            <Box py={10} textAlign="center">
-              <Text color="gray.500">
+            <div className={styles.emptyState}>
+              <Text color="var(--color-gray-500)">
                 検索条件に一致するプロジェクトが見つかりませんでした
               </Text>
-            </Box>
+            </div>
           )}
-        </Box>
+        </div>
 
-        <HStack justify="space-between" fontSize="sm" color="gray.600">
+        <HStack justify="space-between" style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-gray-600)' }}>
           <Text>全 {filteredProjects.length} 件のプロジェクト</Text>
           <HStack spacing={4}>
             <Badge colorScheme="blue">
