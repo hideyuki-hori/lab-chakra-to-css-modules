@@ -1,48 +1,47 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  Checkbox,
-  CheckboxProps,
-  Box,
-} from '@chakra-ui/react';
-import { forwardRef } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import styles from '../../styles/components/form.module.css';
 
-const MotionBox = motion(Box);
-
-interface FormCheckboxProps extends CheckboxProps {
+interface FormCheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   error?: string;
   isAnimated?: boolean;
+  children?: ReactNode;
 }
 
 const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
-  ({ error, isAnimated = true, children, ...props }, ref) => {
+  ({ error, isAnimated = true, children, className, ...props }, ref) => {
     const checkbox = (
-      <Checkbox ref={ref} colorScheme="primary" {...props}>
-        {children}
-      </Checkbox>
+      <label className={styles.checkbox}>
+        <input
+          ref={ref}
+          type="checkbox"
+          className={styles.checkboxInput}
+          {...props}
+        />
+        {children && <span className={styles.checkboxLabel}>{children}</span>}
+      </label>
     );
 
     if (isAnimated) {
       return (
-        <FormControl isInvalid={!!error}>
-          <MotionBox
-            display="inline-block"
+        <div className={styles.formControl}>
+          <motion.div
+            style={{ display: 'inline-block' }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             {checkbox}
-          </MotionBox>
-          {error && <FormErrorMessage>{error}</FormErrorMessage>}
-        </FormControl>
+          </motion.div>
+          {error && <p className={styles.errorMessage}>{error}</p>}
+        </div>
       );
     }
 
     return (
-      <FormControl isInvalid={!!error}>
+      <div className={styles.formControl}>
         {checkbox}
-        {error && <FormErrorMessage>{error}</FormErrorMessage>}
-      </FormControl>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+      </div>
     );
   }
 );
