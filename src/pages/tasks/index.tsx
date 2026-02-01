@@ -1,32 +1,5 @@
 import { useState } from 'react';
 import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Badge,
-  Avatar,
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-  Checkbox,
-  Select,
-  Flex,
-} from '@chakra-ui/react';
-import {
   FiSearch,
   FiPlus,
   FiMoreVertical,
@@ -39,9 +12,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import { mockTasks, mockProjects } from '../../lib/mockData';
-
-const MotionTr = motion(Tr);
-const MotionBox = motion(Box);
+import { Menu, MenuItem } from '../../components/ui/Menu';
+import styles from '../../styles/pages/tasks.module.css';
 
 export default function TasksPage() {
   const router = useRouter();
@@ -51,31 +23,31 @@ export default function TasksPage() {
   const [filterPriority, setFilterPriority] = useState('all');
   const [checkedTasks, setCheckedTasks] = useState<Set<string>>(new Set());
 
-  const getTaskPriorityColor = (priority: string) => {
+  const getTaskPriorityBadgeClass = (priority: string) => {
     switch (priority) {
       case 'urgent':
-        return 'red';
+        return styles.badgeRed;
       case 'high':
-        return 'orange';
+        return styles.badgeOrange;
       case 'medium':
-        return 'blue';
+        return styles.badgeBlue;
       case 'low':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
-  const getTaskStatusColor = (status: string) => {
+  const getTaskStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'green';
+        return styles.badgeGreen;
       case 'in-progress':
-        return 'blue';
+        return styles.badgeBlue;
       case 'todo':
-        return 'gray';
+        return styles.badgeGray;
       default:
-        return 'gray';
+        return styles.badgeGray;
     }
   };
 
@@ -105,6 +77,24 @@ export default function TasksPage() {
       default:
         return priority;
     }
+  };
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'linear-gradient(135deg, #38b2ac, #319795)',
+      'linear-gradient(135deg, #ed64a6, #d53f8c)',
+      'linear-gradient(135deg, #a0522d, #8b4513)',
+      'linear-gradient(135deg, #9f7aea, #805ad5)',
+      'linear-gradient(135deg, #ecc94b, #d69e2e)',
+      'linear-gradient(135deg, #4299e1, #3182ce)',
+      'linear-gradient(135deg, #48bb78, #38a169)',
+      'linear-gradient(135deg, #fc8181, #f56565)',
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return colors[Math.abs(hash) % colors.length];
   };
 
   const formatDate = (date: Date) => {
@@ -142,40 +132,33 @@ export default function TasksPage() {
 
   return (
     <Layout>
-      <VStack align="stretch" spacing={6}>
-        <Box>
-          <Heading size="lg" mb={2}>
-            タスク一覧
-          </Heading>
-          <Text color="gray.600">すべてのタスクを管理できます</Text>
-        </Box>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>タスク一覧</h1>
+          <p className={styles.subtitle}>すべてのタスクを管理できます</p>
+        </div>
 
-        <Flex gap={4} flexWrap="wrap" align="center">
-          <InputGroup maxW="400px" flex="1" minW="200px">
-            <InputLeftElement pointerEvents="none">
-              <FiSearch color="gray" />
-            </InputLeftElement>
-            <Input
+        <div className={styles.toolbar}>
+          <div className={styles.searchContainer}>
+            <FiSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              className={styles.searchInput}
               placeholder="タスクを検索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              bg="white"
             />
-          </InputGroup>
+          </div>
 
-          <HStack spacing={3} flex="1" flexWrap="wrap">
-            <HStack spacing={2}>
+          <div className={styles.filters}>
+            <div className={styles.filterLabel}>
               <FiFilter />
-              <Text fontSize="sm" fontWeight="medium" color="gray.600">
-                フィルター:
-              </Text>
-            </HStack>
-            <Select
+              <span>フィルター:</span>
+            </div>
+            <select
+              className={`${styles.select} ${styles.selectProject}`}
               value={filterProject}
               onChange={(e) => setFilterProject(e.target.value)}
-              bg="white"
-              maxW="200px"
-              size="md"
             >
               <option value="all">すべてのプロジェクト</option>
               {mockProjects.map((project) => (
@@ -183,60 +166,56 @@ export default function TasksPage() {
                   {project.name}
                 </option>
               ))}
-            </Select>
+            </select>
 
-            <Select
+            <select
+              className={styles.select}
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              bg="white"
-              maxW="150px"
-              size="md"
             >
               <option value="all">すべてのステータス</option>
               <option value="todo">未着手</option>
               <option value="in-progress">進行中</option>
               <option value="completed">完了</option>
-            </Select>
+            </select>
 
-            <Select
+            <select
+              className={styles.select}
               value={filterPriority}
               onChange={(e) => setFilterPriority(e.target.value)}
-              bg="white"
-              maxW="150px"
-              size="md"
             >
               <option value="all">すべての優先度</option>
               <option value="low">低</option>
               <option value="medium">中</option>
               <option value="high">高</option>
               <option value="urgent">緊急</option>
-            </Select>
-          </HStack>
+            </select>
+          </div>
 
-          <Button
-            leftIcon={<FiPlus />}
-            colorScheme="primary"
+          <button
+            className={styles.addButton}
             onClick={() => router.push('/tasks/new')}
           >
+            <FiPlus />
             新規タスク
-          </Button>
-        </Flex>
+          </button>
+        </div>
 
-        <Box bg="white" borderRadius="lg" boxShadow="sm" overflow="hidden">
-          <Table variant="simple">
-            <Thead bg="gray.50">
-              <Tr>
-                <Th width="50px">完了</Th>
-                <Th>タスク名</Th>
-                <Th>プロジェクト</Th>
-                <Th>担当者</Th>
-                <Th>優先度</Th>
-                <Th>ステータス</Th>
-                <Th>期限</Th>
-                <Th width="50px">操作</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
+            <thead className={styles.tableHeader}>
+              <tr>
+                <th className={`${styles.th} ${styles.thCheckbox}`}>完了</th>
+                <th className={styles.th}>タスク名</th>
+                <th className={styles.th}>プロジェクト</th>
+                <th className={styles.th}>担当者</th>
+                <th className={styles.th}>優先度</th>
+                <th className={styles.th}>ステータス</th>
+                <th className={styles.th}>期限</th>
+                <th className={`${styles.th} ${styles.thActions}`}>操作</th>
+              </tr>
+            </thead>
+            <tbody>
               <AnimatePresence mode="popLayout">
                 {filteredTasks.map((task) => {
                   const project = mockProjects.find((p) => p.id === task.projectId);
@@ -245,142 +224,157 @@ export default function TasksPage() {
                   const isChecked = checkedTasks.has(task.id);
 
                   return (
-                    <MotionTr
+                    <motion.tr
                       key={task.id}
+                      className={styles.tr}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: -100, height: 0 }}
                       whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.02)' }}
                       transition={{ duration: 0.2 }}
-                      cursor="pointer"
                     >
-                      <Td onClick={(e) => e.stopPropagation()}>
-                        <MotionBox
+                      <td className={styles.td} onClick={(e) => e.stopPropagation()}>
+                        <motion.div
+                          className={styles.checkboxWrapper}
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           transition={{ duration: 0.1 }}
                         >
-                          <Checkbox
-                            isChecked={isChecked}
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox}
+                            checked={isChecked}
                             onChange={() => handleCheckboxChange(task.id)}
-                            colorScheme="primary"
                           />
-                        </MotionBox>
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
-                        <VStack align="start" spacing={1}>
-                          <Text fontWeight="semibold">{task.title}</Text>
-                          <Text fontSize="sm" color="gray.600" noOfLines={1}>
-                            {task.description}
-                          </Text>
-                        </VStack>
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
+                        </motion.div>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
+                        <div className={styles.taskInfo}>
+                          <p className={styles.taskTitle}>{task.title}</p>
+                          <p className={styles.taskDescription}>{task.description}</p>
+                        </div>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
                         {project && (
-                          <Text fontSize="sm" color="gray.600">
-                            {project.name}
-                          </Text>
+                          <p className={styles.projectName}>{project.name}</p>
                         )}
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
                         {task.assignee && (
-                          <HStack spacing={2}>
-                            <Avatar
-                              size="sm"
-                              name={task.assignee.name}
-                              src={task.assignee.avatar}
-                            />
-                            <Text fontSize="sm">{task.assignee.name}</Text>
-                          </HStack>
+                          <div className={styles.assigneeCell}>
+                            {task.assignee.avatar ? (
+                              <img
+                                src={task.assignee.avatar}
+                                alt={task.assignee.name}
+                                className={styles.avatar}
+                              />
+                            ) : (
+                              <div
+                                className={styles.avatarPlaceholder}
+                                style={{ background: getAvatarColor(task.assignee.name) }}
+                              >
+                                {task.assignee.name.charAt(0)}
+                              </div>
+                            )}
+                            <span className={styles.assigneeName}>{task.assignee.name}</span>
+                          </div>
                         )}
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
-                        <Badge colorScheme={getTaskPriorityColor(task.priority)}>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
+                        <span className={`${styles.badge} ${getTaskPriorityBadgeClass(task.priority)}`}>
                           {getTaskPriorityLabel(task.priority)}
-                        </Badge>
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
-                        <Badge
-                          colorScheme={getTaskStatusColor(task.status)}
-                          variant="subtle"
-                        >
+                        </span>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
+                        <span className={`${styles.badge} ${getTaskStatusBadgeClass(task.status)}`}>
                           {getTaskStatusLabel(task.status)}
-                        </Badge>
-                      </Td>
-                      <Td onClick={() => router.push(`/tasks/${task.id}/edit`)}>
-                        <Text
-                          fontSize="sm"
-                          color={isOverdue ? 'red.500' : 'gray.600'}
-                          fontWeight={isOverdue ? 'semibold' : 'normal'}
-                        >
+                        </span>
+                      </td>
+                      <td
+                        className={styles.td}
+                        onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                      >
+                        <p className={`${styles.dateText} ${isOverdue ? styles.dateOverdue : ''}`}>
                           {formatDate(task.dueDate)}
-                        </Text>
-                      </Td>
-                      <Td onClick={(e) => e.stopPropagation()}>
-                        <Menu>
-                          <MenuButton
-                            as={IconButton}
-                            icon={<FiMoreVertical />}
-                            variant="ghost"
-                            size="sm"
-                            aria-label="アクション"
-                          />
-                          <MenuList>
-                            <MenuItem
-                              icon={<FiEye />}
-                              onClick={() => router.push(`/tasks/${task.id}/edit`)}
-                            >
-                              詳細を表示
-                            </MenuItem>
-                            <MenuItem
-                              icon={<FiEdit2 />}
-                              onClick={() => router.push(`/tasks/${task.id}/edit`)}
-                            >
-                              編集
-                            </MenuItem>
-                            <MenuItem
-                              icon={<FiTrash2 />}
-                              color="red.500"
-                              onClick={() => {
-                                console.log('削除:', task.id);
-                              }}
-                            >
-                              削除
-                            </MenuItem>
-                          </MenuList>
+                        </p>
+                      </td>
+                      <td className={styles.td} onClick={(e) => e.stopPropagation()}>
+                        <Menu
+                          trigger={
+                            <button className={styles.actionButton} aria-label="アクション">
+                              <FiMoreVertical />
+                            </button>
+                          }
+                        >
+                          <MenuItem
+                            icon={<FiEye />}
+                            onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                          >
+                            詳細を表示
+                          </MenuItem>
+                          <MenuItem
+                            icon={<FiEdit2 />}
+                            onClick={() => router.push(`/tasks/${task.id}/edit`)}
+                          >
+                            編集
+                          </MenuItem>
+                          <MenuItem
+                            icon={<FiTrash2 />}
+                            color="#c53030"
+                            onClick={() => {
+                              console.log('削除:', task.id);
+                            }}
+                          >
+                            削除
+                          </MenuItem>
                         </Menu>
-                      </Td>
-                    </MotionTr>
+                      </td>
+                    </motion.tr>
                   );
                 })}
               </AnimatePresence>
-            </Tbody>
-          </Table>
+            </tbody>
+          </table>
 
           {filteredTasks.length === 0 && (
-            <Box py={10} textAlign="center">
-              <Text color="gray.500">
+            <div className={styles.emptyState}>
+              <p className={styles.emptyText}>
                 検索条件に一致するタスクが見つかりませんでした
-              </Text>
-            </Box>
+              </p>
+            </div>
           )}
-        </Box>
+        </div>
 
-        <HStack justify="space-between" fontSize="sm" color="gray.600" flexWrap="wrap">
-          <Text>全 {filteredTasks.length} 件のタスク</Text>
-          <HStack spacing={4} flexWrap="wrap">
-            <Badge colorScheme="gray">
+        <div className={styles.footer}>
+          <p>全 {filteredTasks.length} 件のタスク</p>
+          <div className={styles.footerBadges}>
+            <span className={`${styles.badge} ${styles.badgeGray}`}>
               未着手 {mockTasks.filter((t) => t.status === 'todo').length}
-            </Badge>
-            <Badge colorScheme="blue">
+            </span>
+            <span className={`${styles.badge} ${styles.badgeBlue}`}>
               進行中 {mockTasks.filter((t) => t.status === 'in-progress').length}
-            </Badge>
-            <Badge colorScheme="green">
+            </span>
+            <span className={`${styles.badge} ${styles.badgeGreen}`}>
               完了 {mockTasks.filter((t) => t.status === 'completed').length}
-            </Badge>
-          </HStack>
-        </HStack>
-      </VStack>
+            </span>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }
