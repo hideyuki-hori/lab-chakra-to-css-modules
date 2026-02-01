@@ -24,6 +24,8 @@ export { Spinner } from './Spinner';
 export { Divider } from './Divider';
 export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from './Modal';
 export { Tooltip } from './Tooltip';
+export { Menu, MenuButton, MenuList, MenuItem, MenuDivider } from './Menu';
+export { Tabs, TabList, Tab, TabPanels, TabPanel } from './Tabs';
 
 export { default as ProgressBar } from './ProgressBar';
 export { default as EmptyState } from './EmptyState';
@@ -59,3 +61,5 @@ export type { SpinnerProps, SpinnerSize } from './Spinner';
 export type { DividerProps, DividerOrientation } from './Divider';
 export type { ModalProps, ModalSize, ModalHeaderProps, ModalBodyProps, ModalFooterProps, ModalCloseButtonProps } from './Modal';
 export type { TooltipProps, TooltipPlacement } from './Tooltip';
+export type { MenuProps, MenuButtonProps, MenuListProps, MenuItemProps, MenuDividerProps } from './Menu';
+export type { TabsProps, TabsVariant, TabListProps, TabProps, TabPanelsProps, TabPanelProps } from './Tabs';

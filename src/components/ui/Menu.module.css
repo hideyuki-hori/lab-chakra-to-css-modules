@@ -1,0 +1,90 @@
+.menu {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  color: var(--color-gray-600);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.menuButton:hover {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.menuList {
+  position: absolute;
+  z-index: 1000;
+  min-width: 160px;
+  padding: var(--spacing-1) 0;
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: menuEnter 0.15s ease-out;
+}
+
+@keyframes menuEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  text-align: left;
+  transition: background-color var(--transition-fast);
+}
+
+.menuItem:hover {
+  background-color: var(--color-gray-100);
+}
+
+.menuItem:focus-visible {
+  outline: none;
+  background-color: var(--color-gray-100);
+}
+
+.menuItem:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.menuItemIcon {
+  display: flex;
+  margin-right: var(--spacing-2);
+  color: var(--color-gray-500);
+}
+
+.menuDivider {
+  margin: var(--spacing-1) 0;
+  border: none;
+  border-top: 1px solid var(--color-gray-200);
+}
