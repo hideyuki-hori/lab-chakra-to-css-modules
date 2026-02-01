@@ -172,8 +172,8 @@
 
 .outlineGray {
   background-color: transparent;
-  color: var(--color-gray-600);
-  border: 1px solid var(--color-gray-200);
+  color: inherit;
+  border: 1px solid currentColor;
 }
 
 .outlineGray:hover:not(:disabled) {

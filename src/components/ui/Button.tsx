@@ -55,7 +55,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       variant = 'solid',
       size = 'md',
-      colorScheme = 'gray',
+      colorScheme = 'primary',
       leftIcon,
       rightIcon,
       isLoading = false,
@@ -86,19 +86,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const mergedStyle = mergeStyles(layoutStyle, style);
 
-    const content = (
+    const content = isLoading ? (
       <>
-        {isLoading && (
-          <span className={styles.loadingOverlay}>
-            <span className={styles.spinner} />
-            {loadingText && <span>{loadingText}</span>}
-          </span>
-        )}
-        <span className={isLoading && !loadingText ? styles.loadingContent : undefined}>
-          {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
-          {children}
-          {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
-        </span>
+        <span className={styles.spinner} />
+        {loadingText && <span>{loadingText}</span>}
+      </>
+    ) : (
+      <>
+        {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
       </>
     );
 

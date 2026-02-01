@@ -245,7 +245,7 @@ const ButtonComparePage = () => {
           </ChakraVStack>
         }
         newVersion={
-          <VStack spacing={4}>
+          <VStack spacing={4} align="stretch">
             <Button w="full" colorScheme="blue">Full Width Button</Button>
             <Button w="full" variant="outline">Full Width Outline</Button>
           </VStack>
