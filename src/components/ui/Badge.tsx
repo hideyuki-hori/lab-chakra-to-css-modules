@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Badge.module.css';
 
 export type BadgeVariant = 'solid' | 'subtle' | 'outline';
-export type BadgeColorScheme = 'gray' | 'primary' | 'green' | 'red' | 'yellow' | 'blue' | 'purple';
+export type BadgeColorScheme = 'gray' | 'primary' | 'green' | 'red' | 'yellow' | 'blue' | 'purple' | 'orange';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;

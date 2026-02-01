@@ -86,3 +86,71 @@
   border-color: var(--color-red-500);
   box-shadow: 0 0 0 1px var(--color-red-500);
 }
+
+/* InputGroup */
+.inputGroup {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+/* InputElement (共通) */
+.inputElement {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.inputLeftElement {
+  left: 0;
+}
+
+.inputRightElement {
+  right: 0;
+}
+
+/* Element sizes */
+.elementSm {
+  width: 32px;
+  height: 32px;
+}
+
+.elementMd {
+  width: 40px;
+  height: 40px;
+}
+
+.elementLg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Input with elements - adjust padding */
+.input.withLeftElement.sm {
+  padding-left: 32px;
+}
+
+.input.withLeftElement.md {
+  padding-left: 40px;
+}
+
+.input.withLeftElement.lg {
+  padding-left: 48px;
+}
+
+.input.withRightElement.sm {
+  padding-right: 32px;
+}
+
+.input.withRightElement.md {
+  padding-right: 40px;
+}
+
+.input.withRightElement.lg {
+  padding-right: 48px;
+}

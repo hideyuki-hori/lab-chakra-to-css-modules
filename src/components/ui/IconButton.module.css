@@ -1,0 +1,197 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.iconButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.round {
+  border-radius: 9999px;
+}
+
+/* Sizes */
+.sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+/* Solid variant */
+.solid.primary {
+  background-color: var(--color-primary-500);
+  color: white;
+}
+
+.solid.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+}
+
+.solid.gray {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.solid.gray:hover:not(:disabled) {
+  background-color: var(--color-gray-200);
+}
+
+.solid.red {
+  background-color: var(--color-red-500);
+  color: white;
+}
+
+.solid.red:hover:not(:disabled) {
+  background-color: var(--color-red-600);
+}
+
+.solid.green {
+  background-color: var(--color-green-500);
+  color: white;
+}
+
+.solid.green:hover:not(:disabled) {
+  background-color: var(--color-green-600);
+}
+
+.solid.blue {
+  background-color: var(--color-blue-500);
+  color: white;
+}
+
+.solid.blue:hover:not(:disabled) {
+  background-color: var(--color-blue-600);
+}
+
+/* Outline variant */
+.outline {
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.outline.primary {
+  color: var(--color-primary-500);
+}
+
+.outline.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.outline.gray {
+  color: var(--color-gray-500);
+  border-color: var(--color-gray-300);
+}
+
+.outline.gray:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.outline.red {
+  color: var(--color-red-500);
+}
+
+.outline.red:hover:not(:disabled) {
+  background-color: var(--color-red-50);
+}
+
+.outline.green {
+  color: var(--color-green-500);
+}
+
+.outline.green:hover:not(:disabled) {
+  background-color: var(--color-green-50);
+}
+
+.outline.blue {
+  color: var(--color-blue-500);
+}
+
+.outline.blue:hover:not(:disabled) {
+  background-color: var(--color-blue-50);
+}
+
+/* Ghost variant */
+.ghost {
+  background-color: transparent;
+  border: none;
+}
+
+.ghost.primary {
+  color: var(--color-primary-500);
+}
+
+.ghost.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.ghost.gray {
+  color: var(--color-gray-600);
+}
+
+.ghost.gray:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.ghost.red {
+  color: var(--color-red-500);
+}
+
+.ghost.red:hover:not(:disabled) {
+  background-color: var(--color-red-50);
+}
+
+.ghost.green {
+  color: var(--color-green-500);
+}
+
+.ghost.green:hover:not(:disabled) {
+  background-color: var(--color-green-50);
+}
+
+.ghost.blue {
+  color: var(--color-blue-500);
+}
+
+.ghost.blue:hover:not(:disabled) {
+  background-color: var(--color-blue-50);
+}
+
+/* Loading spinner */
+.loading {
+  pointer-events: none;
+}
+
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Progress.module.css';
 
 export type ProgressSize = 'xs' | 'sm' | 'md' | 'lg';
-export type ProgressColorScheme = 'primary' | 'green' | 'blue' | 'red' | 'yellow' | 'gray';
+export type ProgressColorScheme = 'primary' | 'green' | 'blue' | 'red' | 'yellow' | 'gray' | 'orange';
 
 export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
