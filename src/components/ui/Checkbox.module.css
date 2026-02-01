@@ -1,0 +1,113 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.wrapper.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  background-color: white;
+}
+
+.icon {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-fast);
+  color: white;
+}
+
+.checkbox:checked + .control {
+  border-color: transparent;
+}
+
+.checkbox:checked + .control .icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checkbox:focus-visible + .control {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Sizes */
+.sm .control {
+  width: 14px;
+  height: 14px;
+}
+
+.sm .icon {
+  width: 10px;
+  height: 10px;
+}
+
+.sm .label {
+  font-size: var(--font-size-sm);
+}
+
+.md .control {
+  width: 18px;
+  height: 18px;
+}
+
+.md .icon {
+  width: 12px;
+  height: 12px;
+}
+
+.md .label {
+  font-size: var(--font-size-md);
+}
+
+.lg .control {
+  width: 22px;
+  height: 22px;
+}
+
+.lg .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.lg .label {
+  font-size: var(--font-size-lg);
+}
+
+/* Color schemes */
+.checkbox.primary:checked + .control {
+  background-color: var(--color-primary-500);
+}
+
+.checkbox.green:checked + .control {
+  background-color: var(--color-green-500);
+}
+
+.checkbox.blue:checked + .control {
+  background-color: var(--color-blue-500);
+}
+
+.checkbox.red:checked + .control {
+  background-color: var(--color-red-500);
+}
+
+.label {
+  color: var(--color-gray-700);
+}
