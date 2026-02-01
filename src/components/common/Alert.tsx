@@ -1,14 +1,6 @@
-import {
-  Alert as ChakraAlert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  CloseButton,
-  Box,
-} from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const MotionBox = motion(Box);
+import { FiInfo, FiAlertTriangle, FiCheckCircle, FiXCircle, FiX } from 'react-icons/fi';
+import styles from '../../styles/components/alert.module.css';
 
 type AlertStatus = 'info' | 'warning' | 'success' | 'error';
 
@@ -22,6 +14,13 @@ interface AlertProps {
   isAnimated?: boolean;
 }
 
+const statusConfig: Record<AlertStatus, { alertClass: string; iconClass: string; Icon: typeof FiInfo }> = {
+  info: { alertClass: styles.alertInfo, iconClass: styles.iconInfo, Icon: FiInfo },
+  warning: { alertClass: styles.alertWarning, iconClass: styles.iconWarning, Icon: FiAlertTriangle },
+  success: { alertClass: styles.alertSuccess, iconClass: styles.iconSuccess, Icon: FiCheckCircle },
+  error: { alertClass: styles.alertError, iconClass: styles.iconError, Icon: FiXCircle },
+};
+
 export default function Alert({
   status,
   title,
@@ -31,36 +30,36 @@ export default function Alert({
   isVisible = true,
   isAnimated = true,
 }: AlertProps) {
+  const config = statusConfig[status];
+  const alertClasses = [styles.alert, config.alertClass].join(' ');
+  const iconClasses = [styles.icon, config.iconClass].join(' ');
+
   const alertContent = (
-    <ChakraAlert status={status} borderRadius="md">
-      <AlertIcon />
-      <Box flex="1">
-        {title && <AlertTitle>{title}</AlertTitle>}
-        {description && <AlertDescription>{description}</AlertDescription>}
-      </Box>
+    <div className={alertClasses}>
+      <config.Icon className={iconClasses} />
+      <div className={styles.content}>
+        {title && <div className={styles.title}>{title}</div>}
+        {description && <div className={styles.description}>{description}</div>}
+      </div>
       {isClosable && (
-        <CloseButton
-          alignSelf="flex-start"
-          position="relative"
-          right={-1}
-          top={-1}
-          onClick={onClose}
-        />
+        <button className={styles.closeButton} onClick={onClose} aria-label="閉じる">
+          <FiX />
+        </button>
       )}
-    </ChakraAlert>
+    </div>
   );
 
   if (isAnimated) {
     return (
       <AnimatePresence>
         {isVisible && (
-          <MotionBox
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
             {alertContent}
-          </MotionBox>
+          </motion.div>
         )}
       </AnimatePresence>
     );

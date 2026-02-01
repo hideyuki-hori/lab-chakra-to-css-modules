@@ -1,14 +1,7 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-  MenuDivider,
-} from '@chakra-ui/react';
+import { useState, useRef, useEffect, ReactElement } from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import { ReactElement } from 'react';
+import styles from '../../styles/components/action-menu.module.css';
 
 interface ActionItem {
   label: string;
@@ -23,39 +16,65 @@ interface ActionMenuProps {
   ariaLabel?: string;
   icon?: ReactElement;
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'ghost' | 'outline' | 'solid';
 }
+
+const sizeClassMap = {
+  sm: styles.triggerSm,
+  md: styles.triggerMd,
+  lg: styles.triggerLg,
+};
 
 export default function ActionMenu({
   items,
   ariaLabel = 'アクション',
   icon,
   size = 'sm',
-  variant = 'ghost',
 }: ActionMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const triggerClasses = [styles.trigger, sizeClassMap[size]].join(' ');
+
   return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        icon={icon || <FiMoreVertical />}
-        variant={variant}
-        size={size}
+    <div className={styles.container} ref={containerRef}>
+      <button
+        className={triggerClasses}
+        onClick={() => setIsOpen(!isOpen)}
         aria-label={ariaLabel}
-      />
-      <MenuList>
-        {items.map((item, index) => (
-          <span key={index}>
-            {item.isDividerBefore && <MenuDivider />}
-            <MenuItem
-              icon={item.icon ? <item.icon /> : undefined}
-              onClick={item.onClick}
-              color={item.color}
-            >
-              {item.label}
-            </MenuItem>
-          </span>
-        ))}
-      </MenuList>
-    </Menu>
+      >
+        {icon || <FiMoreVertical />}
+      </button>
+      {isOpen && (
+        <div className={styles.menu}>
+          {items.map((item, index) => (
+            <div key={index}>
+              {item.isDividerBefore && <div className={styles.divider} />}
+              <button
+                className={styles.menuItem}
+                onClick={() => {
+                  item.onClick();
+                  setIsOpen(false);
+                }}
+                style={item.color ? { color: item.color } : undefined}
+              >
+                {item.icon && <item.icon className={styles.menuItemIcon} />}
+                {item.label}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
