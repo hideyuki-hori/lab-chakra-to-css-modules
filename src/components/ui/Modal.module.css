@@ -1,0 +1,140 @@
+.modalRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.48);
+  z-index: 1400;
+}
+
+.content {
+  position: relative;
+  z-index: 1401;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  margin: 3.75rem auto;
+  max-height: calc(100% - 7.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.centered {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sizeXs {
+  width: 100%;
+  max-width: 20rem;
+}
+
+.sizeSm {
+  width: 100%;
+  max-width: 24rem;
+}
+
+.sizeMd {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.sizeLg {
+  width: 100%;
+  max-width: 32rem;
+}
+
+.sizeXl {
+  width: 100%;
+  max-width: 36rem;
+}
+
+.size2xl {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.size3xl {
+  width: 100%;
+  max-width: 48rem;
+}
+
+.size4xl {
+  width: 100%;
+  max-width: 56rem;
+}
+
+.size5xl {
+  width: 100%;
+  max-width: 64rem;
+}
+
+.size6xl {
+  width: 100%;
+  max-width: 72rem;
+}
+
+.sizeFull {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  border-radius: 0;
+}
+
+.header {
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  padding-bottom: calc(var(--spacing) * 2);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.body {
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 6);
+  flex: 1;
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  padding-top: calc(var(--spacing) * 2);
+}
+
+.closeButton {
+  position: absolute;
+  top: calc(var(--spacing) * 2);
+  right: calc(var(--spacing) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: var(--color-gray-100);
+}
+
+.closeButton:focus {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
