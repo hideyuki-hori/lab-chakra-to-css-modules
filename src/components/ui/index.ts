@@ -16,7 +16,13 @@ export { Checkbox } from './Checkbox';
 export { Switch } from './Switch';
 export { FormControl, FormLabel, FormErrorMessage, FormHelperText } from './FormControl';
 
-export { default as Card } from './Card';
+export { Badge } from './Badge';
+export { Avatar, AvatarGroup } from './Avatar';
+export { Card, CardHeader, CardBody, CardFooter } from './Card';
+export { Alert, AlertIcon, AlertTitle, AlertDescription } from './Alert';
+export { Spinner } from './Spinner';
+export { Divider } from './Divider';
+
 export { default as ProgressBar } from './ProgressBar';
 export { default as EmptyState } from './EmptyState';
 export { default as StatusBadge } from './StatusBadge';
@@ -42,3 +48,10 @@ export type { FormControlProps, FormLabelProps, FormErrorMessageProps, FormHelpe
 export type { TaskStatus, ProjectStatus, UserStatus } from './StatusBadge';
 export type { Priority } from './PriorityBadge';
 export type { Role } from './RoleBadge';
+
+export type { BadgeProps, BadgeVariant, BadgeColorScheme } from './Badge';
+export type { AvatarProps, AvatarSize, AvatarGroupProps } from './Avatar';
+export type { CardProps, CardVariant, CardHeaderProps, CardBodyProps, CardFooterProps } from './Card';
+export type { AlertProps, AlertStatus, AlertIconProps, AlertTitleProps, AlertDescriptionProps } from './Alert';
+export type { SpinnerProps, SpinnerSize } from './Spinner';
+export type { DividerProps, DividerOrientation } from './Divider';
