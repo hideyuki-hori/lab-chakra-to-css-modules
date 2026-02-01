@@ -1,7 +1,7 @@
-import { Box } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import styles from '../../styles/components/layout.module.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,16 +9,12 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <Box minH="100vh" bg="gray.50">
+    <div className={styles.layoutContainer}>
       <Sidebar />
       <Header />
-      <Box
-        ml="250px"
-        mt="64px"
-        p={6}
-      >
+      <div className={styles.mainContent}>
         {children}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

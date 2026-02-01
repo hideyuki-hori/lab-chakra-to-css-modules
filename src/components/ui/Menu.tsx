@@ -26,11 +26,15 @@ export const Menu = ({ trigger, children }: MenuProps) => {
     };
   }, [isOpen]);
 
+  const handleItemClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className={styles.menu} ref={menuRef}>
       <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
       {isOpen && (
-        <div className={styles.menuList}>
+        <div className={styles.menuList} onClick={handleItemClick}>
           {children}
         </div>
       )}
@@ -41,15 +45,19 @@ export const Menu = ({ trigger, children }: MenuProps) => {
 interface MenuItemProps {
   children: ReactNode;
   onClick?: () => void;
+  icon?: ReactNode;
+  color?: string;
 }
 
-export const MenuItem = ({ children, onClick }: MenuItemProps) => (
+export const MenuItem = ({ children, onClick, icon, color }: MenuItemProps) => (
   <button
     className={styles.menuItem}
     onClick={() => {
       onClick?.();
     }}
+    style={color ? { color } : undefined}
   >
+    {icon && <span className={styles.menuItemIcon}>{icon}</span>}
     {children}
   </button>
 );
@@ -64,3 +72,5 @@ export const MenuButton = ({ children, className }: MenuButtonProps) => (
     {children}
   </button>
 );
+
+export const MenuDivider = () => <div className={styles.menuDivider} />;
