@@ -9,6 +9,7 @@ export { Text } from './Text';
 export { Heading } from './Heading';
 
 export { Button } from './Button';
+export { IconButton } from './IconButton';
 export { Input, InputGroup, InputLeftElement, InputRightElement } from './Input';
 export { Textarea } from './Textarea';
 export { Select } from './Select';
@@ -46,6 +47,7 @@ export type { SimpleGridProps } from './SimpleGrid';
 export type { TextProps } from './Text';
 export type { HeadingProps } from './Heading';
 export type { ButtonProps, ButtonVariant, ButtonSize, ButtonColorScheme } from './Button';
+export type { IconButtonProps, IconButtonVariant, IconButtonSize, IconButtonColorScheme } from './IconButton';
 export type { InputProps, InputSize, InputVariant, InputGroupProps, InputElementProps } from './Input';
 export type { TextareaProps, TextareaSize } from './Textarea';
 export type { SelectProps, SelectSize } from './Select';
