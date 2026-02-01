@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(gh issue list:*)",
+      "Bash(xargs:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:agent-browser.dev)",
+      "Bash(agent-browser:*)",
+      "Bash(git add:*)",
+      "Bash(gh issue create --title \"タスク作成/編集の移行\" --body \"$\\(cat <<''EOF''\n## 概要\nタスク作成・編集ページ（tasks/new.tsx, tasks/[id]/edit.tsx）のChakra UI → CSS Modules移行\n\n## 難易度\n⭐⭐ \\(中\\)\n\n## 対象ファイル\n- `src/pages/tasks/new.tsx`\n- `src/pages/tasks/[id]/edit.tsx`\n- 新規: `src/styles/pages/task-form.module.css`\n\n## 影響箇所（position）\n- [ ] task-new: /tasks/new\n- [ ] task-edit: /tasks/[id]/edit\n\n## チェックリスト\n- [ ] Before スクリーンショット取得\n- [ ] CSS Modules実装\n- [ ] Chakra UI import削除\n- [ ] After スクリーンショット取得\n- [ ] 比較確認\n- [ ] ビルド成功\nEOF\n\\)\")",
+      "Bash(gh issue create:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git pull:*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(git stash:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh label create:*)",
+      "Bash(for i in 36 37 38 39 40 41 42 43 44 45 46 47)",
+      "Bash(do gh issue edit $i --add-label \"migration-direct\")",
+      "Bash(done)",
+      "Bash(npx playwright:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(__NEW_LINE_f5929f6b327f464b__ echo \"Deleted unused Chakra components\")",
+      "Bash(find:*)",
+      "Bash(gh label:*)",
+      "Bash(gh issue close:*)",
+      "Bash(git reset:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git merge:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}
