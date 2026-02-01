@@ -1,22 +1,10 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  Text,
-  HStack,
-  Icon,
-  VStack,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { IconType } from 'react-icons';
-import { FiAlertTriangle } from 'react-icons/fi';
-
-const MotionModalContent = motion(ModalContent);
+import { FiAlertTriangle, FiX } from 'react-icons/fi';
+import Button from '../ui/Button';
+import styles from '../../styles/components/modal/Modal.module.css';
+import confirmStyles from '../../styles/components/modal/ConfirmModal.module.css';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -26,9 +14,8 @@ interface ConfirmModalProps {
   message: string;
   confirmLabel?: string;
   cancelLabel?: string;
-  confirmColorScheme?: string;
+  confirmVariant?: 'primary' | 'danger';
   icon?: IconType;
-  iconColor?: string;
   isLoading?: boolean;
 }
 
@@ -40,44 +27,96 @@ export default function ConfirmModal({
   message,
   confirmLabel = '確認',
   cancelLabel = 'キャンセル',
-  confirmColorScheme = 'red',
-  icon = FiAlertTriangle,
-  iconColor = 'orange.500',
+  confirmVariant = 'danger',
+  icon: Icon = FiAlertTriangle,
   isLoading = false,
 }: ConfirmModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen && !isLoading) {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, isLoading, onClose]);
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget && !isLoading) {
+      onClose();
+    }
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom">
-      <ModalOverlay />
-      <MotionModalContent
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-      >
-        <ModalHeader>{title}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <VStack spacing={4} align="start">
-            <HStack spacing={3}>
-              <Icon as={icon} boxSize={6} color={iconColor} />
-              <Text>{message}</Text>
-            </HStack>
-          </VStack>
-        </ModalBody>
-        <ModalFooter>
-          <HStack spacing={3}>
-            <Button variant="ghost" onClick={onClose} isDisabled={isLoading}>
-              {cancelLabel}
-            </Button>
-            <Button
-              colorScheme={confirmColorScheme}
-              onClick={onConfirm}
-              isLoading={isLoading}
-            >
-              {confirmLabel}
-            </Button>
-          </HStack>
-        </ModalFooter>
-      </MotionModalContent>
-    </Modal>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={styles.overlay}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={handleOverlayClick}
+        >
+          <motion.div
+            className={`${styles.modal} ${styles.sizeMd}`}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
+            <div className={styles.header}>
+              <h2 id="modal-title" className={styles.title}>{title}</h2>
+              <button
+                className={styles.closeButton}
+                onClick={onClose}
+                disabled={isLoading}
+                aria-label="閉じる"
+              >
+                <FiX />
+              </button>
+            </div>
+            <div className={styles.body}>
+              <div className={confirmStyles.content}>
+                <div className={confirmStyles.messageRow}>
+                  <Icon className={confirmStyles.icon} />
+                  <p className={confirmStyles.message}>{message}</p>
+                </div>
+              </div>
+            </div>
+            <div className={styles.footer}>
+              <Button
+                variant="ghost"
+                onClick={onClose}
+                disabled={isLoading}
+                isAnimated={false}
+              >
+                {cancelLabel}
+              </Button>
+              <Button
+                variant={confirmVariant}
+                onClick={onConfirm}
+                isLoading={isLoading}
+                isAnimated={false}
+              >
+                {confirmLabel}
+              </Button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

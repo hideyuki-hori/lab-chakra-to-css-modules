@@ -1,16 +1,9 @@
-import {
-  Box,
-  HStack,
-  VStack,
-  Text,
-  Avatar,
-} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { StatusBadge, PriorityBadge } from '../ui';
+import { UserAvatar } from '../common';
 import type { TaskStatus } from '../ui/StatusBadge';
 import type { Priority } from '../ui/PriorityBadge';
-
-const MotionBox = motion(Box);
+import styles from '../../styles/components/data/TaskCard.module.css';
 
 interface TaskCardProps {
   title: string;
@@ -47,71 +40,60 @@ export default function TaskCard({
     });
   };
 
+  const cardClasses = [
+    styles.card,
+    onClick && styles.clickable,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const dueDateClasses = [
+    styles.dueDate,
+    isOverdue && styles.overdue,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const content = (
     <>
-      <HStack justify="space-between" mb={2}>
-        <Text fontWeight="semibold" fontSize="sm">
-          {title}
-        </Text>
+      <div className={styles.header}>
+        <p className={styles.title}>{title}</p>
         <PriorityBadge priority={priority} />
-      </HStack>
-      {description && (
-        <Text fontSize="sm" color="gray.600" mb={3} noOfLines={2}>
-          {description}
-        </Text>
-      )}
-      <HStack justify="space-between" fontSize="xs">
-        <HStack spacing={2}>
+      </div>
+      {description && <p className={styles.description}>{description}</p>}
+      <div className={styles.footer}>
+        <div className={styles.footerLeft}>
           <StatusBadge status={status} type="task" />
-          {projectName && <Text color="gray.500">{projectName}</Text>}
-        </HStack>
-        <HStack spacing={2}>
+          {projectName && <span className={styles.projectName}>{projectName}</span>}
+        </div>
+        <div className={styles.footerRight}>
           {assignee && (
-            <HStack spacing={1}>
-              <Avatar size="xs" name={assignee.name} src={assignee.avatar} />
-              <Text color="gray.600">{assignee.name}</Text>
-            </HStack>
+            <div className={styles.assignee}>
+              <UserAvatar size="sm" name={assignee.name} src={assignee.avatar} />
+              <span className={styles.assigneeName}>{assignee.name}</span>
+            </div>
           )}
-          <Text
-            color={isOverdue ? 'red.500' : 'gray.500'}
-            fontWeight={isOverdue ? 'semibold' : 'normal'}
-          >
-            {formatDate(dueDate)}
-          </Text>
-        </HStack>
-      </HStack>
+          <span className={dueDateClasses}>{formatDate(dueDate)}</span>
+        </div>
+      </div>
     </>
   );
 
   if (isAnimated) {
     return (
-      <MotionBox
-        p={4}
-        borderRadius="md"
-        border="1px"
-        borderColor="gray.200"
-        _hover={{ borderColor: 'primary.300', bg: 'gray.50' }}
-        cursor={onClick ? 'pointer' : 'default'}
+      <motion.div
+        className={cardClasses}
         onClick={onClick}
         whileHover={{ scale: 1.01 }}
       >
         {content}
-      </MotionBox>
+      </motion.div>
     );
   }
 
   return (
-    <Box
-      p={4}
-      borderRadius="md"
-      border="1px"
-      borderColor="gray.200"
-      _hover={{ borderColor: 'primary.300', bg: 'gray.50' }}
-      transition="all 0.2s"
-      cursor={onClick ? 'pointer' : 'default'}
-      onClick={onClick}
-    >
+    <div className={cardClasses} onClick={onClick}>
       {content}
-    </Box>
+    </div>
   );
 }

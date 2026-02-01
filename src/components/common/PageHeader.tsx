@@ -1,8 +1,6 @@
-import { Box, Heading, Text, HStack, Flex } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
-
-const MotionBox = motion(Box);
+import styles from '../../styles/components/common/PageHeader.module.css';
 
 interface PageHeaderProps {
   title: string;
@@ -17,29 +15,34 @@ export default function PageHeader({
   actions,
   isAnimated = true,
 }: PageHeaderProps) {
+  const titleClasses = [
+    styles.title,
+    description && styles.titleWithDescription,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const content = (
-    <Flex justify="space-between" align="start" wrap="wrap" gap={4}>
-      <Box>
-        <Heading size="lg" mb={description ? 2 : 0}>
-          {title}
-        </Heading>
-        {description && <Text color="gray.600">{description}</Text>}
-      </Box>
-      {actions && <HStack spacing={3}>{actions}</HStack>}
-    </Flex>
+    <div className={styles.content}>
+      <div className={styles.textContent}>
+        <h1 className={titleClasses}>{title}</h1>
+        {description && <p className={styles.description}>{description}</p>}
+      </div>
+      {actions && <div className={styles.actions}>{actions}</div>}
+    </div>
   );
 
   if (isAnimated) {
     return (
-      <MotionBox
-        mb={6}
+      <motion.div
+        className={styles.container}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
       >
         {content}
-      </MotionBox>
+      </motion.div>
     );
   }
 
-  return <Box mb={6}>{content}</Box>;
+  return <div className={styles.container}>{content}</div>;
 }

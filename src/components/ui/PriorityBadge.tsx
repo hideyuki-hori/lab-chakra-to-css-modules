@@ -1,24 +1,32 @@
-import { Badge, BadgeProps } from '@chakra-ui/react';
+import { HTMLAttributes } from 'react';
+import styles from '../../styles/components/ui/Badge.module.css';
 
 export type Priority = 'low' | 'medium' | 'high' | 'urgent';
 
-interface PriorityBadgeProps extends Omit<BadgeProps, 'colorScheme'> {
+interface PriorityBadgeProps extends HTMLAttributes<HTMLSpanElement> {
   priority: Priority;
 }
 
-const priorityConfig: Record<Priority, { color: string; label: string }> = {
-  low: { color: 'gray', label: '低' },
-  medium: { color: 'blue', label: '中' },
-  high: { color: 'orange', label: '高' },
-  urgent: { color: 'red', label: '緊急' },
+const priorityConfig: Record<Priority, { colorClass: string; label: string }> = {
+  low: { colorClass: styles.gray, label: '低' },
+  medium: { colorClass: styles.blue, label: '中' },
+  high: { colorClass: styles.orange, label: '高' },
+  urgent: { colorClass: styles.red, label: '緊急' },
 };
 
-export default function PriorityBadge({ priority, ...props }: PriorityBadgeProps) {
-  const config = priorityConfig[priority] || { color: 'gray', label: priority };
+export default function PriorityBadge({
+  priority,
+  className = '',
+  ...props
+}: PriorityBadgeProps) {
+  const config = priorityConfig[priority] || { colorClass: styles.gray, label: priority };
+  const badgeClasses = [styles.badge, config.colorClass, className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <Badge colorScheme={config.color} {...props}>
+    <span className={badgeClasses} {...props}>
       {config.label}
-    </Badge>
+    </span>
   );
 }

@@ -1,0 +1,71 @@
+.formControl {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: inline-block;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.checkbox:hover {
+  border-color: var(--color-primary-400);
+}
+
+.checkbox:focus {
+  outline: none;
+  box-shadow: var(--shadow-outline);
+}
+
+.checkbox:checked {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.labelText {
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+}
+
+.errorMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-error-500);
+  margin-top: var(--spacing-1);
+}

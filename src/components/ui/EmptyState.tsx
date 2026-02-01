@@ -1,9 +1,8 @@
-import { Box, Text, VStack, Icon, Button } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
 import { FiInbox } from 'react-icons/fi';
-
-const MotionBox = motion(Box);
+import Button from './Button';
+import styles from '../../styles/components/ui/EmptyState.module.css';
 
 interface EmptyStateProps {
   title?: string;
@@ -16,35 +15,32 @@ interface EmptyStateProps {
 export default function EmptyState({
   title = 'データがありません',
   description,
-  icon = FiInbox,
+  icon: Icon = FiInbox,
   actionLabel,
   onAction,
 }: EmptyStateProps) {
   return (
-    <MotionBox
-      py={12}
-      textAlign="center"
+    <motion.div
+      className={styles.container}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <VStack spacing={4}>
-        <Icon as={icon} boxSize={12} color="gray.400" />
-        <VStack spacing={2}>
-          <Text fontSize="lg" fontWeight="semibold" color="gray.600">
-            {title}
-          </Text>
+      <div className={styles.content}>
+        <Icon className={styles.icon} />
+        <div className={styles.textContent}>
+          <p className={styles.title}>{title}</p>
           {description && (
-            <Text fontSize="sm" color="gray.500" maxW="md">
-              {description}
-            </Text>
+            <p className={styles.description}>{description}</p>
           )}
-        </VStack>
+        </div>
         {actionLabel && onAction && (
-          <Button colorScheme="primary" size="sm" onClick={onAction}>
-            {actionLabel}
-          </Button>
+          <div className={styles.actionButton}>
+            <Button variant="primary" size="sm" onClick={onAction}>
+              {actionLabel}
+            </Button>
+          </div>
         )}
-      </VStack>
-    </MotionBox>
+      </div>
+    </motion.div>
   );
 }

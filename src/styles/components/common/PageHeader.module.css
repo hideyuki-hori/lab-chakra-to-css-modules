@@ -1,0 +1,38 @@
+.container {
+  margin-bottom: var(--spacing-6);
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.textContent {
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  color: var(--color-gray-900);
+}
+
+.titleWithDescription {
+  margin-bottom: var(--spacing-2);
+}
+
+.description {
+  color: var(--color-gray-600);
+  font-size: var(--font-size-md);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}

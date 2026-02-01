@@ -1,18 +1,7 @@
-import {
-  Card,
-  CardBody,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  HStack,
-  Icon,
-} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
-
-const MotionCard = motion(Card);
+import { FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
+import styles from '../../styles/components/data/StatCard.module.css';
 
 interface StatCardProps {
   label: string;
@@ -30,41 +19,51 @@ export default function StatCard({
   value,
   helpText,
   trend,
-  icon,
-  iconColor = 'primary.500',
+  icon: Icon,
   isAnimated = true,
   delay = 0,
 }: StatCardProps) {
+  const trendClasses = [
+    styles.trendIcon,
+    trend === 'increase' && styles.increase,
+    trend === 'decrease' && styles.decrease,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const cardContent = (
-    <CardBody>
-      <Stat>
-        <HStack mb={2}>
-          {icon && <Icon as={icon} boxSize={5} color={iconColor} />}
-          <StatLabel>{label}</StatLabel>
-        </HStack>
-        <StatNumber fontSize="3xl">{value}</StatNumber>
-        {helpText && (
-          <StatHelpText>
-            {trend && <StatArrow type={trend} />}
-            {helpText}
-          </StatHelpText>
-        )}
-      </Stat>
-    </CardBody>
+    <>
+      <div className={styles.header}>
+        {Icon && <Icon className={styles.icon} />}
+        <p className={styles.label}>{label}</p>
+      </div>
+      <p className={styles.value}>{value}</p>
+      {helpText && (
+        <p className={styles.helpText}>
+          {trend && (
+            <span className={trendClasses}>
+              {trend === 'increase' ? <FiTrendingUp /> : <FiTrendingDown />}
+            </span>
+          )}
+          {helpText}
+        </p>
+      )}
+    </>
   );
 
   if (isAnimated) {
     return (
-      <MotionCard
+      <motion.div
+        className={styles.card}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay }}
         whileHover={{ scale: 1.02 }}
       >
         {cardContent}
-      </MotionCard>
+      </motion.div>
     );
   }
 
-  return <Card>{cardContent}</Card>;
+  return <div className={styles.card}>{cardContent}</div>;
 }
