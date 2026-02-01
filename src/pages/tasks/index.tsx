@@ -41,13 +41,13 @@ export default function TasksPage() {
   const getTaskStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'completed':
-        return styles.badgeGreen;
+        return styles.badgeGreenSubtle;
       case 'in-progress':
-        return styles.badgeBlue;
+        return styles.badgeBlueSubtle;
       case 'todo':
-        return styles.badgeGray;
+        return styles.badgeGraySubtle;
       default:
-        return styles.badgeGray;
+        return styles.badgeGraySubtle;
     }
   };
 
@@ -363,13 +363,13 @@ export default function TasksPage() {
         <div className={styles.footer}>
           <p>全 {filteredTasks.length} 件のタスク</p>
           <div className={styles.footerBadges}>
-            <span className={`${styles.badge} ${styles.badgeGray}`}>
+            <span className={`${styles.badge} ${styles.badgeGraySubtle}`}>
               未着手 {mockTasks.filter((t) => t.status === 'todo').length}
             </span>
-            <span className={`${styles.badge} ${styles.badgeBlue}`}>
+            <span className={`${styles.badge} ${styles.badgeBlueSubtle}`}>
               進行中 {mockTasks.filter((t) => t.status === 'in-progress').length}
             </span>
-            <span className={`${styles.badge} ${styles.badgeGreen}`}>
+            <span className={`${styles.badge} ${styles.badgeGreenSubtle}`}>
               完了 {mockTasks.filter((t) => t.status === 'completed').length}
             </span>
           </div>

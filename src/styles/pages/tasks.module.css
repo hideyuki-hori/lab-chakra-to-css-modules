@@ -257,6 +257,31 @@
   color: white;
 }
 
+.badgeRedSubtle {
+  background-color: var(--color-red-100);
+  color: var(--color-red-700);
+}
+
+.badgeOrangeSubtle {
+  background-color: var(--color-orange-100);
+  color: var(--color-orange-700);
+}
+
+.badgeBlueSubtle {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-700);
+}
+
+.badgeGreenSubtle {
+  background-color: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.badgeGraySubtle {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
 .dateText {
   font-size: var(--font-size-sm);
   color: var(--color-gray-600);
