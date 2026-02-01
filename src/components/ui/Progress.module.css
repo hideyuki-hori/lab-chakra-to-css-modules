@@ -1,0 +1,109 @@
+.track {
+  width: 100%;
+  background-color: #E2E8F0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.sizeXs {
+  height: 4px;
+}
+
+.sizeSm {
+  height: 8px;
+}
+
+.sizeMd {
+  height: 12px;
+}
+
+.sizeLg {
+  height: 16px;
+}
+
+.filled {
+  height: 100%;
+  transition: width 0.6s ease;
+  border-radius: inherit;
+}
+
+.colorBlue {
+  background-color: #3182CE;
+}
+
+.colorGreen {
+  background-color: #38A169;
+}
+
+.colorOrange {
+  background-color: #DD6B20;
+}
+
+.colorRed {
+  background-color: #E53E3E;
+}
+
+.colorPurple {
+  background-color: #805AD5;
+}
+
+.colorCyan {
+  background-color: #00B5D8;
+}
+
+.colorPink {
+  background-color: #D53F8C;
+}
+
+.colorYellow {
+  background-color: #D69E2E;
+}
+
+.colorGray {
+  background-color: #718096;
+}
+
+.stripe {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.animated {
+  animation: stripeMove 1s linear infinite;
+}
+
+@keyframes stripeMove {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.indeterminate {
+  width: 100%;
+  animation: indeterminate 1.5s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

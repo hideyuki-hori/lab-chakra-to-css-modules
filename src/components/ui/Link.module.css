@@ -1,0 +1,26 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #3182CE;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid #3182CE;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.externalIcon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  margin-left: 2px;
+}

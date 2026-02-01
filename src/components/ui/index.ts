@@ -14,6 +14,13 @@ export { default as AvatarBadge } from './AvatarBadge';
 export { default as Badge } from './Badge';
 export { default as Alert, AlertIcon, AlertTitle, AlertDescription } from './Alert';
 
+export { default as Icon } from './Icon';
+export { default as Tooltip } from './Tooltip';
+export { default as Spinner } from './Spinner';
+export { default as Progress } from './Progress';
+export { default as Image } from './Image';
+export { default as Link } from './Link';
+
 export { default as Input } from './Input';
 export { default as InputGroup } from './InputGroup';
 export { default as InputLeftElement } from './InputLeftElement';
@@ -87,3 +94,10 @@ export type { AvatarBadgeProps } from './AvatarBadge';
 export type { BadgeVariant, BadgeColorScheme, BadgeProps } from './Badge';
 
 export type { AlertStatus, AlertProps, AlertIconProps, AlertTitleProps, AlertDescriptionProps } from './Alert';
+
+export type { IconSize, IconProps } from './Icon';
+export type { TooltipPlacement, TooltipProps } from './Tooltip';
+export type { SpinnerSize, SpinnerProps } from './Spinner';
+export type { ProgressSize, ProgressColorScheme, ProgressProps } from './Progress';
+export type { ImageFit, ImageProps } from './Image';
+export type { LinkProps } from './Link';
