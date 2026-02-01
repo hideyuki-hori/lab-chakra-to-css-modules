@@ -1,0 +1,229 @@
+.container {
+  padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+}
+
+.alert {
+  display: flex;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-green-100);
+  border: 1px solid var(--color-green-200);
+}
+
+.alertIcon {
+  color: var(--color-green-500);
+  font-size: var(--font-size-xl);
+  flex-shrink: 0;
+}
+
+.alertTitle {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-800);
+}
+
+.alertDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.formCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.formControlInline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+}
+
+.input {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background-color: white;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background-color: white;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 1px var(--color-blue-500);
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.buttonPrimary {
+  background-color: var(--color-blue-500);
+  color: white;
+  border: none;
+}
+
+.buttonPrimary:hover {
+  background-color: var(--color-blue-600);
+}
+
+.buttonOutline {
+  background-color: transparent;
+  color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-200);
+}
+
+.buttonOutline:hover {
+  background-color: var(--color-gray-50);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-4);
+}
+
+.sectionDivider {
+  border-top: 1px solid var(--color-gray-200);
+  padding-top: var(--spacing-4);
+}
+
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.switch:has(input:checked) {
+  background-color: var(--color-blue-500);
+}
+
+.switchInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.switchSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.switch:has(input:checked) .switchSlider {
+  transform: translateX(20px);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+}
+
+.checkboxInput {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-blue-500);
+  cursor: pointer;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+}
+
+.radioInput {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-blue-500);
+  cursor: pointer;
+}
