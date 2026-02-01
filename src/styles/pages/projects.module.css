@@ -1,0 +1,56 @@
+.tableContainer {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.tableHeader {
+  background: var(--color-gray-50);
+}
+
+.tableRow {
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.tableRow:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.searchInput {
+  max-width: 400px;
+}
+
+.emptyState {
+  padding: var(--spacing-10) 0;
+  text-align: center;
+}
+
+.projectDescription {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-gray-600);
+}
+
+.menuButton:hover {
+  background: var(--color-gray-100);
+}
+
+.deleteMenuItem {
+  color: var(--color-red-500);
+}
