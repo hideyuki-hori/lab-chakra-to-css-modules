@@ -1,0 +1,145 @@
+.toastContainer {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.positionTopRight {
+  top: 16px;
+  right: 16px;
+}
+
+.positionTopLeft {
+  top: 16px;
+  left: 16px;
+}
+
+.positionTop {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.positionBottomRight {
+  bottom: 16px;
+  right: 16px;
+}
+
+.positionBottomLeft {
+  bottom: 16px;
+  left: 16px;
+}
+
+.positionBottom {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toastClosing {
+  animation: slideOut 0.2s ease-in forwards;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.statusInfo {
+  background-color: #3182CE;
+  color: #FFFFFF;
+}
+
+.statusWarning {
+  background-color: #DD6B20;
+  color: #FFFFFF;
+}
+
+.statusSuccess {
+  background-color: #38A169;
+  color: #FFFFFF;
+}
+
+.statusError {
+  background-color: #E53E3E;
+  color: #FFFFFF;
+}
+
+.toastIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.toastContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toastTitle {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.toastDescription {
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.toastCloseButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  margin: -4px -4px -4px 0;
+  border-radius: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.toastCloseButton:hover {
+  opacity: 1;
+}

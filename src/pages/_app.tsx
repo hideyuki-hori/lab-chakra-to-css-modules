@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import theme from '../theme';
 import { AuthProvider } from '../contexts/AuthContext';
 import AuthGuard from '../components/auth/AuthGuard';
+import { ToastProvider } from '../hooks';
 import '../styles/variables.css';
 
 const PUBLIC_PAGES = ['/login'];
@@ -14,15 +15,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ChakraProvider theme={theme}>
-      <AuthProvider>
-        {isPublicPage ? (
-          <Component {...pageProps} />
-        ) : (
-          <AuthGuard>
+      <ToastProvider>
+        <AuthProvider>
+          {isPublicPage ? (
             <Component {...pageProps} />
-          </AuthGuard>
-        )}
-      </AuthProvider>
+          ) : (
+            <AuthGuard>
+              <Component {...pageProps} />
+            </AuthGuard>
+          )}
+        </AuthProvider>
+      </ToastProvider>
     </ChakraProvider>
   );
 }
