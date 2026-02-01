@@ -9,7 +9,7 @@ export interface VStackProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color
 }
 
 const VStack = forwardRef<HTMLDivElement, VStackProps>(
-  ({ className, style, children, spacing, align = 'center', justify, ...props }, ref) => {
+  ({ className, style, children, spacing, align = 'stretch', justify, ...props }, ref) => {
     const { layoutProps, rest } = extractLayoutProps(props);
 
     if (spacing !== undefined && layoutProps.gap === undefined) {
