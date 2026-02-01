@@ -1,0 +1,27 @@
+.text {
+  font-family: var(--font-family-body);
+  line-height: 1.5;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fontWeightNormal {
+  font-weight: 400;
+}
+
+.fontWeightMedium {
+  font-weight: 500;
+}
+
+.fontWeightSemibold {
+  font-weight: 600;
+}
+
+.fontWeightBold {
+  font-weight: 700;
+}

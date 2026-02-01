@@ -1,0 +1,38 @@
+.heading {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.size4xl {
+  font-size: var(--font-size-4xl);
+}
+
+.size3xl {
+  font-size: var(--font-size-3xl);
+}
+
+.size2xl {
+  font-size: var(--font-size-2xl);
+}
+
+.sizeXl {
+  font-size: var(--font-size-xl);
+}
+
+.sizeLg {
+  font-size: var(--font-size-lg);
+}
+
+.sizeMd {
+  font-size: var(--font-size-md);
+}
+
+.sizeSm {
+  font-size: var(--font-size-sm);
+}
+
+.sizeXs {
+  font-size: var(--font-size-xs);
+}
