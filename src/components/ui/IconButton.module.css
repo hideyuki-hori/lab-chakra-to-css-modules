@@ -1,0 +1,246 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-body);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.iconButton:focus-visible {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sizeSm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.sizeMd {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-md);
+}
+
+.sizeLg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+.solidBlue {
+  background-color: var(--color-blue-500);
+  color: var(--color-white);
+}
+
+.solidBlue:hover:not(:disabled) {
+  background-color: var(--color-blue-600);
+}
+
+.solidBlue:active:not(:disabled) {
+  background-color: var(--color-blue-700);
+}
+
+.solidPrimary {
+  background-color: var(--color-primary-500);
+  color: var(--color-white);
+}
+
+.solidPrimary:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+}
+
+.solidPrimary:active:not(:disabled) {
+  background-color: var(--color-primary-700);
+}
+
+.solidRed {
+  background-color: var(--color-red-500);
+  color: var(--color-white);
+}
+
+.solidRed:hover:not(:disabled) {
+  background-color: var(--color-red-600);
+}
+
+.solidRed:active:not(:disabled) {
+  background-color: var(--color-red-700);
+}
+
+.solidGreen {
+  background-color: var(--color-green-500);
+  color: var(--color-white);
+}
+
+.solidGreen:hover:not(:disabled) {
+  background-color: var(--color-green-600);
+}
+
+.solidGreen:active:not(:disabled) {
+  background-color: var(--color-green-700);
+}
+
+.solidGray {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+}
+
+.solidGray:hover:not(:disabled) {
+  background-color: var(--color-gray-200);
+}
+
+.solidGray:active:not(:disabled) {
+  background-color: var(--color-gray-300);
+}
+
+.outlineBlue {
+  background-color: transparent;
+  color: var(--color-blue-500);
+  border: 1px solid var(--color-blue-500);
+}
+
+.outlineBlue:hover:not(:disabled) {
+  background-color: var(--color-blue-50);
+}
+
+.outlineBlue:active:not(:disabled) {
+  background-color: var(--color-blue-100);
+}
+
+.outlinePrimary {
+  background-color: transparent;
+  color: var(--color-primary-500);
+  border: 1px solid var(--color-primary-500);
+}
+
+.outlinePrimary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.outlinePrimary:active:not(:disabled) {
+  background-color: var(--color-primary-100);
+}
+
+.outlineRed {
+  background-color: transparent;
+  color: var(--color-red-500);
+  border: 1px solid var(--color-red-500);
+}
+
+.outlineRed:hover:not(:disabled) {
+  background-color: var(--color-red-50);
+}
+
+.outlineRed:active:not(:disabled) {
+  background-color: var(--color-red-100);
+}
+
+.outlineGreen {
+  background-color: transparent;
+  color: var(--color-green-500);
+  border: 1px solid var(--color-green-500);
+}
+
+.outlineGreen:hover:not(:disabled) {
+  background-color: var(--color-green-50);
+}
+
+.outlineGreen:active:not(:disabled) {
+  background-color: var(--color-green-100);
+}
+
+.outlineGray {
+  background-color: transparent;
+  color: var(--color-gray-600);
+  border: 1px solid var(--color-gray-200);
+}
+
+.outlineGray:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+}
+
+.outlineGray:active:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.ghostBlue {
+  background-color: transparent;
+  color: var(--color-blue-500);
+  border: none;
+}
+
+.ghostBlue:hover:not(:disabled) {
+  background-color: var(--color-blue-50);
+}
+
+.ghostBlue:active:not(:disabled) {
+  background-color: var(--color-blue-100);
+}
+
+.ghostPrimary {
+  background-color: transparent;
+  color: var(--color-primary-500);
+  border: none;
+}
+
+.ghostPrimary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.ghostPrimary:active:not(:disabled) {
+  background-color: var(--color-primary-100);
+}
+
+.ghostRed {
+  background-color: transparent;
+  color: var(--color-red-500);
+  border: none;
+}
+
+.ghostRed:hover:not(:disabled) {
+  background-color: var(--color-red-50);
+}
+
+.ghostRed:active:not(:disabled) {
+  background-color: var(--color-red-100);
+}
+
+.ghostGreen {
+  background-color: transparent;
+  color: var(--color-green-500);
+  border: none;
+}
+
+.ghostGreen:hover:not(:disabled) {
+  background-color: var(--color-green-50);
+}
+
+.ghostGreen:active:not(:disabled) {
+  background-color: var(--color-green-100);
+}
+
+.ghostGray {
+  background-color: transparent;
+  color: var(--color-gray-600);
+  border: none;
+}
+
+.ghostGray:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.ghostGray:active:not(:disabled) {
+  background-color: var(--color-gray-200);
+}

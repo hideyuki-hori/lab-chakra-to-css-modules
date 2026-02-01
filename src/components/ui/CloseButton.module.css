@@ -1,0 +1,62 @@
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+  color: var(--color-gray-500);
+}
+
+.closeButton:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.closeButton:active:not(:disabled) {
+  background-color: var(--color-gray-200);
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+.closeButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sizeSm {
+  width: 24px;
+  height: 24px;
+}
+
+.sizeSm svg {
+  width: 10px;
+  height: 10px;
+}
+
+.sizeMd {
+  width: 32px;
+  height: 32px;
+}
+
+.sizeMd svg {
+  width: 12px;
+  height: 12px;
+}
+
+.sizeLg {
+  width: 40px;
+  height: 40px;
+}
+
+.sizeLg svg {
+  width: 16px;
+  height: 16px;
+}

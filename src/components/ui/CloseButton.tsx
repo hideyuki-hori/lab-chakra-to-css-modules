@@ -1,0 +1,69 @@
+import { forwardRef, ButtonHTMLAttributes } from 'react';
+import styles from './CloseButton.module.css';
+import { buildStyles, LayoutProps, extractLayoutProps, mergeStyles } from './styleUtils';
+
+export type CloseButtonSize = 'sm' | 'md' | 'lg';
+
+export interface CloseButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'children'>, LayoutProps {
+  size?: CloseButtonSize;
+  isDisabled?: boolean;
+}
+
+const sizeClassMap: Record<CloseButtonSize, string> = {
+  sm: styles.sizeSm,
+  md: styles.sizeMd,
+  lg: styles.sizeLg,
+};
+
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+    <path
+      fill="currentColor"
+      d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+    />
+  </svg>
+);
+
+const CloseButton = forwardRef<HTMLButtonElement, CloseButtonProps>(
+  (
+    {
+      size = 'md',
+      isDisabled = false,
+      className,
+      style,
+      ...props
+    },
+    ref
+  ) => {
+    const { layoutProps, rest } = extractLayoutProps(props);
+    const { style: layoutStyle } = buildStyles(layoutProps);
+
+    const classNames = [
+      styles.closeButton,
+      sizeClassMap[size],
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    const mergedStyle = mergeStyles(layoutStyle, style);
+
+    return (
+      <button
+        ref={ref}
+        type="button"
+        className={classNames}
+        style={mergedStyle}
+        disabled={isDisabled}
+        aria-label="Close"
+        {...rest}
+      >
+        <CloseIcon />
+      </button>
+    );
+  }
+);
+
+CloseButton.displayName = 'CloseButton';
+
+export default CloseButton;

@@ -1,4 +1,6 @@
 export { default as Button } from './Button';
+export { default as IconButton } from './IconButton';
+export { default as CloseButton } from './CloseButton';
 export { default as Card } from './Card';
 export { default as ProgressBar } from './ProgressBar';
 export { default as EmptyState } from './EmptyState';
@@ -19,7 +21,9 @@ export { default as WrapItem } from './WrapItem';
 export { default as Text } from './Text';
 export { default as Heading } from './Heading';
 
-export type { ButtonVariant, ButtonSize } from './Button';
+export type { ButtonVariant, ButtonSize, ButtonColorScheme, ButtonProps } from './Button';
+export type { IconButtonVariant, IconButtonSize, IconButtonColorScheme, IconButtonProps } from './IconButton';
+export type { CloseButtonSize, CloseButtonProps } from './CloseButton';
 export type { TaskStatus, ProjectStatus, UserStatus } from './StatusBadge';
 export type { Priority } from './PriorityBadge';
 export type { Role } from './RoleBadge';
