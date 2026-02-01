@@ -1,17 +1,7 @@
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,
-  InputProps,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-} from '@chakra-ui/react';
-import { forwardRef, ReactNode } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import styles from '../../styles/components/form.module.css';
 
-interface FormInputProps extends InputProps {
+interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -29,6 +19,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       isRequired = false,
       leftElement,
       rightElement,
+      className,
       ...props
     },
     ref
@@ -36,23 +27,26 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     const hasLeftElement = !!leftElement;
     const hasRightElement = !!rightElement;
 
+    const labelClasses = [styles.label, isRequired ? styles.labelRequired : ''].filter(Boolean).join(' ');
+    const inputClasses = [
+      styles.input,
+      error ? styles.inputError : '',
+      hasLeftElement ? styles.inputWithLeftElement : '',
+      hasRightElement ? styles.inputWithRightElement : '',
+      className,
+    ].filter(Boolean).join(' ');
+
     return (
-      <FormControl isInvalid={!!error} isRequired={isRequired}>
-        {label && <FormLabel>{label}</FormLabel>}
-        {hasLeftElement || hasRightElement ? (
-          <InputGroup>
-            {hasLeftElement && (
-              <InputLeftElement pointerEvents="none">{leftElement}</InputLeftElement>
-            )}
-            <Input ref={ref} bg="white" {...props} />
-            {hasRightElement && <InputRightElement>{rightElement}</InputRightElement>}
-          </InputGroup>
-        ) : (
-          <Input ref={ref} bg="white" {...props} />
-        )}
-        {error && <FormErrorMessage>{error}</FormErrorMessage>}
-        {helperText && !error && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
+      <div className={styles.formControl}>
+        {label && <label className={labelClasses}>{label}</label>}
+        <div className={styles.inputGroup}>
+          {hasLeftElement && <span className={styles.leftElement}>{leftElement}</span>}
+          <input ref={ref} className={inputClasses} {...props} />
+          {hasRightElement && <span className={styles.rightElement}>{rightElement}</span>}
+        </div>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {helperText && !error && <p className={styles.helperText}>{helperText}</p>}
+      </div>
     );
   }
 );
