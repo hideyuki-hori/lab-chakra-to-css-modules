@@ -1,0 +1,63 @@
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-600);
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+}
+
+.avatarSm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-xs);
+}
+
+.avatarMd {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-sm);
+}
+
+.avatarLg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-base);
+}
+
+.avatarXl {
+  width: 64px;
+  height: 64px;
+  font-size: var(--font-size-lg);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  border: 2px solid white;
+}
+
+.badgeActive {
+  background-color: var(--color-green-500);
+}
+
+.badgeAway {
+  background-color: var(--color-orange-400);
+}
+
+.badgeOffline {
+  background-color: var(--color-gray-400);
+}

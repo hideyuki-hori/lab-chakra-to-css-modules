@@ -1,29 +1,33 @@
-import {
-  Tooltip as ChakraTooltip,
-  TooltipProps as ChakraTooltipProps,
-} from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
+import styles from '../../styles/components/tooltip.module.css';
 
-interface TooltipProps extends Omit<ChakraTooltipProps, 'children'> {
+type Placement = 'top' | 'bottom' | 'left' | 'right';
+
+interface TooltipProps {
   children: ReactNode;
   content: string;
+  placement?: Placement;
 }
 
-export default function Tooltip({ children, content, ...props }: TooltipProps) {
+const placementClassMap: Record<Placement, string> = {
+  top: styles.placementTop,
+  bottom: styles.placementBottom,
+  left: styles.placementLeft,
+  right: styles.placementRight,
+};
+
+export default function Tooltip({ children, content, placement = 'top' }: TooltipProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const tooltipClasses = [styles.tooltip, placementClassMap[placement]].join(' ');
+
   return (
-    <ChakraTooltip
-      label={content}
-      hasArrow
-      placement="top"
-      bg="gray.700"
-      color="white"
-      fontSize="sm"
-      px={3}
-      py={2}
-      borderRadius="md"
-      {...props}
+    <div
+      className={styles.wrapper}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
     >
       {children}
-    </ChakraTooltip>
+      {isVisible && <div className={tooltipClasses}>{content}</div>}
+    </div>
   );
 }
