@@ -1,0 +1,151 @@
+:root {
+  /* Primary Colors */
+  --color-primary-50: #e3f2fd;
+  --color-primary-100: #bbdefb;
+  --color-primary-200: #90caf9;
+  --color-primary-300: #64b5f6;
+  --color-primary-400: #42a5f5;
+  --color-primary-500: #2196f3;
+  --color-primary-600: #1e88e5;
+  --color-primary-700: #1976d2;
+  --color-primary-800: #1565c0;
+  --color-primary-900: #0d47a1;
+
+  /* Accent Colors */
+  --color-accent-50: #e0f2f1;
+  --color-accent-100: #b2dfdb;
+  --color-accent-200: #80cbc4;
+  --color-accent-300: #4db6ac;
+  --color-accent-400: #26a69a;
+  --color-accent-500: #009688;
+  --color-accent-600: #00897b;
+  --color-accent-700: #00796b;
+  --color-accent-800: #00695c;
+  --color-accent-900: #004d40;
+
+  /* Gray Colors */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Status Colors */
+  --color-success-500: #10b981;
+  --color-success-100: #d1fae5;
+  --color-success-600: #059669;
+  --color-warning-500: #f59e0b;
+  --color-warning-100: #fef3c7;
+  --color-warning-600: #d97706;
+  --color-error-500: #ef4444;
+  --color-error-100: #fee2e2;
+  --color-error-600: #dc2626;
+  --color-info-500: #3b82f6;
+  --color-info-100: #dbeafe;
+  --color-info-600: #2563eb;
+
+  /* Red Colors */
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+
+  /* Orange Colors */
+  --color-orange-100: #ffedd5;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+
+  /* Blue Colors */
+  --color-blue-100: #dbeafe;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+
+  /* Project Status */
+  --color-status-planning: #94a3b8;
+  --color-status-active: #3b82f6;
+  --color-status-completed: #10b981;
+  --color-status-on-hold: #f59e0b;
+
+  /* Task Priority */
+  --color-priority-low: #94a3b8;
+  --color-priority-medium: #3b82f6;
+  --color-priority-high: #f59e0b;
+  --color-priority-urgent: #ef4444;
+
+  /* Task Status */
+  --color-task-todo: #94a3b8;
+  --color-task-in-progress: #3b82f6;
+  --color-task-completed: #10b981;
+
+  /* User Status */
+  --color-user-active: #10b981;
+  --color-user-away: #f59e0b;
+  --color-user-offline: #94a3b8;
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic Medium", "Meiryo", sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-outline: 0 0 0 3px rgba(33, 150, 243, 0.4);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Z-Index */
+  --z-dropdown: 1000;
+  --z-modal: 1100;
+  --z-tooltip: 1200;
+}
