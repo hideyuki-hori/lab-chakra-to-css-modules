@@ -1,29 +1,11 @@
-import {
-  Box,
-  Button,
-  Text,
-  Flex,
-  Badge,
-  HStack,
-  VStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Avatar,
-  Tooltip,
-} from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import Layout from '../components/layout/Layout';
+import { Button, Card } from '../components/ui';
+import { UserAvatar, Tooltip } from '../components/common';
+import { ConfirmModal } from '../components/modal';
 import { calendarEvents } from '../lib/mockData';
-
-const MotionBox = motion(Box);
-const MotionFlex = motion(Flex);
+import styles from '../styles/pages/calendar.module.css';
 
 interface CalendarEvent {
   id: number;
@@ -35,10 +17,8 @@ interface CalendarEvent {
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
-    null
-  );
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [slideDirection, setSlideDirection] = useState(1);
 
   const getDaysInMonth = (date: Date) => {
@@ -83,19 +63,19 @@ const Calendar = () => {
 
   const handleEventClick = (event: CalendarEvent) => {
     setSelectedEvent(event);
-    onOpen();
+    setIsModalOpen(true);
   };
 
-  const getEventBadgeColor = (type: string) => {
+  const getEventBadgeClass = (type: string) => {
     switch (type) {
       case 'タスク':
-        return 'blue';
+        return styles.eventBadgeTask;
       case 'ミーティング':
-        return 'purple';
+        return styles.eventBadgeMeeting;
       case '期限':
-        return 'red';
+        return styles.eventBadgeDeadline;
       default:
-        return 'gray';
+        return styles.eventBadgeTask;
     }
   };
 
@@ -110,41 +90,32 @@ const Calendar = () => {
 
   return (
     <Layout>
-      <Box p={8}>
-        <VStack spacing={6} align="stretch">
-          <HStack justify="space-between">
-            <Text fontSize="3xl" fontWeight="bold">
-              カレンダー
-            </Text>
-            <HStack>
-              <Button onClick={handlePrevMonth}>前月</Button>
-              <Text fontSize="xl" fontWeight="semibold" minW="200px" textAlign="center">
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.headerRow}>
+            <h1 className={styles.title}>カレンダー</h1>
+            <div className={styles.navigation}>
+              <Button variant="secondary" onClick={handlePrevMonth}>前月</Button>
+              <span className={styles.monthLabel}>
                 {currentDate.getFullYear()}年 {currentDate.getMonth() + 1}月
-              </Text>
-              <Button onClick={handleNextMonth}>次月</Button>
-            </HStack>
-          </HStack>
+              </span>
+              <Button variant="secondary" onClick={handleNextMonth}>次月</Button>
+            </div>
+          </div>
 
-          <Box borderWidth="1px" borderRadius="lg" p={4} bg="white">
-            <Flex mb={2}>
+          <div className={styles.calendarContainer}>
+            <div className={styles.weekDays}>
               {weekDays.map((day) => (
-                <Box
-                  key={day}
-                  flex="1"
-                  textAlign="center"
-                  fontWeight="bold"
-                  color="gray.600"
-                  p={2}
-                >
+                <div key={day} className={styles.weekDay}>
                   {day}
-                </Box>
+                </div>
               ))}
-            </Flex>
+            </div>
 
             <AnimatePresence mode="wait">
-              <MotionFlex
+              <motion.div
                 key={`${currentDate.getFullYear()}-${currentDate.getMonth()}`}
-                flexWrap="wrap"
+                className={styles.calendarGrid}
                 initial={{ opacity: 0, x: slideDirection * 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: slideDirection * -100 }}
@@ -152,118 +123,82 @@ const Calendar = () => {
               >
                 {calendarDays.map((day, index) => {
                   const events = day ? getEventsForDate(day) : [];
+                  const isTodayCell = day !== null && isToday(day);
+                  const cellClasses = [
+                    styles.dayCell,
+                    isTodayCell && styles.dayCellToday,
+                  ].filter(Boolean).join(' ');
+                  const numberClasses = [
+                    styles.dayNumber,
+                    isTodayCell && styles.dayNumberToday,
+                  ].filter(Boolean).join(' ');
+
                   return (
-                    <Box
-                      key={index}
-                      w="14.28%"
-                      minH="100px"
-                      p={2}
-                      borderWidth="1px"
-                      borderColor="gray.200"
-                      bg={day && isToday(day) ? 'blue.50' : 'white'}
-                      position="relative"
-                    >
+                    <div key={index} className={cellClasses}>
                       {day && (
                         <>
-                          <Text
-                            fontWeight={isToday(day) ? 'bold' : 'normal'}
-                            color={isToday(day) ? 'blue.600' : 'gray.700'}
-                            fontSize="sm"
-                          >
-                            {day}
-                          </Text>
-                          <VStack spacing={1} mt={2} align="stretch">
+                          <span className={numberClasses}>{day}</span>
+                          <div className={styles.eventList}>
                             {events.map((event) => (
                               <Tooltip
                                 key={event.id}
-                                label={`${event.title} - ${event.assignee}`}
-                                placement="top"
+                                content={`${event.title} - ${event.assignee}`}
                               >
-                                <MotionBox
+                                <motion.div
                                   whileHover={{ scale: 1.1 }}
-                                  cursor="pointer"
+                                  className={`${styles.eventBadge} ${getEventBadgeClass(event.type)}`}
                                   onClick={() => handleEventClick(event)}
                                 >
-                                  <Badge
-                                    colorScheme={getEventBadgeColor(event.type)}
-                                    fontSize="xs"
-                                    w="100%"
-                                    textAlign="center"
-                                  >
-                                    {event.type}
-                                  </Badge>
-                                </MotionBox>
+                                  {event.type}
+                                </motion.div>
                               </Tooltip>
                             ))}
-                          </VStack>
+                          </div>
                         </>
                       )}
-                    </Box>
+                    </div>
                   );
                 })}
-              </MotionFlex>
+              </motion.div>
             </AnimatePresence>
-          </Box>
-        </VStack>
+          </div>
+        </div>
 
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          motionPreset="slideInBottom"
-          size="lg"
+        <ConfirmModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={() => setIsModalOpen(false)}
+          title="イベント詳細"
+          confirmLabel="閉じる"
+          showCancelButton={false}
         >
-          <ModalOverlay />
-          <ModalContent
-            as={motion.div}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-          >
-            <ModalHeader>イベント詳細</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              {selectedEvent && (
-                <VStack spacing={4} align="stretch">
-                  <Box>
-                    <Text fontWeight="bold" mb={1}>
-                      タイトル
-                    </Text>
-                    <Text>{selectedEvent.title}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="bold" mb={1}>
-                      種類
-                    </Text>
-                    <Badge colorScheme={getEventBadgeColor(selectedEvent.type)}>
-                      {selectedEvent.type}
-                    </Badge>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="bold" mb={1}>
-                      日付
-                    </Text>
-                    <Text>{selectedEvent.date}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="bold" mb={1}>
-                      担当者
-                    </Text>
-                    <HStack>
-                      <Avatar size="sm" name={selectedEvent.assignee} />
-                      <Text>{selectedEvent.assignee}</Text>
-                    </HStack>
-                  </Box>
-                </VStack>
-              )}
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                閉じる
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
+          {selectedEvent && (
+            <div className={styles.modalContent}>
+              <div className={styles.modalSection}>
+                <span className={styles.modalLabel}>タイトル</span>
+                <span className={styles.modalValue}>{selectedEvent.title}</span>
+              </div>
+              <div className={styles.modalSection}>
+                <span className={styles.modalLabel}>種類</span>
+                <span className={`${styles.eventBadge} ${getEventBadgeClass(selectedEvent.type)}`}>
+                  {selectedEvent.type}
+                </span>
+              </div>
+              <div className={styles.modalSection}>
+                <span className={styles.modalLabel}>日付</span>
+                <span className={styles.modalValue}>{selectedEvent.date}</span>
+              </div>
+              <div className={styles.modalSection}>
+                <span className={styles.modalLabel}>担当者</span>
+                <div className={styles.assigneeRow}>
+                  <UserAvatar size="sm" name={selectedEvent.assignee} />
+                  <span className={styles.modalValue}>{selectedEvent.assignee}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </ConfirmModal>
+      </div>
     </Layout>
   );
 };

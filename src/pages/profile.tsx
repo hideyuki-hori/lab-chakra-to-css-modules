@@ -1,30 +1,11 @@
-import {
-  Box,
-  Button,
-  Text,
-  Avatar,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  VStack,
-  HStack,
-  Badge,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Image,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Layout from '../components/layout/Layout';
-
-const MotionBox = motion(Box);
-const MotionAvatar = motion(Avatar);
+import { Button } from '../components/ui';
+import { Alert, UserAvatar } from '../components/common';
+import { FormInput, FormTextarea } from '../components/form';
+import styles from '../styles/pages/profile.module.css';
 
 interface ProfileForm {
   name: string;
@@ -63,7 +44,7 @@ const Profile = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
+        setPreviewImage(reader.result?.toString() || null);
       };
       reader.readAsDataURL(file);
     }
@@ -71,199 +52,143 @@ const Profile = () => {
 
   return (
     <Layout>
-      <Box p={8}>
-        <VStack spacing={6} align="stretch">
-          <Text fontSize="3xl" fontWeight="bold">
-            プロフィール
-          </Text>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <h1 className={styles.title}>プロフィール</h1>
 
           <AnimatePresence>
             {showSuccess && (
-              <MotionBox
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <Alert status="success" borderRadius="md">
-                  <AlertIcon />
-                  <AlertTitle>更新成功！</AlertTitle>
-                  <AlertDescription>
-                    プロフィールが正常に更新されました。
-                  </AlertDescription>
-                </Alert>
-              </MotionBox>
+                <Alert
+                  status="success"
+                  title="更新成功!"
+                  description="プロフィールが正常に更新されました。"
+                />
+              </motion.div>
             )}
           </AnimatePresence>
 
-          <HStack spacing={8} align="start" flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
-            <Box
-              bg="white"
-              p={6}
-              borderRadius="lg"
-              borderWidth="1px"
-              minW={{ base: '100%', lg: '300px' }}
-            >
-              <VStack spacing={4}>
-                <MotionAvatar
-                  size="2xl"
-                  name="山田太郎"
-                  src={previewImage || undefined}
+          <div className={styles.mainContent}>
+            <div className={styles.sidebar}>
+              <div className={styles.sidebarContent}>
+                <motion.div
+                  className={styles.avatarWrapper}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
-                  cursor="pointer"
-                />
-                <Input
+                >
+                  <UserAvatar
+                    size="2xl"
+                    name="山田太郎"
+                    src={previewImage || undefined}
+                  />
+                </motion.div>
+                <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
-                  display="none"
+                  className={styles.hiddenInput}
                   id="avatar-upload"
                 />
-                <Button
-                  as="label"
-                  htmlFor="avatar-upload"
-                  colorScheme="blue"
-                  size="sm"
-                  cursor="pointer"
-                >
-                  画像をアップロード
-                </Button>
-                <VStack spacing={2} align="stretch" w="100%">
-                  <Text fontWeight="bold" textAlign="center">
-                    ステータス
-                  </Text>
-                  <HStack justify="center">
-                    <Badge colorScheme="green">アクティブ</Badge>
-                    <Badge colorScheme="blue">プレミアム</Badge>
-                  </HStack>
-                </VStack>
-              </VStack>
-            </Box>
+                <label htmlFor="avatar-upload">
+                  <Button variant="primary" size="sm" className={styles.uploadButton}>
+                    画像をアップロード
+                  </Button>
+                </label>
+                <div className={styles.statusSection}>
+                  <span className={styles.statusLabel}>ステータス</span>
+                  <div className={styles.statusBadges}>
+                    <span className={`${styles.badge} ${styles.badgeGreen}`}>アクティブ</span>
+                    <span className={`${styles.badge} ${styles.badgeBlue}`}>プレミアム</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <Box flex="1" w="100%">
+            <div className={styles.formSection}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <VStack
-                  spacing={6}
-                  align="stretch"
-                  bg="white"
-                  p={6}
-                  borderRadius="lg"
-                  borderWidth="1px"
-                >
-                  <FormControl isRequired>
-                    <FormLabel>名前</FormLabel>
-                    <Input {...register('name')} />
-                  </FormControl>
-
-                  <FormControl isRequired>
-                    <FormLabel>メールアドレス</FormLabel>
-                    <Input {...register('email')} type="email" />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel>電話番号</FormLabel>
-                    <Input {...register('phone')} type="tel" />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel>自己紹介</FormLabel>
-                    <Textarea {...register('bio')} rows={5} />
-                  </FormControl>
-
-                  <HStack justify="flex-end" spacing={4}>
-                    <Button variant="outline">キャンセル</Button>
-                    <MotionBox
+                <div className={styles.formCard}>
+                  <FormInput
+                    label="名前"
+                    isRequired
+                    {...register('name')}
+                  />
+                  <FormInput
+                    label="メールアドレス"
+                    type="email"
+                    isRequired
+                    {...register('email')}
+                  />
+                  <FormInput
+                    label="電話番号"
+                    type="tel"
+                    {...register('phone')}
+                  />
+                  <FormTextarea
+                    label="自己紹介"
+                    rows={5}
+                    {...register('bio')}
+                  />
+                  <div className={styles.formActions}>
+                    <Button variant="outline" type="button">キャンセル</Button>
+                    <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Button colorScheme="blue" type="submit">
-                        保存
-                      </Button>
-                    </MotionBox>
-                  </HStack>
-                </VStack>
+                      <Button variant="primary" type="submit">保存</Button>
+                    </motion.div>
+                  </div>
+                </div>
               </form>
-            </Box>
-          </HStack>
+            </div>
+          </div>
 
-          <Box bg="white" p={6} borderRadius="lg" borderWidth="1px" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
-            <Text fontSize="xl" fontWeight="bold" mb={4} style={{ borderBottom: '3px solid #3182ce', paddingBottom: '8px', display: 'inline-block' }}>
-              実績バッジ
-            </Text>
-            <Wrap spacing={4}>
+          <div className={styles.achievementsCard}>
+            <h2 className={styles.achievementsTitle}>実績バッジ</h2>
+            <div className={styles.achievementsList}>
               {achievements.map((achievement, index) => (
-                <WrapItem key={achievement.id}>
-                  <MotionBox
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <Box
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      p={4}
-                      textAlign="center"
-                      minW="150px"
-                      bg="gray.50"
-                      _hover={{ bg: 'blue.50', borderColor: 'blue.300' }}
-                      style={{
-                        background: index === 0 ? 'linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%)' : undefined,
-                        transform: index === 0 ? 'rotate(-2deg)' : undefined
-                      }}
-                    >
-                      <Text
-                        fontSize="3xl"
-                        fontWeight="bold"
-                        color="blue.500"
-                        style={{ fontFamily: index === 0 ? '"Comic Sans MS", cursive' : undefined }}
-                      >
-                        {achievement.count}
-                      </Text>
-                      <Text fontSize="sm" color="gray.600" style={{ letterSpacing: '0.1em' }}>
-                        {achievement.label}
-                      </Text>
-                    </Box>
-                  </MotionBox>
-                </WrapItem>
+                <motion.div
+                  key={achievement.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.1 }}
+                  className={`${styles.achievementItem} ${index === 0 ? styles.achievementItemFirst : ''}`}
+                >
+                  <p className={styles.achievementCount}>{achievement.count}</p>
+                  <p className={styles.achievementLabel}>{achievement.label}</p>
+                </motion.div>
               ))}
-            </Wrap>
-          </Box>
+            </div>
+          </div>
 
-          <Box bg="white" p={6} borderRadius="lg" borderWidth="1px">
-            <Text fontSize="xl" fontWeight="bold" mb={4}>
-              最近のアクティビティ
-            </Text>
-            <VStack spacing={3} align="stretch">
-              <HStack justify="space-between" borderBottomWidth="1px" pb={2}>
-                <Text>「新規プロジェクト立ち上げ」タスクを完了</Text>
-                <Text fontSize="sm" color="gray.500">
-                  2時間前
-                </Text>
-              </HStack>
-              <HStack justify="space-between" borderBottomWidth="1px" pb={2}>
-                <Text>チームメンバー3名を追加</Text>
-                <Text fontSize="sm" color="gray.500">
-                  5時間前
-                </Text>
-              </HStack>
-              <HStack justify="space-between" borderBottomWidth="1px" pb={2}>
-                <Text>「デザインレビュー」にコメントを追加</Text>
-                <Text fontSize="sm" color="gray.500">
-                  1日前
-                </Text>
-              </HStack>
-              <HStack justify="space-between" pb={2}>
-                <Text>プロフィールを更新</Text>
-                <Text fontSize="sm" color="gray.500">
-                  3日前
-                </Text>
-              </HStack>
-            </VStack>
-          </Box>
-        </VStack>
-      </Box>
+          <div className={styles.activityCard}>
+            <h2 className={styles.activityTitle}>最近のアクティビティ</h2>
+            <div className={styles.activityList}>
+              <div className={styles.activityItem}>
+                <span className={styles.activityText}>「新規プロジェクト立ち上げ」タスクを完了</span>
+                <span className={styles.activityTime}>2時間前</span>
+              </div>
+              <div className={styles.activityItem}>
+                <span className={styles.activityText}>チームメンバー3名を追加</span>
+                <span className={styles.activityTime}>5時間前</span>
+              </div>
+              <div className={styles.activityItem}>
+                <span className={styles.activityText}>「デザインレビュー」にコメントを追加</span>
+                <span className={styles.activityTime}>1日前</span>
+              </div>
+              <div className={styles.activityItem}>
+                <span className={styles.activityText}>プロフィールを更新</span>
+                <span className={styles.activityTime}>3日前</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };

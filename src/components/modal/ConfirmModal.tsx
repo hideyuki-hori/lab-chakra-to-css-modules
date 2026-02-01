@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconType } from 'react-icons';
 import { FiAlertTriangle, FiX } from 'react-icons/fi';
@@ -11,12 +11,14 @@ interface ConfirmModalProps {
   onClose: () => void;
   onConfirm: () => void;
   title: string;
-  message: string;
+  message?: string;
+  children?: ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
   confirmVariant?: 'primary' | 'danger';
   icon?: IconType;
   isLoading?: boolean;
+  showCancelButton?: boolean;
 }
 
 export default function ConfirmModal({
@@ -25,11 +27,13 @@ export default function ConfirmModal({
   onConfirm,
   title,
   message,
+  children,
   confirmLabel = '確認',
   cancelLabel = 'キャンセル',
   confirmVariant = 'danger',
   icon: Icon = FiAlertTriangle,
   isLoading = false,
+  showCancelButton = true,
 }: ConfirmModalProps) {
   useEffect(() => {
     if (isOpen) {
@@ -89,22 +93,28 @@ export default function ConfirmModal({
               </button>
             </div>
             <div className={styles.body}>
-              <div className={confirmStyles.content}>
-                <div className={confirmStyles.messageRow}>
-                  <Icon className={confirmStyles.icon} />
-                  <p className={confirmStyles.message}>{message}</p>
+              {children ? (
+                <div className={confirmStyles.content}>{children}</div>
+              ) : (
+                <div className={confirmStyles.content}>
+                  <div className={confirmStyles.messageRow}>
+                    <Icon className={confirmStyles.icon} />
+                    <p className={confirmStyles.message}>{message}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className={styles.footer}>
-              <Button
-                variant="ghost"
-                onClick={onClose}
-                disabled={isLoading}
-                isAnimated={false}
-              >
-                {cancelLabel}
-              </Button>
+              {showCancelButton && (
+                <Button
+                  variant="ghost"
+                  onClick={onClose}
+                  disabled={isLoading}
+                  isAnimated={false}
+                >
+                  {cancelLabel}
+                </Button>
+              )}
               <Button
                 variant={confirmVariant}
                 onClick={onConfirm}

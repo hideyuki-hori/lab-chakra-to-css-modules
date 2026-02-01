@@ -1,0 +1,219 @@
+.container {
+  padding: var(--spacing-8);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.mainContent {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    flex-wrap: nowrap;
+  }
+}
+
+.sidebar {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  min-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    min-width: 300px;
+    max-width: 300px;
+  }
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.avatarWrapper {
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.avatarWrapper:hover {
+  transform: scale(1.1);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadButton {
+  cursor: pointer;
+}
+
+.statusSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100%;
+}
+
+.statusLabel {
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.statusBadges {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.badgeGreen {
+  background-color: var(--color-success-100);
+  color: var(--color-success-600);
+}
+
+.badgeBlue {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-600);
+}
+
+.formSection {
+  flex: 1;
+  width: 100%;
+}
+
+.formCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+}
+
+.achievementsCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.achievementsTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+  border-bottom: 3px solid var(--color-primary-500);
+  padding-bottom: var(--spacing-2);
+  display: inline-block;
+}
+
+.achievementsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.achievementItem {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  text-align: center;
+  min-width: 150px;
+  background-color: var(--color-gray-50);
+  transition: all var(--transition-fast);
+}
+
+.achievementItem:hover {
+  background-color: var(--color-blue-100);
+  border-color: var(--color-blue-300);
+}
+
+.achievementItemFirst {
+  background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%);
+  transform: rotate(-2deg);
+}
+
+.achievementCount {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue-500);
+}
+
+.achievementLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  letter-spacing: 0.1em;
+}
+
+.activityCard {
+  background-color: white;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.activityTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.activityItem {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.activityItem:last-child {
+  border-bottom: none;
+}
+
+.activityText {
+  color: var(--color-gray-700);
+}
+
+.activityTime {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
